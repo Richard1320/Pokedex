@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import withData from './withData';
 import '../scss/component-home.scss';
 
 class Home extends Component {
@@ -19,5 +20,7 @@ class Home extends Component {
     );
   }
 }
+var path = '../data/api/v2/ability/1/index.json';
+const WrappedComponent = withData(Home, path);
 
-export default Home;
+export default WrappedComponent;

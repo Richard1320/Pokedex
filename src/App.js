@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, NavLink, HashRouter } from 'react-router-dom';
 import Home from './components/Home';
 import Stuff from './components/Stuff';
-import Contact from './components/Contact';
+import PokedexChoice from './components/PokedexChoice';
 import './scss/component-app.scss';
 
 class App extends Component {
@@ -11,7 +11,7 @@ class App extends Component {
       <HashRouter>
         <div className="component--app">
           <h1>Pokedex</h1>
-          <ul className="header">
+          <ul className="component--app__menu">
             <li>
               <NavLink to="/">Home</NavLink>
             </li>
@@ -19,13 +19,15 @@ class App extends Component {
               <NavLink to="/stuff">Stuff</NavLink>
             </li>
             <li>
-              <NavLink to="/contact">Contact</NavLink>
+              <NavLink to="/pokedex">Pokedex</NavLink>
             </li>
           </ul>
-          <div className="content">
+          <div className="component--app__panel-left">
+            <Route exact path="/pokedex" component={PokedexChoice} />
+          </div>
+          <div className="component--app__panel-right">
             <Route exact path="/" component={Home} />
             <Route path="/stuff/:name?" component={Stuff} />
-            <Route path="/contact" component={Contact} />
           </div>
         </div>
       </HashRouter>

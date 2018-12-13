@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import withData from './withData';
 import { NavLink } from 'react-router-dom';
+import withData from '../HOC/withData';
 
 class PokedexList extends Component {
   getRows() {

@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
-import withData from './withData';
-import { NavLink, matchPath } from 'react-router-dom';
+import { matchPath } from 'react-router-dom';
+
+import withData from '../HOC/withData';
+import Pagination from './Pagination';
+
 const match = matchPath(window.location.pathname, {
   path: '/pokedex/:id',
 });
+
 class PokemonList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1,
-      limit: 15,
+      pager: {
+        page: 1,
+        itemsPerPage: 15,
+      },
     };
+  }
+  pagerSubmit(pager) {
+    // Set state
+    this.setState({
+      pager: pager,
+    });
   }
   getRows() {
     //making the rows to display
@@ -18,8 +30,8 @@ class PokemonList extends Component {
     let data = this.props.data.pokemon_entries;
     if (data) {
       let count = data.length;
-      let start = (this.state.page - 1) * this.state.limit;
-      let end = start + this.state.limit;
+      let start = (this.state.pager.page - 1) * this.state.pager.itemsPerPage;
+      let end = start + this.state.pager.itemsPerPage;
       if (end > count) {
         end = count;
       }
@@ -43,17 +55,31 @@ class PokemonList extends Component {
   }
 
   render() {
+    let count = 0;
+    if (this.props.data.hasOwnProperty('pokemon_entries')) {
+      count = this.props.data.pokemon_entries.length;
+    }
     return (
       <div className="component--pokemon-list">
         <div className="component--pokemon-list__table">{this.getRows()}</div>
+        <Pagination
+          count={count}
+          pager={this.state.pager}
+          pagerSubmit={this.pagerSubmit.bind(this)}
+        />
       </div>
     );
   }
 }
-let WrappedComponent = '';
+
+// Specifies the default values for props:
+PokemonList.defaultProps = {
+  data: {},
+};
+let exportedComponent = PokemonList;
 if (match) {
   let pokedexId = match.params.id;
   var path = '/data/api/v2/pokedex/' + pokedexId + '/index.json';
-  WrappedComponent = withData(PokemonList, path);
+  exportedComponent = withData(PokemonList, path);
 }
-export default WrappedComponent;
+export default exportedComponent;

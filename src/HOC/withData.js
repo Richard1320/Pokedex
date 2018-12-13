@@ -9,7 +9,7 @@ export default function withData(WrappedComponent, dataPath) {
     constructor(props) {
       super(props);
       this.state = {
-        data: [],
+        data: {},
       };
     }
 

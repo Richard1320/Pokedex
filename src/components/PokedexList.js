@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import withData from './withData';
 import { NavLink } from 'react-router-dom';
 
-class PokedexChoice extends Component {
+class PokedexList extends Component {
   getRows() {
     //making the rows to display
     var rows = [];
@@ -23,10 +23,10 @@ class PokedexChoice extends Component {
   }
 
   render() {
-    return <div className="component--pokedex-choice">{this.getRows()}</div>;
+    return <div className="component--pokedex-list">{this.getRows()}</div>;
   }
 }
-var path = '../data/api/v2/pokedex/index.json';
-const WrappedComponent = withData(PokedexChoice, path);
+var path = '/data/api/v2/pokedex/index.json';
+const WrappedComponent = withData(PokedexList, path);
 
 export default WrappedComponent;

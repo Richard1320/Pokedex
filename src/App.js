@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Route, NavLink, HashRouter } from 'react-router-dom';
+import { Route, NavLink, BrowserRouter as Router } from 'react-router-dom';
+
 import Home from './components/Home';
-import Stuff from './components/Stuff';
-import PokedexChoice from './components/PokedexChoice';
+import PokemonList from './components/PokemonList';
+import PokedexList from './components/PokedexList';
 import './scss/component-app.scss';
 
 class App extends Component {
   render() {
     return (
-      <HashRouter>
+      <Router>
         <div className="component--app">
           <h1>Pokedex</h1>
           <ul className="component--app__menu">
@@ -23,14 +24,14 @@ class App extends Component {
             </li>
           </ul>
           <div className="component--app__panel-left">
-            <Route exact path="/pokedex" component={PokedexChoice} />
+            <Route exact path="/pokedex" component={PokedexList} />
           </div>
           <div className="component--app__panel-right">
             <Route exact path="/" component={Home} />
-            <Route path="/stuff/:name?" component={Stuff} />
+            <Route path="/pokedex/:id" component={PokemonList} />
           </div>
         </div>
-      </HashRouter>
+      </Router>
     );
   }
 }

@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import { matchPath } from 'react-router-dom';
 
 import withData from '../HOC/withData';
 import Pagination from './Pagination';
-
-const match = matchPath(window.location.pathname, {
-  path: '/pokedex/:id',
-});
 
 class PokemonList extends Component {
   constructor(props) {
@@ -76,10 +71,8 @@ class PokemonList extends Component {
 PokemonList.defaultProps = {
   data: {},
 };
-let exportedComponent = PokemonList;
-if (match) {
-  let pokedexId = match.params.id;
-  var path = '/data/api/v2/pokedex/' + pokedexId + '/index.json';
-  exportedComponent = withData(PokemonList, path);
-}
-export default exportedComponent;
+
+var path = '/data/api/v2/pokedex/:id/index.json';
+let WrappedComponent = withData(PokemonList, path);
+
+export default WrappedComponent;

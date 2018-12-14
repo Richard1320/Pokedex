@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import URLPattern from 'url-pattern';
 
 import withData from '../HOC/withData';
 import Pagination from './Pagination';
@@ -6,6 +7,7 @@ import Pagination from './Pagination';
 class PokemonList extends Component {
   constructor(props) {
     super(props);
+    this.routePattern = new URLPattern('/api/v2/pokemon-species/:id/');
     this.state = {
       pager: {
         page: 1,
@@ -21,6 +23,7 @@ class PokemonList extends Component {
   }
   getRows() {
     //making the rows to display
+    let _this = this;
     let rows = [];
     let data = this.props.data.pokemon_entries;
     if (data) {
@@ -32,13 +35,14 @@ class PokemonList extends Component {
       }
 
       data.slice(start, end).forEach(function(item) {
-        let image = '/images/sprites/pokemon/' + item.entry_number + '.png';
+        let routeParams = _this.routePattern.match(item.pokemon_species.url);
+        let image = '/images/sprites/pokemon/' + routeParams.id + '.png';
         rows.push(
           <div
             key={item.entry_number}
             className="component--pokemon-list__pokemon"
           >
-            Pokedex #: {item.entry_number}
+            Pokedex #{item.entry_number}
             <img src={image} alt={item.pokemon_species.name} />
             {item.pokemon_species.name}
           </div>,

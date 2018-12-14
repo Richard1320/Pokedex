@@ -3,30 +3,46 @@
 import React, { Component } from 'react';
 import RouteParser from 'route-parser';
 
+let _this;
+let route;
+
 // This function takes a component...
 export default function withData(WrappedComponent, urlPattern, optionalParams) {
   // ...and returns another component...
   class HOC extends Component {
     constructor(props) {
       super(props);
+      _this = this;
+      route = new RouteParser(urlPattern);
       this.state = {
         data: {},
       };
     }
 
     componentDidMount() {
-      let _this = this;
-      let oReq = new XMLHttpRequest();
-
       // Reverse engineer route with parameters (like ID)
-      let route = new RouteParser(urlPattern);
+
       let routeParams = Object.assign(
         {},
         this.props.match.params,
         optionalParams || {},
       );
       let dataPath = route.reverse(routeParams);
-
+      this.fetchData(dataPath);
+    }
+    componentDidUpdate(prevProps) {
+      // Typical usage (don't forget to compare props):
+      if (
+        prevProps.match.params.id &&
+        prevProps.match.params.id !== this.props.match.params.id
+      ) {
+        let routeParams = this.props.match.params;
+        let dataPath = route.reverse(routeParams);
+        this.fetchData(dataPath);
+      }
+    }
+    fetchData(dataPath) {
+      let oReq = new XMLHttpRequest();
       oReq.addEventListener('load', function() {
         let json = JSON.parse(this.responseText);
         _this.setState({

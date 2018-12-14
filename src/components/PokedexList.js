@@ -10,7 +10,7 @@ class PokedexList extends Component {
     if (data) {
       for (var i = 0; i < data.length; i++) {
         let url = data[i].url;
-        url = url.replace('/api/v2/', '');
+        url = url.replace('api/v2/', '');
 
         rows.push(
           <div key={i}>

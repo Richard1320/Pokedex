@@ -1,33 +1,28 @@
 // https://reactjs.org/docs/higher-order-components.html
 
 import React, { Component } from 'react';
-import RouteParser from 'route-parser';
-
-let _this;
-let route;
+import URLPattern from 'url-pattern';
 
 // This function takes a component...
-export default function withData(WrappedComponent, urlPattern, optionalParams) {
+export default function withData(WrappedComponent, URL, optionalParams) {
   // ...and returns another component...
   class HOC extends Component {
     constructor(props) {
       super(props);
-      _this = this;
-      route = new RouteParser(urlPattern);
       this.state = {
         data: {},
       };
+      this.routePattern = new URLPattern(URL);
     }
 
     componentDidMount() {
       // Reverse engineer route with parameters (like ID)
-
       let routeParams = Object.assign(
         {},
         this.props.match.params,
         optionalParams || {},
       );
-      let dataPath = route.reverse(routeParams);
+      let dataPath = this.routePattern.stringify(routeParams);
       this.fetchData(dataPath);
     }
     componentDidUpdate(prevProps) {
@@ -37,14 +32,24 @@ export default function withData(WrappedComponent, urlPattern, optionalParams) {
         prevProps.match.params.id !== this.props.match.params.id
       ) {
         let routeParams = this.props.match.params;
-        let dataPath = route.reverse(routeParams);
+        let dataPath = this.routePattern.stringify(routeParams);
         this.fetchData(dataPath);
       }
     }
     fetchData(dataPath) {
+      if (!dataPath) return;
+
+      let _this = this;
       let oReq = new XMLHttpRequest();
+
       oReq.addEventListener('load', function() {
-        let json = JSON.parse(this.responseText);
+        try {
+          var json = JSON.parse(this.responseText);
+        } catch (err) {
+          console.error(err.message);
+          return false;
+        }
+
         _this.setState({
           data: json,
         });

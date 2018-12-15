@@ -4,6 +4,7 @@ import { Route, NavLink, BrowserRouter } from 'react-router-dom';
 import './scss/component-app.scss';
 import PokemonList from './components/PokemonList';
 import PokedexList from './components/PokedexList';
+import Pokemon from './components/Pokemon';
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
           </div>
           <div className="component--app__panel-right">
             <Route path="/pokedex/:id" component={PokemonList} />
+            <Route path="/pokemon/:id" component={Pokemon} />
           </div>
         </div>
       </BrowserRouter>

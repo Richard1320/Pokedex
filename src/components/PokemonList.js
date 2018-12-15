@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import URLPattern from 'url-pattern';
+import { NavLink } from 'react-router-dom';
 
 import withData from '../HOC/withData';
 import Pagination from './Pagination';
@@ -37,6 +38,7 @@ class PokemonList extends Component {
       data.slice(start, end).forEach(function(item) {
         let routeParams = _this.routePattern.match(item.pokemon_species.url);
         let image = '/images/sprites/pokemon/' + routeParams.id + '.png';
+        let url = '/pokemon/' + routeParams.id;
         rows.push(
           <div
             key={item.entry_number}
@@ -44,7 +46,7 @@ class PokemonList extends Component {
           >
             Pokedex #{item.entry_number}
             <img src={image} alt={item.pokemon_species.name} />
-            {item.pokemon_species.name}
+            <NavLink to={url}>{item.pokemon_species.name}</NavLink>
           </div>,
         );
       });

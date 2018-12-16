@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import withData from '../HOC/withData';
+import PokemonStats from './PokemonStats';
 
 class Pokemon extends Component {
   constructor(props) {
@@ -14,7 +15,9 @@ class Pokemon extends Component {
         abilities.push(
           <p key={this.props.data.abilities[i].slot}>
             {this.props.data.abilities[i].ability.name}
-            {this.props.data.abilities[i].is_hidden ? '(Hidden Ability)' : null}
+            {this.props.data.abilities[i].is_hidden
+              ? ' (Hidden Ability)'
+              : null}
           </p>,
         );
       }
@@ -80,6 +83,7 @@ class Pokemon extends Component {
           <strong>Types</strong>
         </p>
         {this.getTypes()}
+        <PokemonStats data={this.props.data} />
       </div>
     );
   }

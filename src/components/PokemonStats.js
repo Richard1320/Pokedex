@@ -38,4 +38,9 @@ class PokemonStats extends Component {
     );
   }
 }
+// Specifies the default values for props:
+PokemonStats.defaultProps = {
+  data: {},
+};
+
 export default PokemonStats;

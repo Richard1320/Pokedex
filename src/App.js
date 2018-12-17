@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, NavLink, BrowserRouter } from 'react-router-dom';
+import { Route, NavLink, HashRouter } from 'react-router-dom';
 
 import './scss/component-app.scss';
 import PokemonList from './components/PokemonList';
@@ -9,7 +9,7 @@ import Pokemon from './components/Pokemon';
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className="component--app">
           <h1>Pokedex</h1>
           <ul className="component--app__menu">
@@ -28,7 +28,7 @@ class App extends Component {
             <Route path="/pokemon/:id" component={Pokemon} />
           </div>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }

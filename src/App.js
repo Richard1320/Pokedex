@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Route, NavLink, HashRouter } from 'react-router-dom';
 
 import './scss/component-app.scss';
-import PokemonList from './components/PokemonList';
 import PokedexList from './components/PokedexList';
+import PokemonList from './components/PokemonList';
+import PokemonSubnav from './components/PokemonSubnav';
 import Pokemon from './components/Pokemon';
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
           </ul>
           <div className="component--app__panel-left">
             <Route path="/pokedex" component={PokedexList} />
+            <Route path="/pokemon/:id" component={PokemonSubnav} />
           </div>
           <div className="component--app__panel-right">
             <Route path="/pokedex/:id" component={PokemonList} />

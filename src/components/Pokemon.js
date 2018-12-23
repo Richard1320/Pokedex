@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import withData from '../HOC/withData';
-import PokemonStats from './PokemonStats';
 import PokemonOverview from './PokemonOverview';
+import PokemonStats from './PokemonStats';
+import PokemonMoves from './PokemonMoves';
 
 class Pokemon extends Component {
   render() {
@@ -17,6 +18,10 @@ class Pokemon extends Component {
         <Route
           path="/pokemon/:id/stats"
           render={() => <PokemonStats {...this.props} />}
+        />
+        <Route
+          path="/pokemon/:id/moves"
+          render={() => <PokemonMoves {...this.props} />}
         />
       </div>
     );

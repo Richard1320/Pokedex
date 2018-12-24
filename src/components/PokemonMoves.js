@@ -6,22 +6,22 @@ export default class PokemonMoves extends Component {
     super(props);
     this.state = {
       generations: {
-        chosen: 'g1',
+        chosen: 'gen7',
         versions: {
           // /api/v2/generation/
-          g1: ['red-blue', 'yellow'],
-          g2: ['gold-silver', 'crystal'],
-          g3: [
+          gen1: ['red-blue', 'yellow'],
+          gen2: ['gold-silver', 'crystal'],
+          gen3: [
             'ruby-sapphire',
             'emerald',
             'firered-leafgreen',
             'colosseum',
             'xd',
           ],
-          g4: ['diamond-pearl', 'platinum', 'heartgold-soulsilver'],
-          g5: ['black-white', 'black-2-white-2'],
-          g6: ['x-y', 'omega-ruby-alpha-sapphire'],
-          g7: ['sun-moon'],
+          gen4: ['diamond-pearl', 'platinum', 'heartgold-soulsilver'],
+          gen5: ['black-white', 'black-2-white-2'],
+          gen6: ['x-y', 'omega-ruby-alpha-sapphire'],
+          gen7: ['sun-moon'],
         },
       },
       moveLearnMethod: [
@@ -47,16 +47,29 @@ export default class PokemonMoves extends Component {
   getGenerations() {
     let options = [];
     let versions = this.state.generations.versions;
-    Object.keys(versions).forEach(function(key) {
+    let keys = Object.keys(versions);
+
+    for (let i = 0; i < keys.length; i++) {
+      let key = keys[i];
+      let moves = this.getMoves(key);
+
+      // Check if any moves are available
+      if (!moves.length) continue;
+
       options.push(
         <option key={key} value={key}>
           {key}: {versions[key].join(', ')}
         </option>
       );
-    });
+    }
 
     return (
-      <select onChange={this.generationChange.bind(this)}>{options}</select>
+      <select
+        onChange={this.generationChange.bind(this)}
+        value={this.state.generations.chosen}
+      >
+        {options}
+      </select>
     );
   }
   sortMoves(a, b) {
@@ -74,12 +87,10 @@ export default class PokemonMoves extends Component {
     if (sortA > sortB) return 1;
     return 0;
   }
-  getMoves(method) {
+  getMoves(chosenGen, method) {
+    let chosenGenVersion = this.state.generations.versions[chosenGen];
     // Reorganize data as an array
     let moves = [];
-    let chosenGenVersion = this.state.generations.versions[
-      this.state.generations.chosen
-    ];
     if (this.props.data.moves) {
       // Loop through all available moves
       for (let i = 0; i < this.props.data.moves.length; i++) {
@@ -95,10 +106,11 @@ export default class PokemonMoves extends Component {
           let itemMethod = versions[key].move_learn_method.name;
 
           // Check if chosen generation can learn this move
-          // Check if method to learn move is the same
+          // Check if method matches, or
+          // Check if method is not supplied (Return moves from all methods)
           if (
             chosenGenVersion.indexOf(itemVersion) !== -1 &&
-            itemMethod === method
+            (itemMethod === method || !method)
           ) {
             moves.push({
               method: itemMethod,
@@ -121,7 +133,7 @@ export default class PokemonMoves extends Component {
     let render = [];
     for (let i = 0; i < this.state.moveLearnMethod.length; i++) {
       let method = this.state.moveLearnMethod[i];
-      let moves = this.getMoves(method);
+      let moves = this.getMoves(this.state.generations.chosen, method);
       let movesHTML = [];
 
       // Check if any moves are available
@@ -149,11 +161,14 @@ export default class PokemonMoves extends Component {
     return render;
   }
   render() {
+    let chosenGen = this.state.generations.versions[
+      this.state.generations.chosen
+    ].join(', ');
     return (
       <div className="component--pokemon-moves">
         <div className="component--pokemon-moves__generations">
           {this.getGenerations()}
-          <h3>Generation {this.state.generations.chosen}</h3>
+          <h3>Generation {chosenGen}</h3>
         </div>
         <div className="component--pokemon-moves__list">
           {this.renderMoves()}

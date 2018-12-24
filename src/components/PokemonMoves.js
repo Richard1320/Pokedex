@@ -59,6 +59,21 @@ export default class PokemonMoves extends Component {
       <select onChange={this.generationChange.bind(this)}>{options}</select>
     );
   }
+  sortMoves(a, b) {
+    let sortA = a.name;
+    let sortB = b.name;
+
+    // Sort by level up if available
+    if (a.level_learned_at && b.level_learned_at) {
+      sortA = a.level_learned_at;
+      sortB = b.level_learned_at;
+    }
+
+    // Return sort order
+    if (sortA < sortB) return -1;
+    if (sortA > sortB) return 1;
+    return 0;
+  }
   getMoves(method) {
     // Reorganize data as an array
     let moves = [];
@@ -85,30 +100,49 @@ export default class PokemonMoves extends Component {
             chosenGenVersion.indexOf(itemVersion) !== -1 &&
             itemMethod === method
           ) {
-            let reactKey = itemMethod + '-' + item.move.name;
-            moves.push(
-              <div key={reactKey} className="component--pokemon-moves__item">
-                <div>{item.move.name}</div>
-                {itemMethod === 'level-up' ? (
-                  <div>Level: {versions[key].level_learned_at}</div>
-                ) : null}
-              </div>
-            );
+            moves.push({
+              method: itemMethod,
+              level_learned_at: versions[key].level_learned_at,
+              name: item.move.name,
+            });
+
             break;
           }
         }
       }
     }
+
+    // Sort moves by level up or alphabetical
+    moves.sort(this.sortMoves);
+
     return moves;
   }
   renderMoves() {
     let render = [];
     for (let i = 0; i < this.state.moveLearnMethod.length; i++) {
       let method = this.state.moveLearnMethod[i];
+      let moves = this.getMoves(method);
+      let movesHTML = [];
+
+      // Check if any moves are available
+      if (!moves.length) continue;
+
+      for (let x = 0; x < moves.length; x++) {
+        let move = moves[x];
+        let reactKey = method + '-' + move.name;
+        movesHTML.push(
+          <div key={reactKey} className="component--pokemon-moves__item">
+            <div>{move.name}</div>
+            {method === 'level-up' ? (
+              <div>Level: {move.level_learned_at}</div>
+            ) : null}
+          </div>
+        );
+      }
       render.push(
         <div key={method} className="component--pokemon-moves__method">
           <h3>{method}</h3>
-          {this.getMoves(method)}
+          {movesHTML}
         </div>
       );
     }

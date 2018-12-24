@@ -8,6 +8,7 @@ export default class PokemonMoves extends Component {
       generations: {
         chosen: 'g1',
         versions: {
+          // /api/v2/generation/
           g1: ['red-blue', 'yellow'],
           g2: ['gold-silver', 'crystal'],
           g3: [
@@ -23,6 +24,19 @@ export default class PokemonMoves extends Component {
           g7: ['sun-moon'],
         },
       },
+      moveLearnMethod: [
+        // /api/v2/move-learn-method/
+        'level-up',
+        'egg',
+        'tutor',
+        'machine',
+        'stadium-surfing-pikachu',
+        'light-ball-egg',
+        'colosseum-purification',
+        'xd-shadow',
+        'xd-purification',
+        'form-change',
+      ],
     };
   }
   generationChange(event) {
@@ -37,7 +51,7 @@ export default class PokemonMoves extends Component {
       options.push(
         <option key={key} value={key}>
           {key}: {versions[key].join(', ')}
-        </option>,
+        </option>
       );
     });
 
@@ -45,14 +59,13 @@ export default class PokemonMoves extends Component {
       <select onChange={this.generationChange.bind(this)}>{options}</select>
     );
   }
-  getMoves() {
-    // console.log(this.props.data.moves);
+  getMoves(method) {
+    // Reorganize data as an array
     let moves = [];
     let chosenGenVersion = this.state.generations.versions[
       this.state.generations.chosen
     ];
     if (this.props.data.moves) {
-      console.log(this.props.data.moves);
       // Loop through all available moves
       for (let i = 0; i < this.props.data.moves.length; i++) {
         let item = this.props.data.moves[i];
@@ -63,21 +76,23 @@ export default class PokemonMoves extends Component {
 
         // Loop through game versions for move
         for (let key in keys) {
-          let version = versions[key].version_group.name;
+          let itemVersion = versions[key].version_group.name;
+          let itemMethod = versions[key].move_learn_method.name;
 
           // Check if chosen generation can learn this move
-          if (chosenGenVersion.indexOf(version) !== -1) {
+          // Check if method to learn move is the same
+          if (
+            chosenGenVersion.indexOf(itemVersion) !== -1 &&
+            itemMethod === method
+          ) {
+            let reactKey = itemMethod + '-' + item.move.name;
             moves.push(
-              <div
-                key={item.move.name}
-                className="component--pokemon-moves__item"
-              >
-                <div>Move: {item.move.name}</div>
-                <div>Learned by: {versions[key].move_learn_method.name}</div>
-                {versions[key].move_learn_method.name === 'level-up' ? (
+              <div key={reactKey} className="component--pokemon-moves__item">
+                <div>{item.move.name}</div>
+                {itemMethod === 'level-up' ? (
                   <div>Level: {versions[key].level_learned_at}</div>
                 ) : null}
-              </div>,
+              </div>
             );
             break;
           }
@@ -86,6 +101,19 @@ export default class PokemonMoves extends Component {
     }
     return moves;
   }
+  renderMoves() {
+    let render = [];
+    for (let i = 0; i < this.state.moveLearnMethod.length; i++) {
+      let method = this.state.moveLearnMethod[i];
+      render.push(
+        <div key={method} className="component--pokemon-moves__method">
+          <h3>{method}</h3>
+          {this.getMoves(method)}
+        </div>
+      );
+    }
+    return render;
+  }
   render() {
     return (
       <div className="component--pokemon-moves">
@@ -93,7 +121,9 @@ export default class PokemonMoves extends Component {
           {this.getGenerations()}
           <h3>Generation {this.state.generations.chosen}</h3>
         </div>
-        <div className="component--pokemon-moves__list">{this.getMoves()}</div>
+        <div className="component--pokemon-moves__list">
+          {this.renderMoves()}
+        </div>
       </div>
     );
   }

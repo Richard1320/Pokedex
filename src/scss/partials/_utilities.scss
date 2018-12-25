@@ -24,3 +24,7 @@ a {
 .btn--red {
   @include round-button($colorRedRibbon);
 }
+
+.btn--yellow {
+  @include round-button($colorCandlelight);
+}

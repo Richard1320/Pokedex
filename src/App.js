@@ -12,15 +12,10 @@ class App extends Component {
     return (
       <HashRouter>
         <div className="component--app">
-          <h1>Pokedex</h1>
-          <ul className="component--app__menu">
-            <li>
-              <NavLink to="/stuff">Stuff</NavLink>
-            </li>
-            <li>
-              <NavLink to="/pokedex">Pokedex</NavLink>
-            </li>
-          </ul>
+          <div className="component--app__menu">
+            <NavLink to="/pokedex">Pokedex</NavLink>
+            <NavLink to="/stuff">Stuff</NavLink>
+          </div>
           <div className="component--app__panel-left">
             <Route path="/pokedex" component={PokedexList} />
             <Route path="/pokemon/:id" component={PokemonSubnav} />

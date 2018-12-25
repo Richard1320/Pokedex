@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 815 553" style="enable-background:new 0 0 815 553;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#DC0A2D;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st1{fill:#28AAFD;stroke:#FFFFFF;stroke-width:5;stroke-miterlimit:10;}
+	.st2{fill:#FB0505;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st3{fill:#50FB05;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st4{fill:#F8F8F8;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st5{fill:#28AAFD;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+</style>
+<path class="st0" d="M395.5,546.5h-378c-6.6,0-12-5.4-12-12v-517c0-6.6,5.4-12,12-12h378c6.6,0,12,5.4,12,12v517
+	C407.5,541.1,402.1,546.5,395.5,546.5z"/>
+<circle class="st1" cx="68" cy="49" r="28.5"/>
+<circle class="st2" cx="121" cy="29" r="8.5"/>
+<circle class="st3" cx="151.5" cy="29.5" r="8.5"/>
+<circle class="st3" cx="181.5" cy="29.5" r="8.5"/>
+<path class="st0" d="M395.5,546.5h-378c-6.6,0-12-5.4-12-12v-430c0,0,126.11,1.15,132.5-0.5c32.28-8.32,74.45-42.83,107-50
+	c6.45-1.42,162.5-0.5,162.5-0.5v481C407.5,541.1,402.1,546.5,395.5,546.5z"/>
+<path class="st0" d="M420,547h378c6.6,0,12-5.4,12-12V105c0,0-126.11,1.15-132.5-0.5c-32.28-8.32-74.45-42.83-107-50
+	C564.05,53.08,408,54,408,54v481C408,541.6,413.4,547,420,547z"/>
+<path class="st0" d="M388,547h11c6.6,0,12-5.4,12-12V65c0-6.6-5.4-12-12-12h-11c-6.6,0-12,5.4-12,12v470
+	C376,541.6,381.4,547,388,547z"/>
+<path class="st4" d="M338,315H35c-6.6,0-12-5.4-12-12V142c0-6.6,5.4-12,12-12h303c6.6,0,12,5.4,12,12v161
+	C350,309.6,344.6,315,338,315z"/>
+<circle class="st2" cx="63" cy="369" r="23"/>
+<circle class="st5" cx="175" cy="369" r="23"/>
+<path class="st4" d="M338,522H35c-6.6,0-12-5.4-12-12v-22c0-6.6,5.4-12,12-12h303c6.6,0,12,5.4,12,12v22
+	C350,516.6,344.6,522,338,522z"/>
+<path class="st4" d="M773,516H457c-6.6,0-12-5.4-12-12V142c0-6.6,5.4-12,12-12h316c6.6,0,12,5.4,12,12v362
+	C785,510.6,779.6,516,773,516z"/>
+</svg>

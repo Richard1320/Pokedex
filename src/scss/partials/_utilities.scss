@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.8rem;
+  font-family: $pokeFont;
+}
+
+a {
+  text-decoration: none;
+  color: $colorDodgerBlue;
+}

@@ -1,1 +1,44 @@
-.component--app {}
+@import "_helpers";
+
+.component--app {
+  background-image: url("/images/pokedex.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  padding-top: 150/221*100%;
+
+  &__menu {
+    position: absolute;
+    top: 62%;
+    left: 4%;
+    width: 27%;
+    text-align: center;
+    font-size: 1.2rem;
+
+    a {
+      display: inline-block;
+      padding-top: 30%;
+      width: 30%;
+      margin-right: 20%;
+      color: #fff;
+    }
+  }
+
+  &__panel-left {
+    position: absolute;
+    top: 23.5%;
+    left: 3%;
+    width: 40%;
+    height: 33.5%;
+    overflow: auto;
+  }
+
+  &__panel-right {
+    position: absolute;
+    top: 23.5%;
+    left: 54.5%;
+    width: 41.5%;
+    height: 69.5%;
+    overflow: auto;
+  }
+}

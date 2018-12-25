@@ -9,11 +9,19 @@ import Pokemon from './Pokemon';
 
 class Pokedex extends Component {
   render() {
+    let className = 'component--pokedex__menu route--content';
+    if (this.props.location.pathname === '/') {
+      className = 'component--pokedex__menu route--root';
+    }
     return (
       <div className="component--pokedex">
-        <div className="component--pokedex__menu">
-          <NavLink to="/pokedex">Pokedex</NavLink>
-          <NavLink to="/stuff">Stuff</NavLink>
+        <div className={className}>
+          <NavLink to="/pokedex">
+            <span className="btn--red" />Pokedex
+          </NavLink>
+          <NavLink to="/stuff">
+            <span className="btn--blue" />Stuff
+          </NavLink>
         </div>
         <div className="component--pokedex__panel-left">
           <Route path="/pokedex/:id?" component={PokedexSubnav} />

@@ -1,0 +1,16 @@
+@mixin round-button($baseColor:$colorDodgerBlue, $hoverBaseColor:#333, $diameter:6rem) {
+  background: $baseColor;
+  border: 3px solid #fff;
+  border-radius: 100%;
+  box-shadow: 0 -2px 0 3px darken($baseColor, 10%) inset, 0 5px 5px rgba(darken($baseColor, 40%), 0.17), 0 15px rgba(#fff, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: $diameter;
+  width: $diameter;
+
+  a:hover &,
+  &:hover {
+    background: $hoverBaseColor;
+    box-shadow: 0 -2px 0 3px darken($hoverBaseColor, 10%) inset, 0 5px 5px rgba(darken($hoverBaseColor, 40%), 0.17), 0 15px rgba(#fff, 0.32) inset;
+  }
+}

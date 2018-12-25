@@ -1,5 +1,6 @@
 @import "_helpers";
 
+
 .component--pokedex {
   background-image: url("/assets/svgs/pokedex.svg");
   background-repeat: no-repeat;
@@ -26,15 +27,9 @@
       width: 30%;
       color: #fff;
 
-      &:before {
-        content: "";
+      span {
         display: block;
-        width: 6rem;
-        height: 6rem;
         margin: 0 auto 2rem;
-        border: 4px solid $colorWhite;
-        background-color: $colorDodgerBlue;
-        border-radius: 50%;
       }
     }
   }

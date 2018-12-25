@@ -16,3 +16,11 @@ a {
   text-decoration: none;
   color: $colorDodgerBlue;
 }
+
+.btn--blue {
+  @include round-button($colorDodgerBlue);
+}
+
+.btn--red {
+  @include round-button($colorRedRibbon);
+}

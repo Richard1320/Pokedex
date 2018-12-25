@@ -5,7 +5,11 @@
   background-repeat: no-repeat;
   background-size: contain;
   position: relative;
-  padding-top: 150/221*100%;
+  // padding-top: 150/221*100%;
+  max-width: 220/150*100vh;
+  height: 100vh;
+  max-height: 150/221*100vw;
+  margin: 0 auto;
 
   &__menu {
     position: absolute;

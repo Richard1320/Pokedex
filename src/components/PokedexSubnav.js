@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import withData from '../HOC/withData';
 
-class PokedexList extends Component {
+import '../scss/component-panel-left-subnav.scss';
+
+class PokedexSubnav extends Component {
   getRows() {
     //making the rows to display
     var rows = [];
@@ -13,9 +15,9 @@ class PokedexList extends Component {
         url = url.replace('api/v2/', '');
 
         rows.push(
-          <div key={i}>
+          <div key={i} className="component--pokedex-list__item">
             <NavLink to={url}>{data[i].name}</NavLink>
-          </div>,
+          </div>
         );
       }
     }
@@ -27,6 +29,6 @@ class PokedexList extends Component {
   }
 }
 var path = '/data/api/v2/pokedex/index.json';
-const WrappedComponent = withData(PokedexList, path);
+const WrappedComponent = withData(PokedexSubnav, path);
 
 export default WrappedComponent;

@@ -1,0 +1,17 @@
+@import "_helpers";
+
+.component--pokedex-list,
+.component--pokemon-subnav {
+  &__item {
+
+    a {
+      display: block;
+      padding: 1rem 2rem;
+
+      &.active {
+        color: #fff;
+        background-color: $colorDodgerBlue;
+      }
+    }
+  }
+}

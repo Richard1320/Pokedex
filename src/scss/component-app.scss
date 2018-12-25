@@ -29,8 +29,9 @@
     top: 23.5%;
     left: 3%;
     width: 40%;
-    height: 33.5%;
+    height: 33.3%;
     overflow: auto;
+    border-radius: 13 / 802 * 100vw;
   }
 
   &__panel-right {
@@ -40,5 +41,6 @@
     width: 41.5%;
     height: 69.5%;
     overflow: auto;
+    border-radius: 13 / 802 * 100vw;
   }
 }

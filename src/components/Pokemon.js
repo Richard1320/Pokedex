@@ -28,7 +28,7 @@ class Pokemon extends Component {
   }
 }
 
-var path = '/data/api/v2/pokemon/:id/index.json';
+var path = '/assets/data/api/v2/pokemon/:id/index.json';
 let WrappedComponent = withData(Pokemon, path);
 
 export default WrappedComponent;

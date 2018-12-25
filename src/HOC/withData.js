@@ -20,7 +20,7 @@ export default function withData(WrappedComponent, URL, optionalParams) {
       let routeParams = Object.assign(
         {},
         this.props.match.params,
-        optionalParams || {},
+        optionalParams || {}
       );
       let dataPath = this.routePattern.stringify(routeParams);
       this.fetchData(dataPath);
@@ -38,7 +38,7 @@ export default function withData(WrappedComponent, URL, optionalParams) {
     }
     fetchData(dataPath) {
       if (!dataPath) return;
-
+      console.log(dataPath);
       let _this = this;
       let oReq = new XMLHttpRequest();
 

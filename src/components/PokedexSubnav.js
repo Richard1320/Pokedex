@@ -28,7 +28,7 @@ class PokedexSubnav extends Component {
     return <div className="component--pokedex-list">{this.getRows()}</div>;
   }
 }
-var path = '/data/api/v2/pokedex/index.json';
+var path = '/assets/data/api/v2/pokedex/index.json';
 const WrappedComponent = withData(PokedexSubnav, path);
 
 export default WrappedComponent;

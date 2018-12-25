@@ -11,7 +11,7 @@ export default class PokemonOverview extends Component {
             {this.props.data.abilities[i].is_hidden
               ? ' (Hidden Ability)'
               : null}
-          </p>,
+          </p>
         );
       }
     }
@@ -24,7 +24,7 @@ export default class PokemonOverview extends Component {
         types.push(
           <p key={this.props.data.types[i].slot}>
             {this.props.data.types[i].type.name}
-          </p>,
+          </p>
         );
       }
     }
@@ -50,13 +50,13 @@ export default class PokemonOverview extends Component {
           let title = this.props.data.name + ' ' + key;
           image = image.replace(
             'https://raw.githubusercontent.com/PokeAPI/sprites/master/',
-            '/images/',
+            '/assets/images/'
           );
 
           sprites.push(
             <div key={key}>
               <img src={image} alt={this.props.data.name} title={title} />
-            </div>,
+            </div>
           );
         }
       }

@@ -37,7 +37,7 @@ class PokemonList extends Component {
 
       data.slice(start, end).forEach(function(item) {
         let routeParams = _this.routePattern.match(item.pokemon_species.url);
-        let image = '/images/sprites/pokemon/' + routeParams.id + '.png';
+        let image = '/assets/images/sprites/pokemon/' + routeParams.id + '.png';
         let url = '/pokemon/' + routeParams.id;
         rows.push(
           <div
@@ -47,7 +47,7 @@ class PokemonList extends Component {
             Pokedex #{item.entry_number}
             <img src={image} alt={item.pokemon_species.name} />
             <NavLink to={url}>{item.pokemon_species.name}</NavLink>
-          </div>,
+          </div>
         );
       });
     }
@@ -78,7 +78,7 @@ PokemonList.defaultProps = {
   data: {},
 };
 
-var path = '/data/api/v2/pokedex/:id/index.json';
+var path = '/assets/data/api/v2/pokedex/:id/index.json';
 let WrappedComponent = withData(PokemonList, path);
 
 export default WrappedComponent;

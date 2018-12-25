@@ -14,9 +14,9 @@
 # dev assets
 /development
 
-# data
-/public/data
-/public/images/sprites
+# assets
+/public/assets/data
+/public/assets/images/sprites
 
 # misc
 .DS_Store

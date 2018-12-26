@@ -1,0 +1,17 @@
+@import "partials/_helpers";
+
+.component--pokemon__overview {
+  padding: 2rem;
+
+  &__sprites {
+    @include clearfix();
+
+    &__item {
+      float: left;
+    }
+  }
+
+  &__abilities {
+    margin-bottom: 2rem;
+  }
+}

@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 
+import { normalizeName } from '../Helpers';
+import '../scss/component-pokemon-overview.scss';
+
 export default class PokemonOverview extends Component {
   getAbilities() {
     let abilities = [];
     if (this.props.data.abilities) {
       for (let i = 0; i < this.props.data.abilities.length; i++) {
+        let abilityName = normalizeName(
+          this.props.data.abilities[i].ability.name
+        );
+
         abilities.push(
-          <p key={this.props.data.abilities[i].slot}>
-            {this.props.data.abilities[i].ability.name}
+          <div key={this.props.data.abilities[i].slot}>
+            {abilityName}
             {this.props.data.abilities[i].is_hidden
               ? ' (Hidden Ability)'
               : null}
-          </p>
+          </div>
         );
       }
     }
@@ -21,11 +28,8 @@ export default class PokemonOverview extends Component {
     let types = [];
     if (this.props.data.types) {
       for (let i = 0; i < this.props.data.types.length; i++) {
-        types.push(
-          <p key={this.props.data.types[i].slot}>
-            {this.props.data.types[i].type.name}
-          </p>
-        );
+        let typeName = normalizeName(this.props.data.types[i].type.name);
+        types.push(<div key={this.props.data.types[i].slot}>{typeName}</div>);
       }
     }
     return types;
@@ -47,14 +51,17 @@ export default class PokemonOverview extends Component {
         let key = keys[i];
         if (this.props.data.sprites[key]) {
           let image = this.props.data.sprites[key];
-          let title = this.props.data.name + ' ' + key;
+          let title = normalizeName(this.props.data.name + ' ' + key);
           image = image.replace(
             'https://raw.githubusercontent.com/PokeAPI/sprites/master/',
             '/assets/images/'
           );
 
           sprites.push(
-            <div key={key}>
+            <div
+              key={key}
+              className="component--pokemon__overview__sprites__item"
+            >
               <img src={image} alt={this.props.data.name} title={title} />
             </div>
           );
@@ -66,18 +73,18 @@ export default class PokemonOverview extends Component {
   render() {
     return (
       <div className="component--pokemon__overview">
-        <h3>{this.props.data.name}</h3>
+        <h2>{normalizeName(this.props.data.name)}</h2>
         <div className="component--pokemon__overview__sprites">
           {this.getSprites()}
         </div>
-        <p>
-          <strong>Abilities</strong>
-        </p>
-        {this.getAbilities()}
-        <p>
-          <strong>Types</strong>
-        </p>
-        {this.getTypes()}
+        <div className="component--pokemon__overview__abilities">
+          <h3>Abilities</h3>
+          {this.getAbilities()}
+        </div>
+        <div className="component--pokemon__overview__types">
+          <h3>Types</h3>
+          {this.getTypes()}
+        </div>
       </div>
     );
   }

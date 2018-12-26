@@ -17,6 +17,7 @@
 # assets
 /public/assets/data
 /public/assets/images/sprites
+/public/assets/images/FurretTurret_SHINY_HD_SPRITES
 
 # misc
 .DS_Store

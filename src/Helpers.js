@@ -14,8 +14,11 @@ export function fileExists(url, callback) {
 }
 export function normalizeName(name) {
   if (!name) return;
-  // Replace dashes with spaces
+  // Replace hyphens with spaces
   name = name.replace('-', ' ');
+
+  // Replace underscores with spaces
+  name = name.replace('_', ' ');
 
   // Capitalize first letter of every word
   name = name

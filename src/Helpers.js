@@ -12,6 +12,23 @@ export function fileExists(url, callback) {
   };
   http.send();
 }
+export function fileFetchData(url, callback) {
+  if (!url) return;
+
+  let oReq = new XMLHttpRequest();
+
+  oReq.addEventListener('load', function() {
+    try {
+      var json = JSON.parse(this.responseText);
+      callback(json);
+    } catch (err) {
+      console.error(err.message);
+      return false;
+    }
+  });
+  oReq.open('GET', url);
+  oReq.send();
+}
 export function normalizeName(name) {
   if (!name) return;
   // Replace hyphens with spaces

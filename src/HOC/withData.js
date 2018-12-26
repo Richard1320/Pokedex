@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import URLPattern from 'url-pattern';
 
+import { fileFetchData } from '../Helpers';
+
 // This function takes a component...
 export default function withData(WrappedComponent, URL, optionalParams) {
   // ...and returns another component...
@@ -36,25 +38,14 @@ export default function withData(WrappedComponent, URL, optionalParams) {
         this.fetchData(dataPath);
       }
     }
+    fetchDataCallback(json) {
+      this.setState({
+        data: json,
+      });
+    }
     fetchData(dataPath) {
       if (!dataPath) return;
-      let _this = this;
-      let oReq = new XMLHttpRequest();
-
-      oReq.addEventListener('load', function() {
-        try {
-          var json = JSON.parse(this.responseText);
-        } catch (err) {
-          console.error(err.message);
-          return false;
-        }
-
-        _this.setState({
-          data: json,
-        });
-      });
-      oReq.open('GET', dataPath);
-      oReq.send();
+      fileFetchData(dataPath, this.fetchDataCallback.bind(this));
     }
 
     render() {

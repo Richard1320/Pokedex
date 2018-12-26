@@ -1,9 +1,49 @@
 import React, { Component } from 'react';
 
-import { normalizeName } from '../Helpers';
+import { normalizeName, fileFetchData } from '../Helpers';
 import '../scss/component-pokemon-overview.scss';
 
-export default class PokemonOverview extends Component {
+class PokemonOverview extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      HDImages: [],
+    };
+  }
+  componentDidMount() {
+    var path = '/assets/images/HQImageList.json';
+    fileFetchData(path, this.HDImageCallback.bind(this));
+  }
+  HDImageCallback(json) {
+    this.setState({
+      HDImages: json,
+    });
+  }
+  renderHDImage() {
+    let images = [];
+    for (let i = 0; i < this.state.HDImages.length; i++) {
+      let name = this.props.data.name || '';
+      let key = name + '_' + i;
+      let file = this.state.HDImages[i].file;
+      let nameLower = name.toLowerCase();
+      let fileLower = file.toLowerCase();
+      let image = '/assets/images/FurretTurret_SHINY_HD_SPRITES/' + file;
+
+      // Check if names match
+      if (fileLower.indexOf(nameLower) !== -1) {
+        images.push(
+          <div
+            key={key}
+            className="component--pokemon-overview__hd-image__item"
+          >
+            <img src={image} alt={name} title={name} />
+          </div>
+        );
+      }
+    }
+
+    return images;
+  }
   renderAbilities() {
     let abilities = [];
     if (this.props.data.abilities) {
@@ -74,6 +114,9 @@ export default class PokemonOverview extends Component {
     return (
       <div className="component--pokemon-overview">
         <h2>{normalizeName(this.props.data.name)}</h2>
+        <div className="component--pokemon-overview__hd-image">
+          {this.renderHDImage()}
+        </div>
         <div className="component--pokemon-overview__sprites">
           {this.renderSprites()}
         </div>
@@ -93,3 +136,4 @@ export default class PokemonOverview extends Component {
 PokemonOverview.defaultProps = {
   data: {},
 };
+export default PokemonOverview;

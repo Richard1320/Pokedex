@@ -3,6 +3,14 @@
 .component--pokemon-overview {
   padding: 2rem;
 
+  &__hd-image {
+    &__item {
+      img {
+        max-height: 25rem;
+      }
+    }
+  }
+
   &__sprites {
     @include clearfix();
 

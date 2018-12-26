@@ -18,6 +18,20 @@ class PokemonList extends Component {
       },
     };
   }
+  componentDidUpdate(prevProps) {
+    // Reset page to 1 if content is updated
+    if (
+      prevProps.match.params.id &&
+      prevProps.match.params.id !== this.props.match.params.id
+    ) {
+      let pager = this.state.pager;
+      pager.page = 1;
+      this.setState({
+        pager: pager,
+      });
+    }
+  }
+
   pagerSubmit(pager) {
     // Set state
     this.setState({

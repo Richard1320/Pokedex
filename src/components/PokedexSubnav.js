@@ -5,7 +5,7 @@ import withData from '../HOC/withData';
 import '../scss/component-panel-left-subnav.scss';
 
 class PokedexSubnav extends Component {
-  getRows() {
+  renderRows() {
     //making the rows to display
     var rows = [];
     var data = this.props.data.results;
@@ -15,7 +15,7 @@ class PokedexSubnav extends Component {
         url = url.replace('api/v2/', '');
 
         rows.push(
-          <div key={i} className="component--pokedex-list__item">
+          <div key={i} className="component--pokedex-subnav__item">
             <NavLink to={url}>{data[i].name}</NavLink>
           </div>
         );
@@ -25,7 +25,7 @@ class PokedexSubnav extends Component {
   }
 
   render() {
-    return <div className="component--pokedex-list">{this.getRows()}</div>;
+    return <div className="component--pokedex-subnav">{this.renderRows()}</div>;
   }
 }
 var path = '/assets/data/api/v2/pokedex/index.json';

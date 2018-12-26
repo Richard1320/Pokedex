@@ -4,7 +4,7 @@ import { normalizeName } from '../Helpers';
 import '../scss/component-pokemon-overview.scss';
 
 export default class PokemonOverview extends Component {
-  getAbilities() {
+  renderAbilities() {
     let abilities = [];
     if (this.props.data.abilities) {
       for (let i = 0; i < this.props.data.abilities.length; i++) {
@@ -24,7 +24,7 @@ export default class PokemonOverview extends Component {
     }
     return abilities;
   }
-  getTypes() {
+  renderTypes() {
     let types = [];
     if (this.props.data.types) {
       for (let i = 0; i < this.props.data.types.length; i++) {
@@ -34,7 +34,7 @@ export default class PokemonOverview extends Component {
     }
     return types;
   }
-  getSprites() {
+  renderSprites() {
     let sprites = [];
     if (this.props.data.sprites) {
       let keys = [
@@ -60,7 +60,7 @@ export default class PokemonOverview extends Component {
           sprites.push(
             <div
               key={key}
-              className="component--pokemon__overview__sprites__item"
+              className="component--pokemon-overview__sprites__item"
             >
               <img src={image} alt={this.props.data.name} title={title} />
             </div>
@@ -72,18 +72,18 @@ export default class PokemonOverview extends Component {
   }
   render() {
     return (
-      <div className="component--pokemon__overview">
+      <div className="component--pokemon-overview">
         <h2>{normalizeName(this.props.data.name)}</h2>
-        <div className="component--pokemon__overview__sprites">
-          {this.getSprites()}
+        <div className="component--pokemon-overview__sprites">
+          {this.renderSprites()}
         </div>
-        <div className="component--pokemon__overview__abilities">
+        <div className="component--pokemon-overview__abilities">
           <h3>Abilities</h3>
-          {this.getAbilities()}
+          {this.renderAbilities()}
         </div>
-        <div className="component--pokemon__overview__types">
+        <div className="component--pokemon-overview__types">
           <h3>Types</h3>
-          {this.getTypes()}
+          {this.renderTypes()}
         </div>
       </div>
     );

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 
+import '../scss/component-pagination.scss';
+
 export default class Pagination extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      offsetDisplay: 3,
+      offsetDisplay: 2,
     };
   }
   goToPage(e) {
     e.preventDefault();
 
-    let target = e.target.getAttribute('data-page');
+    let target = e.currentTarget.getAttribute('data-page');
     let pager = this.props.pager; // Get current sort state
     pager.page = target; // Add title as type to sort state
     this.props.pagerSubmit(pager); // Send query back to parent
@@ -22,25 +24,25 @@ export default class Pagination extends Component {
     let itemsPerPage = parseInt(this.props.pager.itemsPerPage);
     let offset = parseInt(this.state.offsetDisplay);
     let totalPages = Math.ceil(count / itemsPerPage);
-    let prevPage = page - 1;
-    let nextPage = page + 1;
+    // let prevPage = page - 1;
+    // let nextPage = page + 1;
     let x;
 
     if (page > 1) {
       links.push(
-        <div key="page-first">
-          <button data-page={1} onClick={this.goToPage.bind(this)}>
-            First
+        <div key="page-first" className="component--pagination__first">
+          <button data-page="1" onClick={this.goToPage.bind(this)}>
+            <span className="far fa-angle-double-left" />
           </button>
-        </div>,
+        </div>
       );
-      links.push(
-        <div key="page-prev">
-          <button data-page={prevPage} onClick={this.goToPage.bind(this)}>
-            Prev
-          </button>
-        </div>,
-      );
+      // links.push(
+      //   <div key="page-prev" className="component--pagination__prev">
+      //     <button data-page={prevPage} onClick={this.goToPage.bind(this)}>
+      //       Prev
+      //     </button>
+      //   </div>
+      // );
     }
 
     // loop to show links to range of pages around current page
@@ -51,19 +53,19 @@ export default class Pagination extends Component {
         if (x === page) {
           // 'highlight' it but don't make a link
           links.push(
-            <div key={x} className="page-{x} current">
+            <div key={x} className="component--pagination__page is-active">
               <span>{x}</span>
-            </div>,
+            </div>
           );
           // if not current page...
         } else {
           // make it a link
           links.push(
-            <div key={x} className="page-{x}">
+            <div key={x} className="component--pagination__page">
               <button data-page={x} onClick={this.goToPage.bind(this)}>
                 {x}
               </button>
-            </div>,
+            </div>
           );
         } // end else
       } // end if
@@ -71,19 +73,19 @@ export default class Pagination extends Component {
 
     // if not on last page, show forward and last page links
     if (page !== totalPages) {
+      // links.push(
+      //   <div key="page-next" className="component--pagination__next">
+      //     <button data-page={nextPage} onClick={this.goToPage.bind(this)}>
+      //       Next
+      //     </button>
+      //   </div>
+      // );
       links.push(
-        <div key="page-next">
-          <button data-page={nextPage} onClick={this.goToPage.bind(this)}>
-            Next
-          </button>
-        </div>,
-      );
-      links.push(
-        <div key="page-last">
+        <div key="page-last" className="component--pagination__last">
           <button data-page={totalPages} onClick={this.goToPage.bind(this)}>
-            Last
+            <span className="far fa-angle-double-right" />
           </button>
-        </div>,
+        </div>
       );
     } // end if
     /****** end build pagination links ******/
@@ -91,6 +93,6 @@ export default class Pagination extends Component {
     return links;
   }
   render() {
-    return <div className="pagination">{this.displayLinks()}</div>;
+    return <div className="component--pagination">{this.displayLinks()}</div>;
   }
 }

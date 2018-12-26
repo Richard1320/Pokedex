@@ -1,0 +1,37 @@
+@import "partials/_helpers";
+
+.component--pagination {
+  display: flex;
+  justify-content: center;
+  font-size: 1.6rem;
+  line-height: 2rem;
+
+  &__page,
+  &__first,
+  &__prev,
+  &__next,
+  &__last {
+    margin: 0 0.25rem;
+
+    &.is-active {
+      span {
+        font-size: inherit;
+        display: inline-block;
+        line-height: inherit;
+        padding: 0.5rem;
+      }
+    }
+
+    button {
+      display: inline-block;
+      font-size: inherit;
+      font-family: inherit;
+      border: 0;
+      background-color: $colorDodgerBlue;
+      color: #fff;
+      line-height: inherit;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+  }
+}

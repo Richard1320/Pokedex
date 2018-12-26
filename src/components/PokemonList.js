@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 
 import withData from '../HOC/withData';
 import Pagination from './Pagination';
+import { normalizeName } from '../Helpers';
+import '../scss/component-pokemon-list.scss';
 
 class PokemonList extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class PokemonList extends Component {
     this.state = {
       pager: {
         page: 1,
-        itemsPerPage: 15,
+        itemsPerPage: 20,
       },
     };
   }
@@ -22,7 +24,7 @@ class PokemonList extends Component {
       pager: pager,
     });
   }
-  getRows() {
+  renderRows() {
     //making the rows to display
     let _this = this;
     let rows = [];
@@ -39,14 +41,21 @@ class PokemonList extends Component {
         let routeParams = _this.routePattern.match(item.pokemon_species.url);
         let image = '/assets/images/sprites/pokemon/' + routeParams.id + '.png';
         let url = '/pokemon/' + routeParams.id;
+        let name = normalizeName(item.pokemon_species.name);
         rows.push(
           <div
             key={item.entry_number}
-            className="component--pokemon-list__pokemon"
+            className="component--pokemon-list__table__row"
           >
-            Pokedex #{item.entry_number}
-            <img src={image} alt={item.pokemon_species.name} />
-            <NavLink to={url}>{item.pokemon_species.name}</NavLink>
+            <div className="component--pokemon-list__table__row__number">
+              #{item.entry_number}
+            </div>
+            <div className="component--pokemon-list__table__row__image">
+              <img src={image} alt={name} title={name} />
+            </div>
+            <div className="component--pokemon-list__table__row__link">
+              <NavLink to={url}>{name}</NavLink>
+            </div>
           </div>
         );
       });
@@ -62,7 +71,9 @@ class PokemonList extends Component {
     }
     return (
       <div className="component--pokemon-list">
-        <div className="component--pokemon-list__table">{this.getRows()}</div>
+        <div className="component--pokemon-list__table">
+          {this.renderRows()}
+        </div>
         <Pagination
           count={count}
           pager={this.state.pager}

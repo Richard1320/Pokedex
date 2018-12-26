@@ -57,6 +57,12 @@ a {
   color: $colorDodgerBlue;
 }
 
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
 .btn--blue {
   @include round-button($colorDodgerBlue);
 }

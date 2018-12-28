@@ -6,7 +6,7 @@ import URLPattern from 'url-pattern';
 import { fileFetchData } from '../Helpers';
 
 // This function takes a component...
-export default function withData(WrappedComponent, URL, optionalParams) {
+export default function withData(WrappedComponent, jsonFiles, optionalParams) {
   // ...and returns another component...
   class HOC extends Component {
     constructor(props) {
@@ -14,7 +14,16 @@ export default function withData(WrappedComponent, URL, optionalParams) {
       this.state = {
         data: {},
       };
-      this.routePattern = new URLPattern(URL);
+      this.routePattern = [];
+
+      // Check if multiple JSON files are to be loaded
+      if (Array.isArray(jsonFiles)) {
+        for (let i = 0; i < jsonFiles.length; i++) {
+          this.routePattern.push(new URLPattern(jsonFiles[i]));
+        }
+      } else {
+        this.routePattern.push(new URLPattern(jsonFiles));
+      }
     }
 
     componentDidMount() {
@@ -24,8 +33,10 @@ export default function withData(WrappedComponent, URL, optionalParams) {
         this.props.match.params,
         optionalParams || {}
       );
-      let dataPath = this.routePattern.stringify(routeParams);
-      this.fetchData(dataPath);
+      for (let i = 0; i < this.routePattern.length; i++) {
+        let dataPath = this.routePattern[i].stringify(routeParams);
+        this.fetchData(dataPath);
+      }
     }
     componentDidUpdate(prevProps) {
       // Typical usage (don't forget to compare props):
@@ -33,14 +44,24 @@ export default function withData(WrappedComponent, URL, optionalParams) {
         prevProps.match.params.id &&
         prevProps.match.params.id !== this.props.match.params.id
       ) {
+        // Reset state data
+        this.setState({
+          data: {},
+        });
+
         let routeParams = this.props.match.params;
-        let dataPath = this.routePattern.stringify(routeParams);
-        this.fetchData(dataPath);
+
+        for (let i = 0; i < this.routePattern.length; i++) {
+          let dataPath = this.routePattern[i].stringify(routeParams);
+          this.fetchData(dataPath);
+        }
       }
     }
     fetchDataCallback(json) {
+      let data = Object.assign(this.state.data, json);
+
       this.setState({
-        data: json,
+        data: data,
       });
     }
     fetchData(dataPath) {

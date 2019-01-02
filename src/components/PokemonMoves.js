@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import '../scss/component-pokemon-moves.scss';
+import { normalizeName } from '../Helpers';
 
 export default class PokemonMoves extends Component {
   constructor(props) {
@@ -144,7 +146,7 @@ export default class PokemonMoves extends Component {
         let reactKey = method + '-' + move.name;
         movesHTML.push(
           <div key={reactKey} className="component--pokemon-moves__item">
-            <div>{move.name}</div>
+            <div>{normalizeName(move.name)}</div>
             {method === 'level-up' ? (
               <div>Level: {move.level_learned_at}</div>
             ) : null}
@@ -153,7 +155,7 @@ export default class PokemonMoves extends Component {
       }
       render.push(
         <div key={method} className="component--pokemon-moves__method">
-          <h3>{method}</h3>
+          <h3>{normalizeName(method)}</h3>
           {movesHTML}
         </div>
       );
@@ -167,8 +169,10 @@ export default class PokemonMoves extends Component {
     return (
       <div className="component--pokemon-moves">
         <div className="component--pokemon-moves__generations">
-          {this.getGenerations()}
-          <h3>Generation {chosenGen}</h3>
+          <div className="component--pokemon-moves__generations__select select-wrapper">
+            {this.getGenerations()}
+          </div>
+          <h3>{normalizeName(chosenGen)}</h3>
         </div>
         <div className="component--pokemon-moves__list">
           {this.renderMoves()}

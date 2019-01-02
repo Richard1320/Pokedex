@@ -1,6 +1,10 @@
 @import "partials/_helpers";
 
 .component--pokemon-moves {
+  padding: 2rem;
+
+  &__generations {}
+
   &__item {
     margin-bottom: 25px;
   }

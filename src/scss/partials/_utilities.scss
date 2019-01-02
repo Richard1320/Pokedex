@@ -28,6 +28,7 @@ h3,
 .h3 {
   font-weight: 400;
   font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
 h4,
@@ -63,6 +64,12 @@ img {
   max-width: 100%;
 }
 
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
 .btn--blue {
   @include round-button($colorDodgerBlue);
 }
@@ -78,4 +85,36 @@ img {
 .clear,
 .clearfix {
   @include clearfix();
+}
+
+.select-wrapper {
+  background-color: #fff;
+  border: 1px solid $colorDodgerBlue;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  position: relative;
+
+  &:after {
+    content: "\f107";
+    font-family: $iconFont;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 3rem;
+    background-color: #fff;
+    width: 3rem;
+    text-align: center;
+    border-left: 1px solid $colorDodgerBlue;
+    z-index: 5;
+  }
+
+  select {
+    padding: 0 1rem;
+    height: 3rem;
+    background-color: transparent;
+    border: 0;
+    width: calc(100% + 20px);
+    appearance: none;
+  }
 }

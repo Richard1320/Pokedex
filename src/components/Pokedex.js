@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter, Route, NavLink } from 'react-router-dom';
 
 import '../scss/component-pokedex.scss';
+import PokedexInstructions from './PokedexInstructions';
 import PokedexSubnav from './PokedexSubnav';
 import PokemonList from './PokemonList';
 import PokemonSubnav from './PokemonSubnav';
@@ -17,13 +18,16 @@ class Pokedex extends Component {
       <div className="component--pokedex">
         <div className={className}>
           <NavLink to="/pokedex">
-            <span className="btn--red" />Pokedex
+            <span className="btn--red" />
+            Pokedex
           </NavLink>
           <NavLink to="/stuff">
-            <span className="btn--blue" />Stuff
+            <span className="btn--blue" />
+            Stuff
           </NavLink>
         </div>
         <div className="component--pokedex__panel-left">
+          <Route exact path="/" component={PokedexInstructions} />
           <Route path="/pokedex/:id?" component={PokedexSubnav} />
           <Route path="/pokemon/:id" component={PokemonSubnav} />
         </div>

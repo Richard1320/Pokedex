@@ -27,10 +27,10 @@ class PokemonOverview extends Component {
       let file = this.state.HDImages[i].file;
       let nameLower = name.toLowerCase();
       let fileLower = file.toLowerCase();
-      let image = '/assets/images/FurretTurret_SHINY_HD_SPRITES/' + file;
-
+      
       // Check if names match
-      if (fileLower.indexOf(nameLower) !== -1) {
+      if (nameLower && fileLower.indexOf(nameLower) !== -1) {
+        let image = '/assets/images/FurretTurret_SHINY_HD_SPRITES/' + file;
         images.push(
           <div
             key={key}

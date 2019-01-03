@@ -1,0 +1,10 @@
+.component--pokemon-images {
+  padding: 2rem;
+  text-align: center;
+
+  &__title {
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+}

@@ -6,6 +6,7 @@ import '../scss/component-panel-left-subnav.scss';
 export default class PokemonSubnav extends Component {
   render() {
     let overviewURL = '/pokemon/' + this.props.match.params.id;
+    let imagesURL = '/pokemon/' + this.props.match.params.id + '/images';
     let statsURL = '/pokemon/' + this.props.match.params.id + '/stats';
     let movesURL = '/pokemon/' + this.props.match.params.id + '/moves';
     return (
@@ -14,6 +15,9 @@ export default class PokemonSubnav extends Component {
           <NavLink exact to={overviewURL}>
             Overview
           </NavLink>
+        </div>
+        <div className="component--pokemon-subnav__item">
+          <NavLink to={imagesURL}>Images</NavLink>
         </div>
         <div className="component--pokemon-subnav__item">
           <NavLink to={statsURL}>Stats</NavLink>

@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import withData from '../HOC/withData';
 import PokemonOverview from './PokemonOverview';
+import PokemonImages from './PokemonImages';
 import PokemonStats from './PokemonStats';
 import PokemonMoves from './PokemonMoves';
 
@@ -14,6 +15,10 @@ class Pokemon extends Component {
           exact
           path="/pokemon/:id"
           render={() => <PokemonOverview {...this.props} />}
+        />
+        <Route
+          path="/pokemon/:id/images"
+          render={() => <PokemonImages {...this.props} />}
         />
         <Route
           path="/pokemon/:id/stats"

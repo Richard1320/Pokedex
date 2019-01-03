@@ -32,7 +32,7 @@ export default class Pagination extends Component {
       links.push(
         <div key="page-first" className="component--pagination__first">
           <button data-page="1" onClick={this.goToPage.bind(this)}>
-            <span className="far fa-angle-double-left" />
+            <span className="fal fa-angle-double-left" />
           </button>
         </div>
       );
@@ -83,7 +83,7 @@ export default class Pagination extends Component {
       links.push(
         <div key="page-last" className="component--pagination__last">
           <button data-page={totalPages} onClick={this.goToPage.bind(this)}>
-            <span className="far fa-angle-double-right" />
+            <span className="fal fa-angle-double-right" />
           </button>
         </div>
       );

@@ -20,10 +20,16 @@ class PokemonList extends Component {
   }
   componentDidUpdate(prevProps) {
     // Reset page to 1 if content is updated
-    if (
-      prevProps.match.params.id &&
-      prevProps.match.params.id !== this.props.match.params.id
-    ) {
+    let prevID;
+    let newID;
+    try {
+      prevID = prevProps.match.params.id;
+      newID = this.props.match.params.id;
+    } catch (err) {
+      return;
+    }
+
+    if (prevID !== newID) {
       let pager = this.state.pager;
       pager.page = 1;
       this.setState({

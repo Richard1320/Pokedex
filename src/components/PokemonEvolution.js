@@ -10,8 +10,14 @@ class PokemonEvolution extends Component {
     };
   }
   componentDidMount() {
-    if (!this.state.data.id && this.props.data.evolution_chain) {
-      var path = this.props.data.evolution_chain.url;
+    let evolution_chain;
+    try {
+      evolution_chain = this.props.data.evolution_chain;
+    } catch (err) {
+      return;
+    }
+    if (!this.state.data.id && evolution_chain) {
+      var path = evolution_chain.url;
       path = '/assets/data' + path + 'index.json';
       fileFetchData(path, this.evolutionDataCallback.bind(this));
     }

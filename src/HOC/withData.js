@@ -40,10 +40,15 @@ export default function withData(WrappedComponent, jsonFiles, optionalParams) {
     }
     componentDidUpdate(prevProps) {
       // Typical usage (don't forget to compare props):
-      if (
-        prevProps.match.params.id &&
-        prevProps.match.params.id !== this.props.match.params.id
-      ) {
+      let prevID;
+      let newID;
+      try {
+        prevID = prevProps.match.params.id;
+        newID = this.props.match.params.id;
+      } catch (err) {
+        return;
+      }
+      if (prevID !== newID) {
         // Reset state data
         this.setState({
           data: {},

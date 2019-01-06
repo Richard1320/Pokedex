@@ -32,6 +32,7 @@ class PokemonImages extends Component {
           folder = 'FurretTurret_REGULAR_HD_SPRITES';
           break;
         case 'shiny':
+        default:
           folder = 'FurretTurret_SHINY_HD_SPRITES';
           break;
       }

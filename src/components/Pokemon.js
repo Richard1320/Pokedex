@@ -6,6 +6,7 @@ import PokemonOverview from './PokemonOverview';
 import PokemonImages from './PokemonImages';
 import PokemonStats from './PokemonStats';
 import PokemonMoves from './PokemonMoves';
+import PokemonEvolution from './PokemonEvolution';
 
 class Pokemon extends Component {
   render() {
@@ -28,12 +29,19 @@ class Pokemon extends Component {
           path="/pokemon/:id/moves"
           render={() => <PokemonMoves {...this.props} />}
         />
+        <Route
+          path="/pokemon/:id/evolution"
+          render={() => <PokemonEvolution {...this.props} />}
+        />
       </div>
     );
   }
 }
 
-var path = '/assets/data/api/v2/pokemon/:id/index.json';
-let WrappedComponent = withData(Pokemon, path);
+var paths = [
+  '/assets/data/api/v2/pokemon/:id/index.json',
+  '/assets/data/api/v2/pokemon-species/:id/index.json',
+];
+let WrappedComponent = withData(Pokemon, paths);
 
 export default WrappedComponent;

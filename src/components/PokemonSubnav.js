@@ -3,12 +3,13 @@ import { NavLink } from 'react-router-dom';
 
 import '../scss/component-panel-left-subnav.scss';
 
-export default class PokemonSubnav extends Component {
+class PokemonSubnav extends Component {
   render() {
     let overviewURL = '/pokemon/' + this.props.match.params.id;
     let imagesURL = '/pokemon/' + this.props.match.params.id + '/images';
     let statsURL = '/pokemon/' + this.props.match.params.id + '/stats';
     let movesURL = '/pokemon/' + this.props.match.params.id + '/moves';
+    let evolutionURL = '/pokemon/' + this.props.match.params.id + '/evolution';
     return (
       <div className="component--pokemon-subnav">
         <div className="component--pokemon-subnav__item">
@@ -25,7 +26,12 @@ export default class PokemonSubnav extends Component {
         <div className="component--pokemon-subnav__item">
           <NavLink to={movesURL}>Moves</NavLink>
         </div>
+        <div className="component--pokemon-subnav__item">
+          <NavLink to={evolutionURL}>Evolution</NavLink>
+        </div>
       </div>
     );
   }
 }
+
+export default PokemonSubnav;

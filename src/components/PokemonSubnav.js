@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import '../scss/component-panel-left-subnav.scss';
-
 class PokemonSubnav extends Component {
   render() {
     let overviewURL = '/pokemon/' + this.props.match.params.id;

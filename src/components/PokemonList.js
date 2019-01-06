@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 import withData from '../HOC/withData';
 import Pagination from './Pagination';
 import { normalizeName } from '../Helpers';
-import '../scss/component-pokemon-list.scss';
 
 class PokemonList extends Component {
   constructor(props) {

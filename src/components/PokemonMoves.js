@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import '../scss/component-pokemon-moves.scss';
 import { normalizeName } from '../Helpers';
 
 export default class PokemonMoves extends Component {

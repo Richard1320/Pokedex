@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { normalizeName } from '../Helpers';
-import '../scss/component-pokemon-overview.scss';
 
 class PokemonOverview extends Component {
   renderAbilities() {

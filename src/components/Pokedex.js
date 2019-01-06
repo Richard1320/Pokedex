@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Route, NavLink } from 'react-router-dom';
 
-import '../scss/component-pokedex.scss';
 import PokedexInstructions from './PokedexInstructions';
 import PokedexSubnav from './PokedexSubnav';
 import PokemonList from './PokemonList';

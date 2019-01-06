@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { fileFetchData } from '../Helpers';
-import '../scss/component-pokemon-images.scss';
 
 class PokemonImages extends Component {
   constructor(props) {

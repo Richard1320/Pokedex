@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import '../scss/component-pokedex-instructions.scss';
-
 class PokedexInstructions extends Component {
   render() {
     return (

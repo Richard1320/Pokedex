@@ -1,0 +1,22 @@
+.component--pokemon-evolution {
+  padding: 2rem;
+
+  &__item {
+    @include clearfix();
+
+    margin-bottom: 2rem;
+
+    &__sprite {
+      float: left;
+    }
+
+    &__name {
+      margin-left: 10rem;
+      padding-top: 3rem;
+    }
+
+    &__details {
+      margin-left: 10rem;
+    }
+  }
+}

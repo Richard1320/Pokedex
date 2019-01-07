@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { normalizeName, fileFetchData } from '../Helpers';
 
@@ -41,6 +42,11 @@ class PokemonEvolution extends Component {
     let name = chain.species.name;
     let key = 'evolution-' + name;
     let details = [];
+    let evolutionID = parseInt(
+      chain.species.url.replace('/api/v2/pokemon-species/', '')
+    );
+    let url = '/pokemon/' + evolutionID;
+    let image = '/assets/images/sprites/pokemon/' + evolutionID + '.png';
 
     if (chain.evolution_details[0]) {
       let method = chain.evolution_details[0].trigger.name;
@@ -66,8 +72,13 @@ class PokemonEvolution extends Component {
 
     content.push(
       <div key={key} className="component--pokemon-evolution__item">
+        <div className="component--pokemon-evolution__item__sprite">
+          <NavLink to={url}>
+            <img src={image} alt={name} title={normalizeName(name)} />
+          </NavLink>
+        </div>
         <div className="component--pokemon-evolution__item__name">
-          {normalizeName(name)}
+          <NavLink to={url}>{normalizeName(name)}</NavLink>
         </div>
         <div className="component--pokemon-evolution__item__details">
           {details}

@@ -36,34 +36,52 @@ class PokemonOverview extends Component {
   renderSprites() {
     let sprites = [];
     if (this.props.data.sprites) {
-      let keys = [
-        'back_default',
-        'back_female',
-        'back_shiny',
-        'back_shiny_female',
-        'front_default',
-        'front_female',
-        'front_shiny',
-        'front-shiny_female',
-      ];
-      for (let i = 0; i < keys.length; i++) {
-        let key = keys[i];
-        if (this.props.data.sprites[key]) {
-          let image = this.props.data.sprites[key];
-          let title = normalizeName(this.props.data.name + ' ' + key);
-          image = image.replace(
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/',
-            '/assets/images/'
-          );
+      let spriteTypes = {
+        Regular: [
+          'front_default',
+          'front_female',
+          'back_default',
+          'back_female',
+        ],
+        Shiny: [
+          'front_shiny',
+          'front-shiny_female',
+          'back_shiny',
+          'back_shiny_female',
+        ],
+      };
+      let SpriteTypesKeys = Object.keys(spriteTypes);
+      for (let x = 0; x < SpriteTypesKeys.length; x++) {
+        let spriteType = SpriteTypesKeys[x];
+        let spriteKeys = spriteTypes[spriteType];
+        sprites.push(
+          <div
+            key={spriteType}
+            className="component--pokemon-overview__sprites__item-title"
+          >
+            {spriteType}
+          </div>
+        );
+        for (let i = 0; i < spriteKeys.length; i++) {
+          let key = spriteKeys[i];
 
-          sprites.push(
-            <div
-              key={key}
-              className="component--pokemon-overview__sprites__item"
-            >
-              <img src={image} alt={this.props.data.name} title={title} />
-            </div>
-          );
+          if (this.props.data.sprites[key]) {
+            let image = this.props.data.sprites[key];
+            let title = normalizeName(this.props.data.name + ' ' + key);
+            image = image.replace(
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/',
+              '/assets/images/'
+            );
+
+            sprites.push(
+              <div
+                key={key}
+                className="component--pokemon-overview__sprites__item"
+              >
+                <img src={image} alt={this.props.data.name} title={title} />
+              </div>
+            );
+          }
         }
       }
     }

@@ -15,6 +15,10 @@
     &__item {
       float: left;
     }
+
+    &__item-title {
+      clear: both;
+    }
   }
 
   &__abilities {

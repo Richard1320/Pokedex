@@ -33,6 +33,17 @@ class PokemonOverview extends Component {
     }
     return types;
   }
+  renderDescription() {
+    let entries = this.props.data.flavor_text_entries;
+    if (entries) {
+      for (let i = 0; i < entries.length; i++) {
+        let entry = entries[i];
+        if (entry.language.name === 'en') {
+          return entry.flavor_text;
+        }
+      }
+    }
+  }
   renderSprites() {
     let sprites = [];
     if (this.props.data.sprites) {
@@ -93,6 +104,9 @@ class PokemonOverview extends Component {
         <h2>{normalizeName(this.props.data.name)}</h2>
         <div className="component--pokemon-overview__sprites">
           {this.renderSprites()}
+        </div>
+        <div className="component--pokemon-overview__description">
+          {this.renderDescription()}
         </div>
         <div className="component--pokemon-overview__abilities">
           <h3>Abilities</h3>

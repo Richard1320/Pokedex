@@ -24,12 +24,16 @@ class PokemonEvolution extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-    if (
-      !this.state.data.id ||
-      prevProps.data.evolution_chain.url !== this.props.data.evolution_chain.url
-    ) {
-      var path = this.props.data.evolution_chain.url;
-      path = '/assets/data' + path + 'index.json';
+    let prevEvolutionURL;
+    let nextEvolutionURL;
+    try {
+      prevEvolutionURL = prevProps.data.evolution_chain.url;
+      nextEvolutionURL = this.props.data.evolution_chain.url;
+    } catch (err) {
+      return;
+    }
+    if (!this.state.data.id || prevEvolutionURL !== nextEvolutionURL) {
+      let path = '/assets/data' + nextEvolutionURL + 'index.json';
       fileFetchData(path, this.evolutionDataCallback.bind(this));
     }
   }

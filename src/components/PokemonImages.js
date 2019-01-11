@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { fileFetchData } from '../Helpers';
+import { normalizeName, fileFetchData } from '../Helpers';
 
 class PokemonImages extends Component {
   constructor(props) {
@@ -22,11 +22,11 @@ class PokemonImages extends Component {
     let images = [];
     let imageTypes = Object.keys(this.state.HDImages);
     for (let i = 0; i < imageTypes.length; i++) {
-      let key = imageTypes[i];
-      let fileArray = this.state.HDImages[key];
+      let imageType = imageTypes[i];
+      let fileArray = this.state.HDImages[imageType];
       let folder = '';
 
-      switch (key) {
+      switch (imageType) {
         case 'regular':
           folder = 'FurretTurret_REGULAR_HD_SPRITES';
           break;
@@ -35,11 +35,6 @@ class PokemonImages extends Component {
           folder = 'FurretTurret_SHINY_HD_SPRITES';
           break;
       }
-      images.push(
-        <div key={key} className="component--pokemon-images__title">
-          {key}
-        </div>
-      );
       for (let x = 0; x < fileArray.length; x++) {
         let name = this.props.data.name || '';
         let key = name + '_' + x + '_' + i;
@@ -50,9 +45,18 @@ class PokemonImages extends Component {
         // Check if names match
         if (nameLower && fileLower.indexOf(nameLower) !== -1) {
           let image = '/assets/images/' + folder + '/' + file;
+          let description = file
+            .split('.')
+            .slice(0, -1)
+            .join('.'); // Remove extension from filename
+          description = normalizeName(description) + ' ' + imageType;
+
           images.push(
             <div key={key} className="component--pokemon-images__item">
-              <img src={image} alt={name} title={name} />
+              <h2>{description}</h2>
+              <div>
+                <img src={image} alt={description} title={description} />
+              </div>
             </div>
           );
         }

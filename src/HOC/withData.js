@@ -6,7 +6,11 @@ import URLPattern from 'url-pattern';
 import { fileFetchData } from '../Helpers';
 
 // This function takes a component...
-export default function withData(WrappedComponent, jsonFiles, optionalParams) {
+export default function withData(
+  WrappedComponent,
+  jsonFiles,
+  optionalRouteParams
+) {
   // ...and returns another component...
   class HOC extends Component {
     constructor(props) {
@@ -31,7 +35,7 @@ export default function withData(WrappedComponent, jsonFiles, optionalParams) {
       let routeParams = Object.assign(
         {},
         this.props.match.params,
-        optionalParams || {}
+        optionalRouteParams || {}
       );
       for (let i = 0; i < this.routePattern.length; i++) {
         let dataPath = this.routePattern[i].stringify(routeParams);
@@ -77,7 +81,7 @@ export default function withData(WrappedComponent, jsonFiles, optionalParams) {
     render() {
       // ... and renders the wrapped component with the fresh data!
       // Notice that we pass through any additional props
-      return <WrappedComponent data={this.state.data} {...this.props} />;
+      return <WrappedComponent {...this.props} data={this.state.data} />;
     }
   }
 

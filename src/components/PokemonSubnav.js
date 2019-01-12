@@ -8,6 +8,8 @@ class PokemonSubnav extends Component {
     let statsURL = '/pokemon/' + this.props.match.params.id + '/stats';
     let movesURL = '/pokemon/' + this.props.match.params.id + '/moves';
     let evolutionURL = '/pokemon/' + this.props.match.params.id + '/evolution';
+    let encountersURL =
+      '/pokemon/' + this.props.match.params.id + '/encounters';
     return (
       <div className="component--pokemon-subnav">
         <div className="component--pokemon-subnav__item">
@@ -26,6 +28,9 @@ class PokemonSubnav extends Component {
         </div>
         <div className="component--pokemon-subnav__item">
           <NavLink to={evolutionURL}>Evolution</NavLink>
+        </div>
+        <div className="component--pokemon-subnav__item">
+          <NavLink to={encountersURL}>Encounters</NavLink>
         </div>
       </div>
     );

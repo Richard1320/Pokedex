@@ -7,6 +7,7 @@ import PokemonImages from './PokemonImages';
 import PokemonStats from './PokemonStats';
 import PokemonMoves from './PokemonMoves';
 import PokemonEvolution from './PokemonEvolution';
+import PokemonEncounters from './PokemonEncounters';
 
 class Pokemon extends Component {
   render() {
@@ -32,6 +33,10 @@ class Pokemon extends Component {
         <Route
           path="/pokemon/:id/evolution"
           render={() => <PokemonEvolution {...this.props} />}
+        />
+        <Route
+          path="/pokemon/:id/encounters"
+          render={() => <PokemonEncounters {...this.props} />}
         />
       </div>
     );

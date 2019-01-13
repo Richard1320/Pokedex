@@ -63,11 +63,27 @@ class PokemonEvolution extends Component {
       for (let i = 0; i < evolutionDetailKeys.length; i++) {
         let evolutionDetailKey = evolutionDetailKeys[i];
         let evolutionDetail = chain.evolution_details[0][evolutionDetailKey];
-        if (evolutionDetail && evolutionDetailKey !== 'trigger') {
+
+        // Skip the trigger description in loop. Already rendered above.
+        if (evolutionDetailKey === 'trigger') continue;
+
+        // Check if evolution requirement exists
+        // Check if evolution requirement data is an object
+        if (evolutionDetail && typeof evolutionDetail === 'object') {
+          // Check if evolution requirement has the name property
+          if (evolutionDetail.hasOwnProperty('name')) {
+            evolutionDetail = evolutionDetail.name;
+          } else {
+            continue;
+          }
+        }
+
+        if (evolutionDetail) {
           let keyDetails = keyMethod + evolutionDetailKey;
           details.push(
             <div key={keyDetails}>
-              {normalizeName(evolutionDetailKey)}: {evolutionDetail}
+              {normalizeName(evolutionDetailKey)}:{' '}
+              {normalizeName(evolutionDetail)}
             </div>
           );
         }

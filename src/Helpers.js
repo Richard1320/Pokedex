@@ -31,6 +31,9 @@ export function fileFetchData(url, callback) {
 }
 export function normalizeName(name) {
   if (!name) return;
+
+  if (typeof name !== 'string') return name;
+
   // Replace hyphens with spaces
   name = name.replace('-', ' ');
 

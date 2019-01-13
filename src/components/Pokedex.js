@@ -31,10 +31,8 @@ class Pokedex extends Component {
           <Route exact path="/" component={PokedexInstructions} />
           <Route path="/pokedex/:id?" component={PokedexSubnav} />
           <Route path="/pokemon/:id" component={PokemonSubnav} />
-          <Route
-            path={['/item/:id?', '/item-category/:id?']}
-            component={ItemCategorySubnav}
-          />
+          <Route path="/item/:id?" component={ItemCategorySubnav} />
+          <Route path="/item-category/:id?" component={ItemCategorySubnav} />
         </div>
         <div className="component--pokedex__panel-right">
           <Route path="/pokedex/:id" component={PokemonList} />

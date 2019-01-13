@@ -4,7 +4,7 @@ import withData from '../HOC/withData';
 
 import { normalizeName } from '../Helpers';
 
-class PokedexSubnav extends Component {
+class ItemCategorySubnav extends Component {
   renderRows() {
     //making the rows to display
     var rows = [];
@@ -15,7 +15,7 @@ class PokedexSubnav extends Component {
         url = url.replace('api/v2/', '');
 
         rows.push(
-          <div key={i} className="component--pokedex-subnav__item">
+          <div key={i} className="component--item-category-subnav__item">
             <NavLink to={url}>{normalizeName(data[i].name)}</NavLink>
           </div>
         );
@@ -25,10 +25,12 @@ class PokedexSubnav extends Component {
   }
 
   render() {
-    return <div className="component--pokedex-subnav">{this.renderRows()}</div>;
+    return (
+      <div className="component--item-category-subnav">{this.renderRows()}</div>
+    );
   }
 }
-var path = '/assets/data/api/v2/pokedex/index.json';
-const WrappedComponent = withData(PokedexSubnav, path);
+var path = '/assets/data/api/v2/item-category/index.json';
+const WrappedComponent = withData(ItemCategorySubnav, path);
 
 export default WrappedComponent;

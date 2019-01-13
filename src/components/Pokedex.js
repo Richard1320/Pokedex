@@ -6,6 +6,7 @@ import PokedexSubnav from './PokedexSubnav';
 import PokemonList from './PokemonList';
 import PokemonSubnav from './PokemonSubnav';
 import Pokemon from './Pokemon';
+import ItemCategorySubnav from './ItemCategorySubnav';
 
 class Pokedex extends Component {
   render() {
@@ -20,15 +21,19 @@ class Pokedex extends Component {
             <span className="btn--red" />
             Pokedex
           </NavLink>
-          <NavLink to="/stuff">
+          <NavLink to="/item-category">
             <span className="btn--blue" />
-            Stuff
+            Items
           </NavLink>
         </div>
         <div className="component--pokedex__panel-left">
           <Route exact path="/" component={PokedexInstructions} />
           <Route path="/pokedex/:id?" component={PokedexSubnav} />
           <Route path="/pokemon/:id" component={PokemonSubnav} />
+          <Route
+            path={['/item/:id?', '/item-category/:id?']}
+            component={ItemCategorySubnav}
+          />
         </div>
         <div className="component--pokedex__panel-right">
           <Route path="/pokedex/:id" component={PokemonList} />

@@ -58,11 +58,12 @@ class PokemonEncounters extends Component {
       let reactKey = 'encounter-option-' + version;
 
       // Check if any moves are available
-      if (!encounters.length) continue;
+      // if (!encounters.length) continue;
 
       options.push(
         <option key={reactKey} value={version}>
-          {version}
+          {normalizeName(version)}:{' '}
+          {encounters.length ? encounters.length + ' locations' : 'N/A'}
         </option>
       );
     }
@@ -168,11 +169,11 @@ class PokemonEncounters extends Component {
           <div className="component--pokemon-encounters__list__item__details__item__method">
             Method: {normalizeName(detail.method.name)}
           </div>
-          <div className="component--pokemon-encounters__list__item__details__item__chance">
-            Chance: {detail.chance}
-          </div>
           <div className="component--pokemon-encounters__list__item__details__item__max-level">
             Max Level: {detail.max_level}
+          </div>
+          <div className="component--pokemon-encounters__list__item__details__item__chance">
+            Chance: {detail.chance}
           </div>
           <div className="component--pokemon-encounters__list__item__details__item__conditions">
             {this.renderConditions(detail.condition_values)}
@@ -190,7 +191,7 @@ class PokemonEncounters extends Component {
       return (
         <div className="component--pokemon-encounters__na">
           No data is available for encountering this pokemon in the wild in
-          version {this.state.versions.chosen}
+          {this.state.versions.chosen} version
         </div>
       );
     }
@@ -221,7 +222,7 @@ class PokemonEncounters extends Component {
           <div className="component--pokemon-encounters__versions__select select-wrapper">
             {this.getVersions()}
           </div>
-          <h2>Version {normalizeName(this.state.versions.chosen)}</h2>
+          <h2>{normalizeName(this.state.versions.chosen)} Version</h2>
         </div>
         <div className="component--pokemon-encounters__list">
           {this.renderEncounters()}

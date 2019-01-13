@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import URLPattern from 'url-pattern';
 import { NavLink } from 'react-router-dom';
 
 import withData from '../HOC/withData';
@@ -9,7 +8,6 @@ import { normalizeName } from '../Helpers';
 class PokemonList extends Component {
   constructor(props) {
     super(props);
-    this.routePattern = new URLPattern('/api/v2/pokemon-species/:id/');
     this.state = {
       pager: {
         page: 1,
@@ -45,7 +43,6 @@ class PokemonList extends Component {
   }
   renderRows() {
     //making the rows to display
-    let _this = this;
     let rows = [];
     let data = this.props.data.pokemon_entries;
     if (data) {
@@ -57,9 +54,11 @@ class PokemonList extends Component {
       }
 
       data.slice(start, end).forEach(function(item) {
-        let routeParams = _this.routePattern.match(item.pokemon_species.url);
-        let image = '/assets/images/sprites/pokemon/' + routeParams.id + '.png';
-        let url = '/pokemon/' + routeParams.id;
+        let itemID = parseInt(
+          item.pokemon_species.url.replace('/api/v2/pokemon-species/', '')
+        );
+        let image = '/assets/images/sprites/pokemon/' + itemID + '.png';
+        let url = '/pokemon/' + itemID;
         let name = normalizeName(item.pokemon_species.name);
         rows.push(
           <div

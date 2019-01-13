@@ -1,0 +1,18 @@
+.component--item-list {
+  padding: 2rem;
+
+  &__table {
+    display: table;
+    width: 100%;
+
+    &__row {
+      display: table-row;
+
+      &__image,
+      &__link {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
+  }
+}

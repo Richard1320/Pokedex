@@ -39,7 +39,7 @@
     height: 33.3%;
     overflow: auto;
     border-radius: 1.5rem;
-    border: 2px solid #000;
+    border: 2px solid $colorBlack;
     background-color: $colorWhite;
   }
 
@@ -51,7 +51,23 @@
     height: 69.5%;
     overflow: auto;
     border-radius: 1.5rem;
-    border: 2px solid #000;
+    border: 2px solid $colorBlack;
     background-color: $colorWhite;
+  }
+
+  &__search {
+    position: absolute;
+    top: 85%;
+    left: 3%;
+    width: 40%;
+    height: 8%;
+    overflow: auto;
+    border-radius: 1.5rem;
+    border: 2px solid $colorBlack;
+    background-color: $colorGrey;
+
+    &.is-active {
+      background-color: $colorWhite;
+    }
   }
 }

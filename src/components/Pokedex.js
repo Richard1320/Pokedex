@@ -9,16 +9,34 @@ import Pokemon from './Pokemon';
 import ItemCategorySubnav from './ItemCategorySubnav';
 import ItemList from './ItemList';
 import Item from './Item';
+import SearchInput from './SearchInput';
 
 class Pokedex extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: '',
+    };
+  }
+  filterResults() {}
+  searchSubmit(search) {
+    this.setState(
+      {
+        search: search,
+      },
+      function() {
+        this.filterResults();
+      }
+    );
+  }
   render() {
-    let className = 'component--pokedex__menu route--content';
-    if (this.props.location.pathname === '/') {
-      className = 'component--pokedex__menu route--root';
-    }
+    let searchClass =
+      this.props.location.pathname.indexOf('/search') !== -1
+        ? 'component--pokedex__search is-active'
+        : 'component--pokedex__search';
     return (
       <div className="component--pokedex">
-        <div className={className}>
+        <div className="component--pokedex__menu">
           <NavLink to="/pokedex">
             <span className="btn--red" />
             Pokedex
@@ -26,6 +44,10 @@ class Pokedex extends Component {
           <NavLink to="/item-category">
             <span className="btn--blue" />
             Items
+          </NavLink>
+          <NavLink to="/search">
+            <span className="btn--green" />
+            Search
           </NavLink>
         </div>
         <div className="component--pokedex__panel-left">
@@ -40,6 +62,17 @@ class Pokedex extends Component {
           <Route path="/pokemon/:id" component={Pokemon} />
           <Route path="/item-category/:id" component={ItemList} />
           <Route path="/item/:id" component={Item} />
+        </div>
+        <div className={searchClass}>
+          <Route
+            path="/search"
+            render={props => (
+              <SearchInput
+                {...props}
+                searchSubmit={this.searchSubmit.bind(this)}
+              />
+            )}
+          />
         </div>
       </div>
     );

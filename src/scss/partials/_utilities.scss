@@ -10,6 +10,7 @@ html {
 body {
   font-size: 1.8rem;
   font-family: $pokeFont;
+  color: $colorBlack;
 }
 
 h1,
@@ -80,6 +81,10 @@ textarea {
 
 .btn--yellow {
   @include round-button($colorCandlelight);
+}
+
+.btn--green {
+  @include round-button($colorHarlequin);
 }
 
 .clear,

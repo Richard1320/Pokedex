@@ -5,8 +5,10 @@ export function fileExists(url, callback) {
   http.open('HEAD', url);
   http.onreadystatechange = function() {
     if (this.readyState === this.DONE) {
-      if (this.status !== 404) {
-        callback();
+      if (this.status === 200) {
+        callback(true);
+      } else {
+        callback(false);
       }
     }
   };

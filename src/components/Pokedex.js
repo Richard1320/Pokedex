@@ -8,6 +8,7 @@ import PokemonSubnav from './PokemonSubnav';
 import Pokemon from './Pokemon';
 import ItemCategorySubnav from './ItemCategorySubnav';
 import ItemList from './ItemList';
+import Item from './Item';
 
 class Pokedex extends Component {
   render() {
@@ -38,6 +39,7 @@ class Pokedex extends Component {
           <Route path="/pokedex/:id" component={PokemonList} />
           <Route path="/pokemon/:id" component={Pokemon} />
           <Route path="/item-category/:id" component={ItemList} />
+          <Route path="/item/:id" component={Item} />
         </div>
       </div>
     );

@@ -10,16 +10,19 @@ class ItemCategorySubnav extends Component {
     var rows = [];
     var data = this.props.data.results;
     if (data) {
-      for (var i = 0; i < data.length; i++) {
-        let url = data[i].url;
+      rows = data.map(element => {
+        let url = element.url;
         url = url.replace('api/v2/', '');
 
-        rows.push(
-          <div key={i} className="component--item-category-subnav__item">
-            <NavLink to={url}>{normalizeName(data[i].name)}</NavLink>
+        return (
+          <div
+            key={element.name}
+            className="component--item-category-subnav__item"
+          >
+            <NavLink to={url}>{normalizeName(element.name)}</NavLink>
           </div>
         );
-      }
+      });
     }
     return rows;
   }

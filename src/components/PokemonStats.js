@@ -6,10 +6,10 @@ class PokemonStats extends Component {
     let labels = [];
     let stats = [];
     if (this.props.data.stats) {
-      for (let i = 0; i < this.props.data.stats.length; i++) {
-        labels.push(this.props.data.stats[i].stat.name);
-        stats.push(this.props.data.stats[i].base_stat);
-      }
+      this.props.data.stats.forEach(stat => {
+        labels.push(stat.stat.name);
+        stats.push(stat.base_stat);
+      });
     }
     let chartData = {
       labels: labels,

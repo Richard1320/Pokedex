@@ -6,42 +6,34 @@ class PokemonOverview extends Component {
   renderAbilities() {
     let abilities = [];
     if (this.props.data.abilities) {
-      for (let i = 0; i < this.props.data.abilities.length; i++) {
-        let abilityName = normalizeName(
-          this.props.data.abilities[i].ability.name
-        );
-
-        abilities.push(
-          <div key={this.props.data.abilities[i].slot}>
+      abilities = this.props.data.abilities.map(element => {
+        let abilityName = normalizeName(element.ability.name);
+        return (
+          <div key={element.slot}>
             {abilityName}
-            {this.props.data.abilities[i].is_hidden
-              ? ' (Hidden Ability)'
-              : null}
+            {element.is_hidden ? ' (Hidden Ability)' : null}
           </div>
         );
-      }
+      });
     }
     return abilities;
   }
   renderTypes() {
     let types = [];
     if (this.props.data.types) {
-      for (let i = 0; i < this.props.data.types.length; i++) {
-        let typeName = normalizeName(this.props.data.types[i].type.name);
-        types.push(<div key={this.props.data.types[i].slot}>{typeName}</div>);
-      }
+      types = this.props.data.types.map(element => {
+        let typeName = normalizeName(element.type.name);
+        return <div key={element.slot}>{typeName}</div>;
+      });
     }
     return types;
   }
   renderDescription() {
     let entries = this.props.data.flavor_text_entries;
     if (entries) {
-      for (let i = 0; i < entries.length; i++) {
-        let entry = entries[i];
-        if (entry.language.name === 'en') {
-          return entry.flavor_text;
-        }
-      }
+      // Get the English entry
+      let entry = entries.filter(entry => entry.language.name === 'en');
+      return entry[0].flavor_text;
     }
   }
   renderSprites() {
@@ -61,9 +53,8 @@ class PokemonOverview extends Component {
           'back_shiny_female',
         ],
       };
-      let SpriteTypesKeys = Object.keys(spriteTypes);
-      for (let x = 0; x < SpriteTypesKeys.length; x++) {
-        let spriteType = SpriteTypesKeys[x];
+      let spriteTypesKeys = Object.keys(spriteTypes);
+      spriteTypesKeys.forEach(spriteType => {
         let spriteKeys = spriteTypes[spriteType];
         sprites.push(
           <div
@@ -73,12 +64,10 @@ class PokemonOverview extends Component {
             {spriteType}
           </div>
         );
-        for (let i = 0; i < spriteKeys.length; i++) {
-          let key = spriteKeys[i];
-
-          if (this.props.data.sprites[key]) {
-            let image = this.props.data.sprites[key];
-            let title = normalizeName(this.props.data.name + ' ' + key);
+        spriteKeys.forEach(spriteKey => {
+          if (this.props.data.sprites[spriteKey]) {
+            let image = this.props.data.sprites[spriteKey];
+            let title = normalizeName(this.props.data.name + ' ' + spriteKey);
             image = image.replace(
               'https://raw.githubusercontent.com/PokeAPI/sprites/master/',
               '/assets/images/'
@@ -86,15 +75,15 @@ class PokemonOverview extends Component {
 
             sprites.push(
               <div
-                key={key}
+                key={spriteKey}
                 className="component--pokemon-overview__sprites__item"
               >
                 <img src={image} alt={this.props.data.name} title={title} />
               </div>
             );
           }
-        }
-      }
+        });
+      });
     }
     return sprites;
   }

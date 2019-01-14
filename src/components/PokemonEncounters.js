@@ -49,24 +49,18 @@ class PokemonEncounters extends Component {
     this.setState({ versions: versions });
   }
   getVersions() {
-    let options = [];
     let versions = this.state.versions.options;
-
-    for (let i = 0; i < versions.length; i++) {
-      let version = versions[i];
+    let options = versions.map(version => {
       let encounters = this.getEncounters(version);
       let reactKey = 'encounter-option-' + version;
 
-      // Check if any moves are available
-      // if (!encounters.length) continue;
-
-      options.push(
+      return (
         <option key={reactKey} value={version}>
           {normalizeName(version)}:{' '}
           {encounters.length ? encounters.length + ' locations' : 'N/A'}
         </option>
       );
-    }
+    });
 
     return (
       <select
@@ -98,15 +92,13 @@ class PokemonEncounters extends Component {
     if (this.props.data) {
       let dataKeys = Object.keys(this.props.data);
       // Loop through all available moves
-      for (let i = 0; i < dataKeys.length; i++) {
-        let dataKey = dataKeys[i];
+      dataKeys.forEach(dataKey => {
         let item = this.props.data[dataKey];
 
         // Get game versions that this pokemon can be encountered in
         let versions = item.version_details;
         // Loop through game versions for move
-        for (let x = 0; x < versions.length; x++) {
-          let itemVersion = versions[x];
+        for (let itemVersion of versions) {
           // Check if chosen version can encounter pokemon at this location
           if (itemVersion.version.name === chosenVer) {
             encounters.push({
@@ -116,7 +108,7 @@ class PokemonEncounters extends Component {
             break;
           }
         }
-      }
+      });
     }
     // Sort moves by level up or alphabetical
     // moves.sort(this.sortMoves);
@@ -124,12 +116,9 @@ class PokemonEncounters extends Component {
     return encounters;
   }
   renderConditions(condition_values) {
-    let render = [];
-
-    for (let i = 0; i < condition_values.length; i++) {
-      let condition = condition_values[i];
+    let render = condition_values.map(condition => {
       let reactKey = condition.name;
-      render.push(
+      return (
         <div
           key={reactKey}
           className="component--pokemon-encounters__list__item__details__item__conditions__item"
@@ -137,7 +126,7 @@ class PokemonEncounters extends Component {
           Condition: {normalizeName(condition.name)}
         </div>
       );
-    }
+    });
 
     return render;
   }
@@ -155,13 +144,11 @@ class PokemonEncounters extends Component {
     return encounter_details;
   }
   renderEncounterDetails(encounter_details) {
-    let render = [];
     encounter_details = this.removeDuplicateEncounterDetails(encounter_details);
-    for (let i = 0; i < encounter_details.length; i++) {
-      let detail = encounter_details[i];
+    let render = encounter_details.map(detail => {
       let reactKey =
         'encounter-detail-' + detail.max_level + detail.method.name;
-      render.push(
+      return (
         <div
           key={reactKey}
           className="component--pokemon-encounters__list__item__details__item"
@@ -180,11 +167,10 @@ class PokemonEncounters extends Component {
           </div>
         </div>
       );
-    }
+    });
     return render;
   }
   renderEncounters() {
-    let render = [];
     let encounters = this.getEncounters(this.state.versions.chosen);
     // Check if any encounters are available
     if (!encounters.length) {
@@ -195,10 +181,9 @@ class PokemonEncounters extends Component {
         </div>
       );
     }
-    for (let x = 0; x < encounters.length; x++) {
-      let encounter = encounters[x];
+    let render = encounters.map(encounter => {
       let reactKey = 'encounter-' + encounter.name;
-      render.push(
+      return (
         <div
           key={reactKey}
           className="component--pokemon-encounters__list__item"
@@ -211,7 +196,7 @@ class PokemonEncounters extends Component {
           </div>
         </div>
       );
-    }
+    });
 
     return render;
   }

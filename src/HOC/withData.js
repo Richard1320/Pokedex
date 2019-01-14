@@ -14,15 +14,15 @@ export default function withData(WrappedComponent, jsonFiles, params = {}) {
       this.state = {
         data: {},
       };
-      this.routePattern = [];
+      this.routePatterns = [];
 
       // Check if multiple JSON files are to be loaded
       if (Array.isArray(jsonFiles)) {
-        for (let i = 0; i < jsonFiles.length; i++) {
-          this.routePattern.push(new URLPattern(jsonFiles[i]));
-        }
+        jsonFiles.forEach(jsonFile => {
+          this.routePatterns.push(new URLPattern(jsonFile));
+        });
       } else {
-        this.routePattern.push(new URLPattern(jsonFiles));
+        this.routePatterns.push(new URLPattern(jsonFiles));
       }
     }
 
@@ -75,12 +75,12 @@ export default function withData(WrappedComponent, jsonFiles, params = {}) {
     }
     fetchData(routeParams) {
       // Loop through array of JSON files
-      for (let i = 0; i < this.routePattern.length; i++) {
-        let passParams = { index: i };
-        let dataPath = this.routePattern[i].stringify(routeParams);
-        if (!dataPath) continue;
+      this.routePatterns.forEach((routePattern, index) => {
+        let passParams = { index: index };
+        let dataPath = routePattern.stringify(routeParams);
+        if (!dataPath) return;
         fileFetchData(dataPath, this.fetchDataCallback.bind(this), passParams);
-      }
+      });
     }
 
     render() {

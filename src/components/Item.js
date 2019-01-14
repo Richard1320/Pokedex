@@ -6,15 +6,13 @@ import { normalizeName } from '../Helpers';
 
 class Item extends Component {
   // renderAttributes() {
-  //   let render = [];
-  //   for (let i = 0; i < this.props.data.attributes.length; i++) {
-  //     let attribute = this.props.data.attributes[i];
-  //     render.push(
+  //   let render = this.props.data.attributes.map(attribute => {
+  //     return (
   //       <div key={attribute.name} className="component--item__attributes__item">
   //         {normalizeName(attribute.name)}
   //       </div>
   //     );
-  //   }
+  //   });
   //   return render;
   // }
   render() {

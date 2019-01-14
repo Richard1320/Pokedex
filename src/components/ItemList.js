@@ -10,13 +10,12 @@ class ItemList extends Component {
     let rows = [];
     let data = this.props.data.items;
     if (data) {
-      for (let i = 0; i < data.length; i++) {
-        let item = data[i];
+      rows = data.map(item => {
         let image = '/assets/images/sprites/items/' + item.name + '.png';
         let itemID = parseInt(item.url.replace('/api/v2/item/', ''));
         let url = '/item/' + itemID;
         let name = normalizeName(item.name);
-        rows.push(
+        return (
           <div key={item.name} className="component--item-list__table__row">
             <div className="component--item-list__table__row__image">
               <img src={image} alt={name} title={name} />
@@ -26,7 +25,7 @@ class ItemList extends Component {
             </div>
           </div>
         );
-      }
+      });
     }
 
     return rows;

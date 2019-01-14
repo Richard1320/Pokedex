@@ -60,12 +60,11 @@ class PokemonEvolution extends Component {
         <div key={keyMethod}>Evolves by {normalizeName(method)}</div>
       );
 
-      for (let i = 0; i < evolutionDetailKeys.length; i++) {
-        let evolutionDetailKey = evolutionDetailKeys[i];
+      evolutionDetailKeys.forEach(evolutionDetailKey => {
         let evolutionDetail = chain.evolution_details[0][evolutionDetailKey];
 
         // Skip the trigger description in loop. Already rendered above.
-        if (evolutionDetailKey === 'trigger') continue;
+        if (evolutionDetailKey === 'trigger') return;
 
         // Check if evolution requirement exists
         // Check if evolution requirement data is an object
@@ -74,7 +73,7 @@ class PokemonEvolution extends Component {
           if (evolutionDetail.hasOwnProperty('name')) {
             evolutionDetail = evolutionDetail.name;
           } else {
-            continue;
+            return;
           }
         }
 
@@ -87,7 +86,7 @@ class PokemonEvolution extends Component {
             </div>
           );
         }
-      }
+      });
     }
 
     content.push(
@@ -106,10 +105,9 @@ class PokemonEvolution extends Component {
       </div>
     );
     if (chain.evolves_to) {
-      for (let i = 0; i < chain.evolves_to.length; i++) {
-        let nextChain = chain.evolves_to[i];
+      chain.evolves_to.forEach(nextChain => {
         content = this.evolutionLoop(nextChain, content);
-      }
+      });
     }
     return content;
   }

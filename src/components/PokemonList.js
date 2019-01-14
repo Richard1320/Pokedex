@@ -53,7 +53,7 @@ class PokemonList extends Component {
         end = count;
       }
 
-      data.slice(start, end).forEach(function(item) {
+      data.slice(start, end).forEach(item => {
         let itemID = parseInt(
           item.pokemon_species.url.replace('/api/v2/pokemon-species/', '')
         );

@@ -21,8 +21,7 @@ class PokemonImages extends Component {
   renderHDImage() {
     let images = [];
     let imageTypes = Object.keys(this.state.HDImages);
-    for (let i = 0; i < imageTypes.length; i++) {
-      let imageType = imageTypes[i];
+    imageTypes.forEach((imageType, i) => {
       let fileArray = this.state.HDImages[imageType];
       let folder = '';
 
@@ -35,10 +34,10 @@ class PokemonImages extends Component {
           folder = 'FurretTurret_SHINY_HD_SPRITES';
           break;
       }
-      for (let x = 0; x < fileArray.length; x++) {
+      fileArray.forEach((element, x) => {
         let name = this.props.data.name || '';
         let key = name + '_' + x + '_' + i;
-        let file = fileArray[x].file;
+        let file = element.file;
         let nameLower = name.toLowerCase();
         let fileLower = file.toLowerCase();
 
@@ -60,8 +59,8 @@ class PokemonImages extends Component {
             </div>
           );
         }
-      }
-    }
+      });
+    });
 
     return images;
   }

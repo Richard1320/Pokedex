@@ -46,23 +46,24 @@ export default class PokemonMoves extends Component {
     this.setState({ generations: generations });
   }
   getGenerations() {
-    let options = [];
     let genOptions = this.state.generations.options;
     let keys = Object.keys(genOptions);
+    let options = keys
+      .map(key => {
+        let moves = this.getMoves(key);
 
-    for (let i = 0; i < keys.length; i++) {
-      let key = keys[i];
-      let moves = this.getMoves(key);
+        // Check if any moves are available
+        if (!moves.length) return '';
 
-      // Check if any moves are available
-      if (!moves.length) continue;
-
-      options.push(
-        <option key={key} value={key}>
-          {key}: {genOptions[key].join(', ')}
-        </option>
-      );
-    }
+        return (
+          <option key={key} value={key}>
+            {key}: {genOptions[key].join(', ')}
+          </option>
+        );
+      })
+      .filter(function(element) {
+        return element;
+      });
 
     return (
       <select
@@ -93,10 +94,7 @@ export default class PokemonMoves extends Component {
     // Reorganize data as an array
     let moves = [];
     if (this.props.data.moves) {
-      // Loop through all available moves
-      for (let i = 0; i < this.props.data.moves.length; i++) {
-        let item = this.props.data.moves[i];
-
+      this.props.data.moves.forEach(item => {
         // Get game generations that this move can be learned in
         let genOptions = item.version_group_details;
         let keys = Object.keys(genOptions);
@@ -122,7 +120,8 @@ export default class PokemonMoves extends Component {
             break;
           }
         }
-      }
+        return;
+      });
     }
 
     // Sort moves by level up or alphabetical
@@ -132,16 +131,14 @@ export default class PokemonMoves extends Component {
   }
   renderMoves() {
     let render = [];
-    for (let i = 0; i < this.state.moveLearnMethod.length; i++) {
-      let method = this.state.moveLearnMethod[i];
+    this.state.moveLearnMethod.forEach(method => {
       let moves = this.getMoves(this.state.generations.chosen, method);
       let movesHTML = [];
 
       // Check if any moves are available
-      if (!moves.length) continue;
+      if (!moves.length) return;
 
-      for (let x = 0; x < moves.length; x++) {
-        let move = moves[x];
+      moves.forEach(move => {
         let reactKey = method + '-' + move.name;
         movesHTML.push(
           <div key={reactKey} className="component--pokemon-moves__item">
@@ -151,14 +148,14 @@ export default class PokemonMoves extends Component {
             ) : null}
           </div>
         );
-      }
+      });
       render.push(
         <div key={method} className="component--pokemon-moves__method">
           <h3>{normalizeName(method)}</h3>
           {movesHTML}
         </div>
       );
-    }
+    });
     return render;
   }
   render() {

@@ -29,11 +29,14 @@ class PokemonStats extends Component {
           beginAtZero: true,
         },
       },
+      layout: {
+        padding: 20,
+      },
     };
 
     return (
       <div className="component--pokemon-stats">
-        <Radar data={chartData} options={options} />
+        <Radar data={chartData} options={options} height={250} />
       </div>
     );
   }

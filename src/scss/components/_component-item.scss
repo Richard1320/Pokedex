@@ -8,4 +8,28 @@
   &__image {
     margin-bottom: 2rem;
   }
+
+  &__effect {
+    margin-bottom: 2rem;
+  }
+
+  &__attributes {
+    &__item {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 1rem;
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+        top: 0.5rem;
+        left: 0;
+        background-color: $colorRedRibbon;
+        border-radius: 50%;
+      }
+    }
+  }
 }

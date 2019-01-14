@@ -6,11 +6,7 @@ import URLPattern from 'url-pattern';
 import { fileFetchData } from '../Helpers';
 
 // This function takes a component...
-export default function withData(
-  WrappedComponent,
-  jsonFiles,
-  optionalRouteParams
-) {
+export default function withData(WrappedComponent, jsonFiles, params = {}) {
   // ...and returns another component...
   class HOC extends Component {
     constructor(props) {
@@ -35,12 +31,9 @@ export default function withData(
       let routeParams = Object.assign(
         {},
         this.props.match.params,
-        optionalRouteParams || {}
+        params.optionalRouteParams || {}
       );
-      for (let i = 0; i < this.routePattern.length; i++) {
-        let dataPath = this.routePattern[i].stringify(routeParams);
-        this.fetchData(dataPath);
-      }
+      this.fetchData(routeParams);
     }
     componentDidUpdate(prevProps) {
       // Typical usage (don't forget to compare props):
@@ -60,22 +53,34 @@ export default function withData(
 
         let routeParams = this.props.match.params;
 
-        for (let i = 0; i < this.routePattern.length; i++) {
-          let dataPath = this.routePattern[i].stringify(routeParams);
-          this.fetchData(dataPath);
-        }
+        this.fetchData(routeParams);
       }
     }
-    fetchDataCallback(json) {
-      let data = Object.assign(this.state.data, json);
+    fetchDataCallback(json, passedParams) {
+      let data;
+      let keyName;
+      try {
+        // Assign JSON data to new object property
+        keyName = params.keyNames[passedParams.index];
+        data = this.state.data;
+        data[keyName] = json;
+      } catch (err) {
+        // Merge JSON with existing data
+        data = Object.assign(this.state.data, json);
+      }
 
       this.setState({
         data: data,
       });
     }
-    fetchData(dataPath) {
-      if (!dataPath) return;
-      fileFetchData(dataPath, this.fetchDataCallback.bind(this));
+    fetchData(routeParams) {
+      // Loop through array of JSON files
+      for (let i = 0; i < this.routePattern.length; i++) {
+        let passParams = { index: i };
+        let dataPath = this.routePattern[i].stringify(routeParams);
+        if (!dataPath) continue;
+        fileFetchData(dataPath, this.fetchDataCallback.bind(this), passParams);
+      }
     }
 
     render() {

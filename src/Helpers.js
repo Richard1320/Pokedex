@@ -14,7 +14,7 @@ export function fileExists(url, callback) {
   };
   http.send();
 }
-export function fileFetchData(url, callback) {
+export function fileFetchData(url, callback, args) {
   if (!url) return;
 
   let oReq = new XMLHttpRequest();
@@ -22,7 +22,7 @@ export function fileFetchData(url, callback) {
   oReq.addEventListener('load', function() {
     try {
       var json = JSON.parse(this.responseText);
-      callback(json);
+      callback(json, args);
     } catch (err) {
       console.error(err.message);
       return false;

@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 class SearchInput extends Component {
   searchHandler(e) {
     let value = e.target.value;
-    console.log(this.props);
 
     this.props.searchSubmit(value);
   }

@@ -10,6 +10,7 @@ import ItemCategorySubnav from './ItemCategorySubnav';
 import ItemList from './ItemList';
 import Item from './Item';
 import SearchInput from './SearchInput';
+import SearchResults from './SearchResults';
 
 class Pokedex extends Component {
   constructor(props) {
@@ -62,6 +63,12 @@ class Pokedex extends Component {
           <Route path="/pokemon/:id" component={Pokemon} />
           <Route path="/item-category/:id" component={ItemList} />
           <Route path="/item/:id" component={Item} />
+          <Route
+            path="/search"
+            render={props => (
+              <SearchResults {...props} search={this.state.search} />
+            )}
+          />
         </div>
         <div className={searchClass}>
           <Route

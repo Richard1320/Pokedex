@@ -41,6 +41,10 @@
     border-radius: 1.5rem;
     border: 2px solid $colorBlack;
     background-color: $colorWhite;
+
+    .route--search & {
+      background-color: $colorGrey;
+    }
   }
 
   &__panel-right {
@@ -53,9 +57,16 @@
     border-radius: 1.5rem;
     border: 2px solid $colorBlack;
     background-color: $colorWhite;
+
+    .route-- &,
+    .route--pokedex &,
+    .route--item-category &,
+    .route--search:not(.has-search-results) & {
+      background-color: $colorGrey;
+    }
   }
 
-  &__search {
+  &__input {
     position: absolute;
     top: 85%;
     left: 3%;
@@ -66,7 +77,7 @@
     border: 2px solid $colorBlack;
     background-color: $colorGrey;
 
-    &.is-active {
+    .route--search & {
       background-color: $colorWhite;
     }
   }

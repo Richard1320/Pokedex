@@ -19,24 +19,22 @@ class Pokedex extends Component {
       search: '',
     };
   }
-  filterResults() {}
   searchSubmit(search) {
-    this.setState(
-      {
-        search: search,
-      },
-      function() {
-        this.filterResults();
-      }
-    );
+    this.setState({
+      search: search,
+    });
   }
   render() {
-    let searchClass =
-      this.props.location.pathname.indexOf('/search') !== -1
-        ? 'component--pokedex__search is-active'
-        : 'component--pokedex__search';
+    let wrapperClass = ['component--pokedex'];
+    let routeArray = this.props.location.pathname.split('/').map(element => {
+      return isNaN(element) ? element : '';
+    });
+    console.log(routeArray);
+    wrapperClass.push('route-' + routeArray.join('-'));
+    if (this.state.search) wrapperClass.push('has-search-results');
+
     return (
-      <div className="component--pokedex">
+      <div className={wrapperClass.join(' ')}>
         <div className="component--pokedex__menu">
           <NavLink to="/pokedex">
             <span className="btn--red" />
@@ -70,12 +68,13 @@ class Pokedex extends Component {
             )}
           />
         </div>
-        <div className={searchClass}>
+        <div className="component--pokedex__input">
           <Route
             path="/search"
             render={props => (
               <SearchInput
                 {...props}
+                searchText={this.state.search}
                 searchSubmit={this.searchSubmit.bind(this)}
               />
             )}

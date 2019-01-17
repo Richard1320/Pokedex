@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import HDImagesData from '../data/HQImageList.json';
+import HDImagesData from '../assets/images/HQImageList.json';
 import { normalizeName } from '../Helpers';
 
 class PokemonImages extends Component {

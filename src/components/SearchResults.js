@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import pokemonData from '../data/api/v2/pokemon/index.json';
-import itemsData from '../data/api/v2/item/index.json';
+import pokemonData from '../assets/data/api/v2/pokemon/index.json';
+import itemsData from '../assets/data/api/v2/item/index.json';
 import { normalizeName } from '../Helpers';
 
 class SearchResults extends Component {

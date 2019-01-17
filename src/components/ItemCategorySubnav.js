@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import itemCategoryData from '../data/api/v2/item-category/index.json';
+import itemCategoryData from '../assets/data/api/v2/item-category/index.json';
 import { normalizeName } from '../Helpers';
 
 class ItemCategorySubnav extends Component {

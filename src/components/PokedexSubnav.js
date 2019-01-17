@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import pokedexData from '../data/api/v2/pokedex/index.json';
+import pokedexData from '../assets/data/api/v2/pokedex/index.json';
 import { normalizeName } from '../Helpers';
 
 class PokedexSubnav extends Component {

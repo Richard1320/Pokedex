@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { normalizeName } from '../Helpers';
 
@@ -87,7 +88,31 @@ class PokemonOverview extends Component {
     }
     return sprites;
   }
+  renderVariations() {
+    let render = [];
+    if (this.props.data.varieties && this.props.data.varieties.length > 1) {
+      render = this.props.data.varieties.map(item => {
+        let itemID = parseInt(item.pokemon.url.replace('/api/v2/pokemon/', ''));
+        let url = '/pokemon/' + itemID;
+        let name = normalizeName(item.pokemon.name);
+        return (
+          <div
+            key={item.pokemon.name}
+            className="component--pokemon-overview__variations__item"
+          >
+            <NavLink to={url}>{name}</NavLink>
+            {item.is_default ? ' (Default)' : null}
+          </div>
+        );
+      });
+    }
+    return render;
+  }
   render() {
+    let variatonsTitle =
+      this.props.data.varieties && this.props.data.varieties.length > 1 ? (
+        <h3>Variations</h3>
+      ) : null;
     return (
       <div className="component--pokemon-overview">
         <h2>{normalizeName(this.props.data.name)}</h2>
@@ -104,6 +129,10 @@ class PokemonOverview extends Component {
         <div className="component--pokemon-overview__types">
           <h3>Types</h3>
           {this.renderTypes()}
+        </div>
+        <div className="component--pokemon-overview__variations">
+          {variatonsTitle}
+          {this.renderVariations()}
         </div>
       </div>
     );

@@ -29,7 +29,6 @@ class Pokedex extends Component {
     let routeArray = this.props.location.pathname.split('/').map(element => {
       return isNaN(element) ? element : '';
     });
-    console.log(routeArray);
     wrapperClass.push('route-' + routeArray.join('-'));
     if (this.state.search) wrapperClass.push('has-search-results');
 

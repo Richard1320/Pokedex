@@ -28,4 +28,14 @@
   &__abilities {
     margin-bottom: 2rem;
   }
+
+  &__types {
+    margin-bottom: 2rem;
+  }
+
+  &__variations {
+    &__item {
+      @include bulletList();
+    }
+  }
 }

@@ -22,3 +22,21 @@
     clear: both;
   }
 }
+
+@mixin bulletList($baseColor:$colorRedRibbon) {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    top: 0.5rem;
+    left: 0;
+    background-color: $baseColor;
+    border-radius: 50%;
+  }
+}

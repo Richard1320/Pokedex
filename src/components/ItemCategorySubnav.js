@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import withData from '../HOC/withData';
 
+import itemCategoryData from '../data/api/v2/item-category/index.json';
 import { normalizeName } from '../Helpers';
 
 class ItemCategorySubnav extends Component {
   renderRows() {
     //making the rows to display
     var rows = [];
-    var data = this.props.data.results;
+    var data = itemCategoryData.results;
     if (data) {
       rows = data.map(element => {
         let url = element.url;
@@ -33,7 +33,5 @@ class ItemCategorySubnav extends Component {
     );
   }
 }
-var path = '/assets/data/api/v2/item-category/index.json';
-const WrappedComponent = withData(ItemCategorySubnav, path);
 
-export default WrappedComponent;
+export default ItemCategorySubnav;

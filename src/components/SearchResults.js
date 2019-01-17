@@ -1,38 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-// import withData from '../HOC/withData';
-import { normalizeName, fileFetchData } from '../Helpers';
+import pokemonData from '../data/api/v2/pokemon/index.json';
+import itemsData from '../data/api/v2/item/index.json';
+import { normalizeName } from '../Helpers';
 
 class SearchResults extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pokemon: {},
-      items: {},
-    };
-  }
-  componentDidMount() {
-    fileFetchData(
-      '/assets/data/api/v2/pokemon/index.json',
-      this.pokemonCallback.bind(this)
-    );
-    fileFetchData(
-      '/assets/data/api/v2/item/index.json',
-      this.itemsCallback.bind(this)
-    );
-  }
-  pokemonCallback(json) {
-    this.setState({
-      pokemon: json,
-    });
-  }
-  itemsCallback(json) {
-    this.setState({
-      items: json,
-    });
-  }
-
   filterSearch(value) {
     let search = this.props.search.toLowerCase();
     let name = normalizeName(value.name).toLowerCase();
@@ -42,12 +15,8 @@ class SearchResults extends Component {
   renderRows() {
     let rows = [];
 
-    if (
-      this.props.search &&
-      this.state.pokemon.results &&
-      this.state.items.results
-    ) {
-      this.state.pokemon.results.forEach(item => {
+    if (this.props.search && pokemonData.results && itemsData.results) {
+      pokemonData.results.forEach(item => {
         if (this.filterSearch(item)) {
           let itemID = parseInt(item.url.replace('/api/v2/pokemon/', ''));
           let image = '/assets/images/sprites/pokemon/' + itemID + '.png';
@@ -71,7 +40,7 @@ class SearchResults extends Component {
           );
         }
       });
-      this.state.items.results.forEach(item => {
+      itemsData.results.forEach(item => {
         if (this.filterSearch(item)) {
           let itemID = parseInt(item.url.replace('/api/v2/item/', ''));
           let image = '/assets/images/sprites/items/' + item.name + '.png';
@@ -110,17 +79,4 @@ class SearchResults extends Component {
   }
 }
 
-// // Specifies the default values for props:
-// SearchResults.defaultProps = {
-//   data: {},
-// };
-
-// let path = [
-//   '/assets/data/api/v2/item/index.json',
-//   '/assets/data/api/v2/pokemon/index.json',
-// ];
-// let params = { keyNames: ['items', 'pokemon'] };
-// let WrappedComponent = withData(SearchResults, path, params);
-
-// export default WrappedComponent;
 export default SearchResults;

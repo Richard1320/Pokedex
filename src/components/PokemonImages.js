@@ -1,28 +1,14 @@
 import React, { Component } from 'react';
 
-import { normalizeName, fileFetchData } from '../Helpers';
+import HDImagesData from '../data/HQImageList.json';
+import { normalizeName } from '../Helpers';
 
 class PokemonImages extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      HDImages: [],
-    };
-  }
-  componentDidMount() {
-    var path = '/assets/images/HQImageList.json';
-    fileFetchData(path, this.HDImageCallback.bind(this));
-  }
-  HDImageCallback(json) {
-    this.setState({
-      HDImages: json,
-    });
-  }
   renderHDImage() {
     let images = [];
-    let imageTypes = Object.keys(this.state.HDImages);
+    let imageTypes = Object.keys(HDImagesData);
     imageTypes.forEach((imageType, i) => {
-      let fileArray = this.state.HDImages[imageType];
+      let fileArray = HDImagesData[imageType];
       let folder = '';
 
       switch (imageType) {
@@ -70,8 +56,4 @@ class PokemonImages extends Component {
     );
   }
 }
-// Specifies the default values for props:
-PokemonImages.defaultProps = {
-  data: {},
-};
 export default PokemonImages;

@@ -15,6 +15,7 @@
 /development
 
 # assets
+/src/data
 /public/assets/data
 /public/assets/images/sprites
 /public/assets/images/FurretTurret_REGULAR_HD_SPRITES

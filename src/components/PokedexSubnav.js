@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import withData from '../HOC/withData';
 
+import pokedexData from '../data/api/v2/pokedex/index.json';
 import { normalizeName } from '../Helpers';
 
 class PokedexSubnav extends Component {
   renderRows() {
     //making the rows to display
     var rows = [];
-    var data = this.props.data.results;
+    var data = pokedexData.results;
     if (data) {
       data.forEach((element, index) => {
         let url = element.url;
@@ -28,7 +28,4 @@ class PokedexSubnav extends Component {
     return <div className="component--pokedex-subnav">{this.renderRows()}</div>;
   }
 }
-var path = '/assets/data/api/v2/pokedex/index.json';
-const WrappedComponent = withData(PokedexSubnav, path);
-
-export default WrappedComponent;
+export default PokedexSubnav;

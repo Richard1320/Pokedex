@@ -93,8 +93,8 @@ export default class PokemonMoves extends Component {
     let chosenGenVersion = this.state.generations.options[chosenGen];
     // Reorganize data as an array
     let moves = [];
-    if (this.props.data.moves) {
-      this.props.data.moves.forEach(item => {
+    if (this.props.pokemon.moves) {
+      this.props.pokemon.moves.forEach(item => {
         // Get game generations that this move can be learned in
         let genOptions = item.version_group_details;
         let keys = Object.keys(genOptions);
@@ -179,5 +179,6 @@ export default class PokemonMoves extends Component {
 }
 // Specifies the default values for props:
 PokemonMoves.defaultProps = {
-  data: {},
+  pokemon: {},
+  pokemonSpecies: {},
 };

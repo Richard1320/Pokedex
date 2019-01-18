@@ -21,7 +21,7 @@ class PokemonImages extends Component {
           break;
       }
       fileArray.forEach((element, x) => {
-        let name = this.props.data.name || '';
+        let name = this.props.pokemonSpecies.name || '';
         let key = name + '_' + x + '_' + i;
         let file = element.file;
         let nameLower = name.toLowerCase();
@@ -48,6 +48,14 @@ class PokemonImages extends Component {
       });
     });
 
+    if (!images.length) {
+      images.push(
+        <div className="component--pokemon-imagess__na">
+          No images found for {this.props.pokemon.name}.
+        </div>
+      );
+    }
+
     return images;
   }
   render() {
@@ -56,4 +64,11 @@ class PokemonImages extends Component {
     );
   }
 }
+
+// Specifies the default values for props:
+PokemonImages.defaultProps = {
+  pokemon: {},
+  pokemonSpecies: {},
+};
+
 export default PokemonImages;

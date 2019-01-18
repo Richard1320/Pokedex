@@ -176,7 +176,8 @@ class PokemonEncounters extends Component {
     if (!encounters.length) {
       return (
         <div className="component--pokemon-encounters__na">
-          No data is available for encountering this pokemon in the wild in
+          No data is available for encountering{' '}
+          {normalizeName(this.props.pokemon.name)} in the wild in{' '}
           {this.state.versions.chosen} version
         </div>
       );
@@ -219,6 +220,8 @@ class PokemonEncounters extends Component {
 // Specifies the default values for props:
 PokemonEncounters.defaultProps = {
   data: {},
+  pokemon: {},
+  pokemonSpecies: {},
 };
 var path = '/assets/data/api/v2/pokemon/:id/encounters/index.json';
 let WrappedComponent = withData(PokemonEncounters, path);

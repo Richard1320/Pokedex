@@ -5,8 +5,8 @@ class PokemonStats extends Component {
   render() {
     let labels = [];
     let stats = [];
-    if (this.props.data.stats) {
-      this.props.data.stats.forEach(stat => {
+    if (this.props.pokemon.stats) {
+      this.props.pokemon.stats.forEach(stat => {
         labels.push(stat.stat.name);
         stats.push(stat.base_stat);
       });
@@ -43,7 +43,8 @@ class PokemonStats extends Component {
 }
 // Specifies the default values for props:
 PokemonStats.defaultProps = {
-  data: {},
+  pokemon: {},
+  pokemonSpecies: {},
 };
 
 export default PokemonStats;

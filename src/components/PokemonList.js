@@ -20,8 +20,8 @@ class PokemonList extends Component {
     let prevID;
     let newID;
     try {
-      prevID = prevProps.match.params.id;
       newID = this.props.match.params.id;
+      prevID = prevProps.match.params.id;
     } catch (err) {
       return;
     }

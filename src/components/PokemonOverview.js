@@ -6,8 +6,8 @@ import { normalizeName } from '../Helpers';
 class PokemonOverview extends Component {
   renderAbilities() {
     let abilities = [];
-    if (this.props.data.abilities) {
-      abilities = this.props.data.abilities.map(element => {
+    if (this.props.pokemon.abilities) {
+      abilities = this.props.pokemon.abilities.map(element => {
         let abilityName = normalizeName(element.ability.name);
         return (
           <div key={element.slot}>
@@ -21,8 +21,8 @@ class PokemonOverview extends Component {
   }
   renderTypes() {
     let types = [];
-    if (this.props.data.types) {
-      types = this.props.data.types.map(element => {
+    if (this.props.pokemon.types) {
+      types = this.props.pokemon.types.map(element => {
         let typeName = normalizeName(element.type.name);
         return <div key={element.slot}>{typeName}</div>;
       });
@@ -30,7 +30,7 @@ class PokemonOverview extends Component {
     return types;
   }
   renderDescription() {
-    let entries = this.props.data.flavor_text_entries;
+    let entries = this.props.pokemonSpecies.flavor_text_entries;
     if (entries) {
       // Get the English entry
       let entry = entries.filter(entry => entry.language.name === 'en');
@@ -39,7 +39,7 @@ class PokemonOverview extends Component {
   }
   renderSprites() {
     let sprites = [];
-    if (this.props.data.sprites) {
+    if (this.props.pokemon.sprites) {
       let spriteTypes = {
         Regular: [
           'front_default',
@@ -66,9 +66,11 @@ class PokemonOverview extends Component {
           </div>
         );
         spriteKeys.forEach(spriteKey => {
-          if (this.props.data.sprites[spriteKey]) {
-            let image = this.props.data.sprites[spriteKey];
-            let title = normalizeName(this.props.data.name + ' ' + spriteKey);
+          if (this.props.pokemon.sprites[spriteKey]) {
+            let image = this.props.pokemon.sprites[spriteKey];
+            let title = normalizeName(
+              this.props.pokemon.name + ' ' + spriteKey
+            );
             image = image.replace(
               'https://raw.githubusercontent.com/PokeAPI/sprites/master/',
               '/assets/images/'
@@ -79,7 +81,7 @@ class PokemonOverview extends Component {
                 key={spriteKey}
                 className="component--pokemon-overview__sprites__item"
               >
-                <img src={image} alt={this.props.data.name} title={title} />
+                <img src={image} alt={this.props.pokemon.name} title={title} />
               </div>
             );
           }
@@ -90,8 +92,11 @@ class PokemonOverview extends Component {
   }
   renderVariations() {
     let render = [];
-    if (this.props.data.varieties && this.props.data.varieties.length > 1) {
-      render = this.props.data.varieties.map(item => {
+    if (
+      this.props.pokemonSpecies.varieties &&
+      this.props.pokemonSpecies.varieties.length > 1
+    ) {
+      render = this.props.pokemonSpecies.varieties.map(item => {
         let itemID = parseInt(item.pokemon.url.replace('/api/v2/pokemon/', ''));
         let url = '/pokemon/' + itemID;
         let name = normalizeName(item.pokemon.name);
@@ -109,13 +114,14 @@ class PokemonOverview extends Component {
     return render;
   }
   render() {
-    let variatonsTitle =
-      this.props.data.varieties && this.props.data.varieties.length > 1 ? (
+    let variationsTitle =
+      this.props.pokemonSpecies.varieties &&
+      this.props.pokemonSpecies.varieties.length > 1 ? (
         <h3>Variations</h3>
       ) : null;
     return (
       <div className="component--pokemon-overview">
-        <h2>{normalizeName(this.props.data.name)}</h2>
+        <h2>{normalizeName(this.props.pokemon.name)}</h2>
         <div className="component--pokemon-overview__sprites">
           {this.renderSprites()}
         </div>
@@ -131,7 +137,7 @@ class PokemonOverview extends Component {
           {this.renderTypes()}
         </div>
         <div className="component--pokemon-overview__variations">
-          {variatonsTitle}
+          {variationsTitle}
           {this.renderVariations()}
         </div>
       </div>
@@ -140,6 +146,7 @@ class PokemonOverview extends Component {
 }
 // Specifies the default values for props:
 PokemonOverview.defaultProps = {
-  data: {},
+  pokemon: {},
+  pokemonSpecies: {},
 };
 export default PokemonOverview;

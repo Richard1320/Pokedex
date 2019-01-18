@@ -13,11 +13,11 @@ class PokemonEvolution extends Component {
   componentDidMount() {
     let evolution_chain;
     try {
-      evolution_chain = this.props.data.evolution_chain;
+      evolution_chain = this.props.pokemonSpecies.evolution_chain;
     } catch (err) {
       return;
     }
-    if (!this.state.data.id && evolution_chain) {
+    if (evolution_chain) {
       var path = evolution_chain.url;
       path = '/assets/data' + path + 'index.json';
       fileFetchData(path, this.evolutionDataCallback.bind(this));
@@ -27,12 +27,10 @@ class PokemonEvolution extends Component {
     let prevEvolutionURL;
     let nextEvolutionURL;
     try {
-      prevEvolutionURL = prevProps.data.evolution_chain.url;
-      nextEvolutionURL = this.props.data.evolution_chain.url;
-    } catch (err) {
-      return;
-    }
-    if (!this.state.data.id || prevEvolutionURL !== nextEvolutionURL) {
+      nextEvolutionURL = this.props.pokemonSpecies.evolution_chain.url;
+      prevEvolutionURL = prevProps.pokemonSpecies.evolution_chain.url;
+    } catch (err) {}
+    if (prevEvolutionURL !== nextEvolutionURL) {
       let path = '/assets/data' + nextEvolutionURL + 'index.json';
       fileFetchData(path, this.evolutionDataCallback.bind(this));
     }

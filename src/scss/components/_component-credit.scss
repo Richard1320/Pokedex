@@ -1,0 +1,23 @@
+.component--credit {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $colorRedRibbon;
+  padding: 1rem;
+  color: $colorWhite;
+  font-size: 1.2rem;
+  text-align: center;
+  z-index: 5;
+  border-top: 1px solid $colorWhite;
+
+  div {
+    display: inline-block;
+    margin: 0 1rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}

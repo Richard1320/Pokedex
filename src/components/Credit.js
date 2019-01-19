@@ -1,0 +1,32 @@
+import React, { Component } from 'react';
+
+class Credit extends Component {
+  render() {
+    return (
+      <div className="component--credit">
+        <div className="component--credit__programming">
+          App programmed by{' '}
+          <a
+            href="https://www.magicmediamuse.com"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Richard Hung
+          </a>
+        </div>
+        <div className="component--credit__data">
+          Data provided by{' '}
+          <a
+            href="https://pokeapi.co/"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            PokeAPI
+          </a>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Credit;

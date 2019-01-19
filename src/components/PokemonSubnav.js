@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 class PokemonSubnav extends Component {
   render() {
     let overviewURL = '/pokemon/' + this.props.match.params.id;
-    let imagesURL = '/pokemon/' + this.props.match.params.id + '/images';
+    // let imagesURL = '/pokemon/' + this.props.match.params.id + '/images';
     let statsURL = '/pokemon/' + this.props.match.params.id + '/stats';
     let movesURL = '/pokemon/' + this.props.match.params.id + '/moves';
     let evolutionURL = '/pokemon/' + this.props.match.params.id + '/evolution';
@@ -17,9 +17,9 @@ class PokemonSubnav extends Component {
             Overview
           </NavLink>
         </div>
-        <div className="component--pokemon-subnav__item">
+        {/* <div className="component--pokemon-subnav__item">
           <NavLink to={imagesURL}>Images</NavLink>
-        </div>
+        </div> */}
         <div className="component--pokemon-subnav__item">
           <NavLink to={statsURL}>Stats</NavLink>
         </div>

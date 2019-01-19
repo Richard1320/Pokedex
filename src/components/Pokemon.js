@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import { fileFetchData } from '../Helpers';
 import PokemonOverview from './PokemonOverview';
-import PokemonImages from './PokemonImages';
+// import PokemonImages from './PokemonImages';
 import PokemonStats from './PokemonStats';
 import PokemonMoves from './PokemonMoves';
 import PokemonEvolution from './PokemonEvolution';
@@ -74,7 +74,7 @@ class Pokemon extends Component {
             />
           )}
         />
-        <Route
+        {/* <Route
           path="/pokemon/:id/images"
           render={() => (
             <PokemonImages
@@ -83,7 +83,7 @@ class Pokemon extends Component {
               pokemonSpecies={this.state.pokemonSpecies}
             />
           )}
-        />
+        /> */}
         <Route
           path="/pokemon/:id/stats"
           render={() => (

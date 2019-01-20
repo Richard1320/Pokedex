@@ -8,6 +8,12 @@
   height: $diameter;
   width: $diameter;
 
+  @include MQ(M) {
+    height: $diameter * 0.75;
+    width: $diameter * 0.75;
+    ;
+  }
+
   a:hover &,
   &:hover {
     background: $hoverBaseColor;
@@ -38,5 +44,25 @@
     left: 0;
     background-color: $baseColor;
     border-radius: 50%;
+  }
+}
+
+@mixin MQ($canvas) {
+  @if $canvas==S {
+    @media only screen and (max-width: $S) {
+      @content;
+    }
+  }
+
+  @else if $canvas==M {
+    @media only screen and (max-width: $M) {
+      @content;
+    }
+  }
+
+  @else if $canvas==L {
+    @media only screen and (max-width: $L) {
+      @content;
+    }
   }
 }

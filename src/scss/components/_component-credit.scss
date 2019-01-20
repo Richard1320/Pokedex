@@ -11,6 +11,13 @@
   z-index: 5;
   border-top: 1px solid $colorWhite;
 
+  @include MQ(M) {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+
   div {
     display: inline-block;
     margin: 0 1rem;

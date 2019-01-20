@@ -24,6 +24,10 @@ class Credit extends Component {
             PokeAPI
           </a>
         </div>
+        <div className="component--credit__nintendo">
+          Pok&eacute;mon And All Respective Names are Trademark &amp; &copy; of
+          Nintendo
+        </div>
       </div>
     );
   }

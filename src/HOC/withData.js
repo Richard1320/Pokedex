@@ -2,11 +2,10 @@
 
 import React, { Component } from 'react';
 import URLPattern from 'url-pattern';
-
-import { fileFetchData } from '../Helpers';
+import axios from 'axios';
 
 // This function takes a component...
-export default function withData(WrappedComponent, jsonFiles, params = {}) {
+export default function withData(WrappedComponent, jsonFile) {
   // ...and returns another component...
   class HOC extends Component {
     constructor(props) {
@@ -14,25 +13,12 @@ export default function withData(WrappedComponent, jsonFiles, params = {}) {
       this.state = {
         data: {},
       };
-      this.routePatterns = [];
-
-      // Check if multiple JSON files are to be loaded
-      if (Array.isArray(jsonFiles)) {
-        jsonFiles.forEach(jsonFile => {
-          this.routePatterns.push(new URLPattern(jsonFile));
-        });
-      } else {
-        this.routePatterns.push(new URLPattern(jsonFiles));
-      }
+      this.routePattern = new URLPattern(jsonFile);
     }
 
     componentDidMount() {
       // Reverse engineer route with parameters (like ID)
-      let routeParams = Object.assign(
-        {},
-        this.props.match.params,
-        params.optionalRouteParams || {}
-      );
+      let routeParams = Object.assign({}, this.props.match.params);
       this.fetchData(routeParams);
     }
     componentDidUpdate(prevProps) {
@@ -56,18 +42,9 @@ export default function withData(WrappedComponent, jsonFiles, params = {}) {
         this.fetchData(routeParams);
       }
     }
-    fetchDataCallback(json, passedParams) {
-      let data;
-      let keyName;
-      try {
-        // Assign JSON data to new object property
-        keyName = params.keyNames[passedParams.index];
-        data = this.state.data;
-        data[keyName] = json;
-      } catch (err) {
-        // Merge JSON with existing data
-        data = Object.assign(this.state.data, json);
-      }
+    fetchDataCallback(response) {
+      // Merge JSON with existing data
+      let data = Object.assign(this.state.data, response.data);
 
       this.setState({
         data: data,
@@ -75,12 +52,9 @@ export default function withData(WrappedComponent, jsonFiles, params = {}) {
     }
     fetchData(routeParams) {
       // Loop through array of JSON files
-      this.routePatterns.forEach((routePattern, index) => {
-        let passParams = { index: index };
-        let dataPath = routePattern.stringify(routeParams);
-        if (!dataPath) return;
-        fileFetchData(dataPath, this.fetchDataCallback.bind(this), passParams);
-      });
+      let dataPath = this.routePattern.stringify(routeParams);
+      if (!dataPath) return;
+      axios.get(dataPath).then(this.fetchDataCallback.bind(this));
     }
 
     render() {

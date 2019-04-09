@@ -1,36 +1,3 @@
-export function fileExists(url, callback) {
-  if (!url) return false;
-
-  var http = new XMLHttpRequest();
-  http.open('HEAD', url);
-  http.onreadystatechange = function() {
-    if (this.readyState === this.DONE) {
-      if (this.status === 200) {
-        callback(true);
-      } else {
-        callback(false);
-      }
-    }
-  };
-  http.send();
-}
-export function fileFetchData(url, callback, args) {
-  if (!url) return;
-
-  let oReq = new XMLHttpRequest();
-
-  oReq.addEventListener('load', function() {
-    try {
-      var json = JSON.parse(this.responseText);
-      callback(json, args);
-    } catch (err) {
-      console.error(err.message);
-      return false;
-    }
-  });
-  oReq.open('GET', url);
-  oReq.send();
-}
 export function normalizeName(name) {
   if (!name) return;
 

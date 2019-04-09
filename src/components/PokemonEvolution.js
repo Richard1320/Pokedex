@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
-import { normalizeName, fileFetchData } from '../Helpers';
+import { normalizeName } from '../Helpers';
 
 class PokemonEvolution extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class PokemonEvolution extends Component {
     if (evolution_chain) {
       var path = evolution_chain.url;
       path = '/assets/data' + path + 'index.json';
-      fileFetchData(path, this.evolutionDataCallback.bind(this));
+      axios.get(path).then(this.evolutionDataCallback.bind(this));
     }
   }
   componentDidUpdate(prevProps) {
@@ -32,12 +33,12 @@ class PokemonEvolution extends Component {
     } catch (err) {}
     if (prevEvolutionURL !== nextEvolutionURL) {
       let path = '/assets/data' + nextEvolutionURL + 'index.json';
-      fileFetchData(path, this.evolutionDataCallback.bind(this));
+      axios.get(path).then(this.evolutionDataCallback.bind(this));
     }
   }
-  evolutionDataCallback(json) {
+  evolutionDataCallback(response) {
     this.setState({
-      data: json,
+      data: response.data,
     });
   }
   evolutionLoop(chain, content) {

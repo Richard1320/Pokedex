@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import axios from 'axios';
 
-import { fileFetchData } from '../Helpers';
 import PokemonOverview from './PokemonOverview';
 // import PokemonImages from './PokemonImages';
 import PokemonStats from './PokemonStats';
@@ -24,7 +24,7 @@ class Pokemon extends Component {
       return;
     }
     let path = '/assets/data/api/v2/pokemon/' + pokemonID + '/index.json';
-    fileFetchData(path, this.pokemonDataCallback.bind(this));
+    axios.get(path).then(this.pokemonDataCallback.bind(this));
   }
   componentDidUpdate(prevProps) {
     let prevPokemonID;
@@ -37,27 +37,24 @@ class Pokemon extends Component {
     }
     if (prevPokemonID !== nextPokemonID) {
       let path = '/assets/data/api/v2/pokemon/' + nextPokemonID + '/index.json';
-      fileFetchData(path, this.pokemonDataCallback.bind(this));
+      axios.get(path).then(this.pokemonDataCallback.bind(this));
     }
   }
-  pokemonDataCallback(json) {
+  pokemonDataCallback(response) {
     let pokemonSpeciesID = parseInt(
-      json.species.url.replace('/api/v2/pokemon-species/', '')
+      response.data.species.url.replace('/api/v2/pokemon-species/', '')
     );
     let path =
       '/assets/data/api/v2/pokemon-species/' + pokemonSpeciesID + '/index.json';
 
-    this.setState(
-      {
-        pokemon: json,
-      },
-      fileFetchData(path, this.pokemonSpeciesDataCallback.bind(this))
-    );
-  }
-  pokemonSpeciesDataCallback(json) {
-    // let data = Object.assign(this.state.data, json);
     this.setState({
-      pokemonSpecies: json,
+      pokemon: response.data,
+    });
+    axios.get(path).then(this.pokemonSpeciesDataCallback.bind(this));
+  }
+  pokemonSpeciesDataCallback(response) {
+    this.setState({
+      pokemonSpecies: response.data,
     });
   }
   render() {

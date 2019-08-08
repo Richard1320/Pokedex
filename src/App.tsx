@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { HashRouter } from 'react-router-dom';
 
 import Pokedex from './components/Pokedex';
 import Credit from './components/Credit';
 import './scss/app.scss';
 
-class App extends Component {
-  render() {
+const App: React.FC = (props) => {
     return (
       <HashRouter>
         <div className="component--app">
-          <Pokedex {...this.props} />
+            <Pokedex {...props} />
           <Credit />
         </div>
       </HashRouter>
     );
-  }
-}
+};
 
 export default App;

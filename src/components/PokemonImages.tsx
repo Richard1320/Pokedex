@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HDImagesData from '../assets/images/HQImageList.json';
-import { normalizeName } from '../Helpers';
+import {normalizeName} from '../Helpers';
 
 interface IProps {
   pokemon: any;
@@ -44,18 +44,18 @@ const PokemonImages: React.FC<IProps> = (props) => {
         if (nameLower && fileLower.indexOf(nameLower) !== -1) {
           const image = '/assets/images/' + folder + '/' + file;
           let description = file
-            .split('.')
-            .slice(0, -1)
-            .join('.'); // Remove extension from filename
+              .split('.')
+              .slice(0, -1)
+              .join('.'); // Remove extension from filename
           description = normalizeName(description) + ' ' + imageType;
 
           images.push(
-            <div key={key} className="component--pokemon-images__item">
-              <h2>{description}</h2>
-              <div>
-                <img src={image} alt={description} title={description} />
+              <div key={key} className="component--pokemon-images__item">
+                <h2>{description}</h2>
+                <div>
+                  <img src={image} alt={description} title={description}/>
+                </div>
               </div>
-            </div>
           );
         }
       });
@@ -65,16 +65,16 @@ const PokemonImages: React.FC<IProps> = (props) => {
       images.push(
           <div className="component--pokemon-images__na">
             No images found for {props.pokemon.name}.
-        </div>
+          </div>
       );
     }
 
     return images;
   }
 
-    return (
-        <div className="component--pokemon-images">{renderHDImage()}</div>
-    );
+  return (
+      <div className="component--pokemon-images">{renderHDImage()}</div>
+  );
 };
 
 export default PokemonImages;

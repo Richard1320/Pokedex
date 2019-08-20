@@ -19,28 +19,28 @@ const PokemonSubnav: React.FC<IProps> = (props) => {
     const evolutionURL = '/pokemon/' + props.match.params.id + '/evolution';
     const encountersURL = '/pokemon/' + props.match.params.id + '/encounters';
     return (
-      <div className="component--pokemon-subnav">
-        <div className="component--pokemon-subnav__item">
-          <NavLink exact to={overviewURL}>
-            Overview
-          </NavLink>
-        </div>
-        {/* <div className="component--pokemon-subnav__item">
+        <div className="component--pokemon-subnav">
+            <div className="component--pokemon-subnav__item">
+                <NavLink exact to={overviewURL}>
+                    Overview
+                </NavLink>
+            </div>
+            {/* <div className="component--pokemon-subnav__item">
           <NavLink to={imagesURL}>Images</NavLink>
         </div> */}
-        <div className="component--pokemon-subnav__item">
-          <NavLink to={statsURL}>Stats</NavLink>
+            <div className="component--pokemon-subnav__item">
+                <NavLink to={statsURL}>Stats</NavLink>
+            </div>
+            <div className="component--pokemon-subnav__item">
+                <NavLink to={movesURL}>Moves</NavLink>
+            </div>
+            <div className="component--pokemon-subnav__item">
+                <NavLink to={evolutionURL}>Evolution</NavLink>
+            </div>
+            <div className="component--pokemon-subnav__item">
+                <NavLink to={encountersURL}>Encounters</NavLink>
+            </div>
         </div>
-        <div className="component--pokemon-subnav__item">
-          <NavLink to={movesURL}>Moves</NavLink>
-        </div>
-        <div className="component--pokemon-subnav__item">
-          <NavLink to={evolutionURL}>Evolution</NavLink>
-        </div>
-        <div className="component--pokemon-subnav__item">
-          <NavLink to={encountersURL}>Encounters</NavLink>
-        </div>
-      </div>
     );
 };
 

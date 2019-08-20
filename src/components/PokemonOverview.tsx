@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
-import { normalizeName } from '../Helpers';
+import {normalizeName} from '../Helpers';
 
 
 interface IProps {
@@ -18,10 +18,10 @@ const PokemonOverview: React.FC<IProps> = (props) => {
       abilities = props.pokemon.abilities.map((element: any) => {
         let abilityName = normalizeName(element.ability.name);
         return (
-          <div key={element.slot}>
-            {abilityName}
-            {element.is_hidden ? ' (Hidden Ability)' : null}
-          </div>
+            <div key={element.slot}>
+              {abilityName}
+              {element.is_hidden ? ' (Hidden Ability)' : null}
+            </div>
         );
       });
     }
@@ -70,12 +70,12 @@ const PokemonOverview: React.FC<IProps> = (props) => {
         // @ts-ignore
         let spriteKeys: string[] = spriteTypes[spriteType];
         sprites.push(
-          <div
-            key={spriteType}
-            className="component--pokemon-overview__sprites__item-title"
-          >
-            {spriteType}
-          </div>
+            <div
+                key={spriteType}
+                className="component--pokemon-overview__sprites__item-title"
+            >
+              {spriteType}
+            </div>
         );
         spriteKeys.forEach(spriteKey => {
           if (props.pokemon.sprites[spriteKey]) {
@@ -84,17 +84,17 @@ const PokemonOverview: React.FC<IProps> = (props) => {
                 props.pokemon.name + ' ' + spriteKey
             );
             image = image.replace(
-              'https://raw.githubusercontent.com/PokeAPI/sprites/master/',
-              '/assets/images/'
+                'https://raw.githubusercontent.com/PokeAPI/sprites/master/',
+                '/assets/images/'
             );
 
             sprites.push(
-              <div
-                key={spriteKey}
-                className="component--pokemon-overview__sprites__item"
-              >
-                <img src={image} alt={props.pokemon.name} title={title}/>
-              </div>
+                <div
+                    key={spriteKey}
+                    className="component--pokemon-overview__sprites__item"
+                >
+                  <img src={image} alt={props.pokemon.name} title={title}/>
+                </div>
             );
           }
         });
@@ -114,24 +114,25 @@ const PokemonOverview: React.FC<IProps> = (props) => {
         let url = '/pokemon/' + itemID;
         let name = normalizeName(item.pokemon.name);
         return (
-          <div
-            key={item.pokemon.name}
-            className="component--pokemon-overview__variations__item"
-          >
-            <NavLink to={url}>{name}</NavLink>
-            {item.is_default ? ' (Default)' : null}
-          </div>
+            <div
+                key={item.pokemon.name}
+                className="component--pokemon-overview__variations__item"
+            >
+              <NavLink to={url}>{name}</NavLink>
+              {item.is_default ? ' (Default)' : null}
+            </div>
         );
       });
     }
     return render;
   }
-    let variationsTitle =
-        (props.pokemonSpecies.varieties &&
-            props.pokemonSpecies.varieties.length > 1) ? (
-        <h3>Variations</h3>
+
+  let variationsTitle =
+      (props.pokemonSpecies.varieties &&
+          props.pokemonSpecies.varieties.length > 1) ? (
+          <h3>Variations</h3>
       ) : null;
-    return (
+  return (
       <div className="component--pokemon-overview">
         <h2>{normalizeName(props.pokemon.name)}</h2>
         <div className="component--pokemon-overview__sprites">
@@ -153,7 +154,7 @@ const PokemonOverview: React.FC<IProps> = (props) => {
           {renderVariations()}
         </div>
       </div>
-    );
+  );
 };
 
 export default PokemonOverview;

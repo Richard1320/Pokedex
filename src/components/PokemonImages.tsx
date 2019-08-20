@@ -16,7 +16,7 @@ interface IFile {
 
 const PokemonImages: React.FC<IProps> = (props) => {
 
-  const renderHDImage = () => {
+  function renderHDImage() {
     const images = [];
     const imageTypes = Object.keys(HDImagesData);
     imageTypes.forEach((imageType, i) => {
@@ -70,7 +70,7 @@ const PokemonImages: React.FC<IProps> = (props) => {
     }
 
     return images;
-  };
+  }
 
     return (
         <div className="component--pokemon-images">{renderHDImage()}</div>

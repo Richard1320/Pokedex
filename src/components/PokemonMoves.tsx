@@ -57,7 +57,7 @@ const PokemonMoves: React.FC<IProps> = (props) => {
         'form-change',
     ];
 
-    const getGenerations = () => {
+	function getGenerations() {
         let keys = Object.keys(genOptions);
         let options = keys
             .map(key => {
@@ -85,8 +85,9 @@ const PokemonMoves: React.FC<IProps> = (props) => {
                 {options}
             </select>
         );
-    };
-    const sortMoves = (a: IMoveConcise, b: IMoveConcise) => {
+	}
+
+	function sortMoves(a: IMoveConcise, b: IMoveConcise) {
         let sortA: string | number = a.name;
         let sortB: string | number = b.name;
 
@@ -100,8 +101,9 @@ const PokemonMoves: React.FC<IProps> = (props) => {
         if (sortA < sortB) return -1;
         if (sortA > sortB) return 1;
         return 0;
-    };
-    const getMoves = (filterVersion: string, method?: string) => {
+	}
+
+	function getMoves(filterVersion: string, method?: string) {
         // @ts-ignore
         let chosenGenVersion: string = genOptions[filterVersion];
         // Reorganize data as an array
@@ -141,8 +143,9 @@ const PokemonMoves: React.FC<IProps> = (props) => {
         moves.sort(sortMoves);
 
         return moves;
-    };
-    const renderMoves = () => {
+	}
+
+	function renderMoves() {
         let render: ReactNode[] = [];
         moveLearnMethods.forEach(method => {
             let moves = getMoves(chosenGen, method);
@@ -152,7 +155,7 @@ const PokemonMoves: React.FC<IProps> = (props) => {
             if (!moves.length) return;
 
             moves.forEach(move => {
-                let reactKey = method + '-' + move.name;
+				const reactKey = `${method}-${move.name}`;
                 movesHTML.push(
                     <div key={reactKey} className="component--pokemon-moves__item">
                         <div>{normalizeName(move.name)}</div>
@@ -170,7 +173,7 @@ const PokemonMoves: React.FC<IProps> = (props) => {
             );
         });
         return render;
-    };
+	}
     // @ts-ignore
     let chosenGenText: any = genOptions[chosenGen].join(', ');
     return (

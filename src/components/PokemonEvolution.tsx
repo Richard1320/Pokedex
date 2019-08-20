@@ -24,7 +24,7 @@ const PokemonEvolution: React.FC<IProps> = (props) => {
         }
     }, [props.pokemonSpecies.evolution_chain]);
 
-    const evolutionLoop = (chain: any, content: any[]) => {
+	function evolutionLoop(chain: any, content: any[]) {
         let name = chain.species.name;
         let key = 'evolution-' + name;
         let details = [];
@@ -92,14 +92,16 @@ const PokemonEvolution: React.FC<IProps> = (props) => {
             });
         }
         return content;
-    };
-    const renderEvolutionContent = () => {
+	}
+
+	function renderEvolutionContent() {
         let chainContent: any[] = [];
         if (data.chain) {
             chainContent = evolutionLoop(data.chain, chainContent);
         }
         return chainContent;
-    };
+	}
+
     return (
         <div className="component--pokemon-evolution">
             <h2>Pokemon Evolution</h2>

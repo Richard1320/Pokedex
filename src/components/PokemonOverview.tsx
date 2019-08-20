@@ -12,7 +12,7 @@ interface IProps {
 
 const PokemonOverview: React.FC<IProps> = (props) => {
 
-  const renderAbilities = () => {
+  function renderAbilities() {
     let abilities = [];
     if (props.pokemon.abilities) {
       abilities = props.pokemon.abilities.map((element: any) => {
@@ -26,8 +26,9 @@ const PokemonOverview: React.FC<IProps> = (props) => {
       });
     }
     return abilities;
-  };
-  const renderTypes = () => {
+  }
+
+  function renderTypes() {
     let types = [];
     if (props.pokemon.types) {
       types = props.pokemon.types.map((element: any) => {
@@ -36,16 +37,18 @@ const PokemonOverview: React.FC<IProps> = (props) => {
       });
     }
     return types;
-  };
-  const renderDescription = () => {
+  }
+
+  function renderDescription() {
     let entries = props.pokemonSpecies.flavor_text_entries;
     if (entries) {
       // Get the English entry
       let entry = entries.filter((entry: any) => entry.language.name === 'en');
       return entry[0].flavor_text;
     }
-  };
-  const renderSprites = () => {
+  }
+
+  function renderSprites() {
     let sprites: ReactNode[] = [];
     if (props.pokemon.sprites) {
       let spriteTypes = {
@@ -98,8 +101,9 @@ const PokemonOverview: React.FC<IProps> = (props) => {
       });
     }
     return sprites;
-  };
-  const renderVariations = () => {
+  }
+
+  function renderVariations() {
     let render = [];
     if (
         props.pokemonSpecies.varieties &&
@@ -121,10 +125,10 @@ const PokemonOverview: React.FC<IProps> = (props) => {
       });
     }
     return render;
-  };
+  }
     let variationsTitle =
-        props.pokemonSpecies.varieties &&
-        props.pokemonSpecies.varieties.length > 1 ? (
+        (props.pokemonSpecies.varieties &&
+            props.pokemonSpecies.varieties.length > 1) ? (
         <h3>Variations</h3>
       ) : null;
     return (

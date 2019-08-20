@@ -55,7 +55,8 @@ const PokemonEncounters: React.FC<IProps> = (props) => {
         'sun',
         'moon',
     ];
-    const getVersions = () => {
+
+    function getVersions() {
         let options = versions.map(version => {
             let encounters = getEncounters(version);
             let reactKey = 'encounter-option-' + version;
@@ -78,23 +79,9 @@ const PokemonEncounters: React.FC<IProps> = (props) => {
                 {options}
             </select>
         );
-    };
-    // const sortMoves(a, b) => {
-    //   let sortA = a.name;
-    //   let sortB = b.name;
+    }
 
-    //   // Sort by level up if available
-    //   if (a.level_learned_at && b.level_learned_at) {
-    //     sortA = a.level_learned_at;
-    //     sortB = b.level_learned_at;
-    //   }
-
-    //   // Return sort order
-    //   if (sortA < sortB) return -1;
-    //   if (sortA > sortB) return 1;
-    //   return 0;
-    // }
-    const getEncounters = (chosenVer: string) => {
+    function getEncounters(chosenVer: string) {
         // Reorganize data as an array
         let encounters: IEncounter[] = [];
         if (props.data) {
@@ -122,9 +109,10 @@ const PokemonEncounters: React.FC<IProps> = (props) => {
         // moves.sort(this.sortMoves);
 
         return encounters;
-    };
-    const renderConditions = (condition_values: any[]) => {
-        return condition_values.map((condition: any) => {
+    }
+
+    function renderConditions(conditionValues: any[]) {
+        return conditionValues.map((condition: any) => {
             let reactKey = condition.name;
             return (
                 <div
@@ -135,9 +123,10 @@ const PokemonEncounters: React.FC<IProps> = (props) => {
                 </div>
             );
         });
-    };
-    const removeDuplicateEncounterDetails = (encounter_details: IEncounterDetail[]) => {
-        encounter_details = encounter_details.filter(
+    }
+
+    function removeDuplicateEncounterDetails(encounterDetails: IEncounterDetail[]) {
+        return encounterDetails.filter(
             (obj, index, self) =>
                 index ===
                 self.findIndex(
@@ -147,13 +136,13 @@ const PokemonEncounters: React.FC<IProps> = (props) => {
                         t.method.name === obj.method.name
                 )
         );
-        return encounter_details;
-    };
-    const renderEncounterDetails = (encounter_details: IEncounterDetail[]) => {
-        encounter_details = removeDuplicateEncounterDetails(encounter_details);
-        return encounter_details.map(detail => {
+    }
+
+    function renderEncounterDetails(encounterDetails: IEncounterDetail[]) {
+        encounterDetails = removeDuplicateEncounterDetails(encounterDetails);
+        return encounterDetails.map(detail => {
             let reactKey =
-                'encounter-detail-' + detail.max_level + detail.method.name;
+                `encounter-detail-${detail.max_level}${detail.method.name}`;
             return (
                 <div
                     key={reactKey}
@@ -174,8 +163,9 @@ const PokemonEncounters: React.FC<IProps> = (props) => {
                 </div>
             );
         });
-    };
-    const renderEncounters = () => {
+    }
+
+    function renderEncounters() {
         let encounters = getEncounters(chosen);
         // Check if any encounters are available
         if (!encounters.length) {
@@ -203,7 +193,8 @@ const PokemonEncounters: React.FC<IProps> = (props) => {
                 </div>
             );
         });
-    };
+    }
+
     return (
         <div className="component--pokemon-encounters">
             <div className="component--pokemon-encounters__versions">

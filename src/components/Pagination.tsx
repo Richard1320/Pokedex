@@ -12,11 +12,12 @@ interface IProps {
 const Pagination: React.FC<IProps> = (props) => {
     const offsetDisplay = 2;
 
-    const goToPage = (targetPage: number) => {
+    function goToPage(targetPage: number): void {
         const pager = {...props.pager, page: targetPage};
         props.pagerSubmit(pager); // Send query back to parent
-    };
-    const displayLinks = (): ReactNode[] => {
+    }
+
+    function displayLinks(): ReactNode[] {
         const links = [];
         const count = props.count;
         const page = props.pager.page;
@@ -95,7 +96,7 @@ const Pagination: React.FC<IProps> = (props) => {
         /****** end build pagination links ******/
 
         return links;
-    };
+    }
 
     return <div className="component--pagination">{displayLinks()}</div>;
 

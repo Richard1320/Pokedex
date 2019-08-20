@@ -10,13 +10,14 @@ interface IProps {
 }
 
 const SearchResults: React.FC<IProps> = (props) => {
-    const filterSearch = (element: any) => {
+    function filterSearch(element: any) {
         let search = props.searchText.toLowerCase();
         let name = normalizeName(element.name).toLowerCase();
 
         return name.indexOf(search) !== -1;
-    };
-    const renderRows = () => {
+    }
+
+    function renderRows() {
         let rows: ReactNode[] = [];
 
         if (props.searchText && pokemonData.results && itemsData.results) {
@@ -71,7 +72,8 @@ const SearchResults: React.FC<IProps> = (props) => {
         }
 
         return rows;
-    };
+    }
+
     return (
         <div className="component--search-results">
             <div className="component--search-results__table">

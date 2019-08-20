@@ -5,7 +5,7 @@ import itemCategoryData from '../assets/data/api/v2/item-category/index.json';
 import {normalizeName} from '../Helpers';
 
 const ItemCategorySubnav: React.FC = () => {
-    const renderRows = () => {
+	function renderRows() {
         //making the rows to display
         let rows: ReactNode[] = [];
         const data = itemCategoryData.results;
@@ -25,7 +25,7 @@ const ItemCategorySubnav: React.FC = () => {
             });
         }
         return rows;
-    };
+	}
 
     return (
         <div className="component--item-category-subnav">{renderRows()}</div>

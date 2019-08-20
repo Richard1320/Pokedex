@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const ItemList: React.FC<IProps> = (props) => {
-    const renderRows = () => {
+    function renderRows() {
     //making the rows to display
     let rows = [];
         let data = props.data.items;
@@ -33,7 +33,7 @@ const ItemList: React.FC<IProps> = (props) => {
     }
 
     return rows;
-    };
+    }
 
     return (
       <div className="component--item-list">

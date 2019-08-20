@@ -25,7 +25,7 @@ const PokemonList: React.FC<IProps> = (props) => {
         // eslint-disable-next-line
     }, [props.match.params.id]);
 
-    const renderRows = () => {
+    function renderRows() {
         //making the rows to display
         let rows: ReactNode[] = [];
         let data = props.data.pokemon_entries;
@@ -64,7 +64,7 @@ const PokemonList: React.FC<IProps> = (props) => {
         }
 
         return rows;
-    };
+    }
 
     return (
         <div className="component--pokemon-list">

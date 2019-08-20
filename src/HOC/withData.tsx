@@ -20,18 +20,19 @@ export default function withData(WrappedComponent: React.FC<any>, jsonFile: stri
             // eslint-disable-next-line
         }, [props.match.params]);
 
-        const fetchDataCallback = (response: AxiosResponse) => {
+        function fetchDataCallback(response: AxiosResponse) {
             // Merge JSON with existing data
             const newData = Object.assign(data, response.data);
 
             setData(newData);
-        };
-        const fetchData = (routeParams: object) => {
+        }
+
+        function fetchData(routeParams: object) {
             // Loop through array of JSON files
             let dataPath = routePattern.stringify(routeParams);
             if (!dataPath) return;
             axios.get(dataPath).then(fetchDataCallback);
-        };
+        }
 
         // ... and renders the wrapped component with the fresh data!
         // Notice that we pass through any additional props

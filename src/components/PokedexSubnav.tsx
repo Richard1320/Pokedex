@@ -5,7 +5,7 @@ import pokedexData from '../assets/data/api/v2/pokedex/index.json';
 import {normalizeName} from '../Helpers';
 
 const PokedexSubnav: React.FC = () => {
-    const renderRows = (): ReactNode[] => {
+	function renderRows(): ReactNode[] {
         //making the rows to display
         const rows: ReactNode[] = [];
         const data = pokedexData.results;
@@ -22,7 +22,7 @@ const PokedexSubnav: React.FC = () => {
             });
         }
         return rows;
-    };
+	}
 
     return <div className="component--pokedex-subnav">{renderRows()}</div>;
 

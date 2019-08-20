@@ -26,17 +26,17 @@ const Pokemon: React.FC<IProps> = (props) => {
         axios.get(path).then(pokemonDataCallback);
     }, [props.match.params.id]);
 
-    const pokemonDataCallback = (response: AxiosResponse) => {
+    function pokemonDataCallback(response: AxiosResponse) {
         setPokemon(response.data);
         let pokemonSpeciesID = parseInt(
             response.data.species.url.replace('/api/v2/pokemon-species/', '')
         );
         let path =
-            '/assets/data/api/v2/pokemon-species/' + pokemonSpeciesID + '/index.json';
+            `/assets/data/api/v2/pokemon-species/${pokemonSpeciesID}/index.json`;
         axios.get(path).then((speciesResponse: AxiosResponse) => {
             setPokemonSpecies(speciesResponse.data);
         });
-    };
+    }
 
     return (
         <div className="component--pokemon">
@@ -51,16 +51,6 @@ const Pokemon: React.FC<IProps> = (props) => {
                     />
                 )}
             />
-            {/* <Route
-          path="/pokemon/:id/images"
-          render={() => (
-            <PokemonImages
-              {...props}
-              pokemon={pokemon}
-              pokemonSpecies={pokemonSpecies}
-            />
-          )}
-        /> */}
             <Route
                 path="/pokemon/:id/stats"
                 render={() => (

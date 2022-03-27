@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
+services:
+  website:
+    container_name: pokedex-website-prod
+    labels:
+      - traefik.http.routers.pokedex-website.rule=Host(`pokedex.magicmediamuse.com`)
+      - traefik.http.routers.pokedex-website.tls=true
+      - traefik.http.routers.pokedex-website.tls.certresolver=lets-encrypt
+      - traefik.port=80
+    networks:
+      - internal
+      - web
+    build: Dockerfile
+    image: pokedex/website

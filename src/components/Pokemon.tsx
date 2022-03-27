@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Routes, Route, useMatch} from 'react-router-dom';
-import axios, {AxiosResponse} from 'axios';
+import {Routes, Route, useParams} from 'react-router-dom';
+import axios from 'axios';
 
 import PokemonOverview from './PokemonOverview';
 import PokemonStats from './PokemonStats';
@@ -9,51 +9,48 @@ import PokemonEvolution from './PokemonEvolution';
 import PokemonEncounters from './PokemonEncounters';
 
 const Pokemon: React.FC = () => {
-    const match = useMatch("pokemon/:id");
-    const [pokemon, setPokemon] = useState({});
-    const [pokemonSpecies, setPokemonSpecies] = useState({});
+    const {pokemonId} = useParams();
+    const [pokemon, setPokemon] = useState<any>({});
+    const [pokemonSpecies, setPokemonSpecies] = useState<any>({});
 
     useEffect(() => {
-        if (match) {
-            const nextPokemonID = match.params.id;
-            const path = '/assets/data/api/v2/pokemon/' + nextPokemonID + '/index.json';
-            axios.get(path).then(pokemonDataCallback);
+        if (pokemonId) {
+            fetchData().then();
         }
-    }, [match?.params.id]);
+    }, [pokemonId]);
 
-    function pokemonDataCallback(response: AxiosResponse) {
-        setPokemon(response.data);
-        let pokemonSpeciesID = parseInt(
-            response.data.species.url.replace('/api/v2/pokemon-species/', '')
-        );
+    async function fetchData(): Promise<void> {
+        const pathPokemon = `/assets/data/api/v2/pokemon/${pokemonId}/index.json`;
+        const responsePokemon = await axios.get(pathPokemon);
+        const pokemonSpeciesID = parseInt(responsePokemon.data.species.url.replace('/api/v2/pokemon-species/', ''));
         let path = `/assets/data/api/v2/pokemon-species/${pokemonSpeciesID}/index.json`;
-        axios.get(path).then((speciesResponse: AxiosResponse) => {
-            setPokemonSpecies(speciesResponse.data);
-        });
+        const responseSpecies = await axios.get(path);
+        setPokemon(responsePokemon.data);
+        setPokemonSpecies(responseSpecies.data);
     }
 
     return (
         <div className="component--pokemon">
             <Routes>
                 <Route
-                    path="/pokemon/:id"
-                    element={<PokemonOverview pokemon={pokemon} pokemonSpecies={pokemonSpecies}/>}
-                />
-                <Route
-                    path="/pokemon/:id/stats"
+                    path="stats"
                     element={<PokemonStats pokemon={pokemon} pokemonSpecies={pokemonSpecies}/>}
                 />
                 <Route
-                    path="/pokemon/:id/moves"
+                    path="moves"
                     element={<PokemonMoves pokemon={pokemon} pokemonSpecies={pokemonSpecies}/>}
                 />
                 <Route
-                    path="/pokemon/:id/evolution"
+                    path="evolution"
                     element={<PokemonEvolution pokemon={pokemon} pokemonSpecies={pokemonSpecies}/>}
                 />
                 <Route
-                    path="/pokemon/:id/encounters"
+                    path="encounters"
                     element={<PokemonEncounters pokemon={pokemon} pokemonSpecies={pokemonSpecies}/>}
+                />
+                <Route
+                    path="*"
+                    element={<PokemonOverview pokemon={pokemon} pokemonSpecies={pokemonSpecies}/>}
                 />
             </Routes>
         </div>

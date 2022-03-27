@@ -42,25 +42,25 @@ const Pokedex: React.FC = () => {
                     <Route path="/" element={<PokedexInstructions/>}/>
                     <Route path="/pokedex">
                         <Route path="" element={<PokedexSubnav/>}/>
-                        <Route path=":id" element={<PokedexSubnav/>}/>
+                        <Route path=":pokedexId" element={<PokedexSubnav/>}/>
                     </Route>
-                    <Route path="/pokemon/:id" element={<PokemonSubnav/>}/>
+                    <Route path="/pokemon/:pokemonId/*" element={<PokemonSubnav/>}/>
                     <Route path="/item">
                         <Route path="" element={<ItemCategorySubnav/>}/>
-                        <Route path=":id" element={<ItemCategorySubnav/>}/>
+                        <Route path=":itemCategoryId" element={<ItemCategorySubnav/>}/>
                     </Route>
                     <Route path="/item-category">
                         <Route path="" element={<ItemCategorySubnav/>}/>
-                        <Route path=":id" element={<ItemCategorySubnav/>}/>
+                        <Route path=":itemCategoryId" element={<ItemCategorySubnav/>}/>
                     </Route>
                 </Routes>
             </div>
             <div className="component--pokedex__panel-right">
                 <Routes>
-                    <Route path="/pokedex/:id" element={<PokemonList/>}/>
-                    <Route path="/pokemon/:id" element={<Pokemon/>}/>
-                    <Route path="/item-category/:id" element={<ItemList/>}/>
-                    <Route path="/item/:id" element={<Item/>}/>
+                    <Route path="/pokedex/:pokedexId" element={<PokemonList/>}/>
+                    <Route path="/pokemon/:pokemonId/*" element={<Pokemon/>}/>
+                    <Route path="/item-category/:itemCategoryId" element={<ItemList/>}/>
+                    <Route path="/item/:itemId" element={<Item/>}/>
                     <Route path="/search" element={<SearchResults searchText={search}/>}/>
                 </Routes>
             </div>

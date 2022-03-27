@@ -1,5 +1,22 @@
 import React from 'react';
+import {
+	Chart as ChartJS,
+	RadialLinearScale,
+	PointElement,
+	LineElement,
+	Filler,
+	Tooltip,
+	ChartData, ChartOptions,
+} from 'chart.js';
 import {Radar} from 'react-chartjs-2';
+
+ChartJS.register(
+	RadialLinearScale,
+	PointElement,
+	LineElement,
+	Filler,
+	Tooltip,
+);
 
 interface IProps {
 	pokemon: any;
@@ -8,39 +25,37 @@ interface IProps {
 
 const PokemonStats: React.FC<IProps> = (props) => {
 	const labels: string[] = [];
-	const stats: string[] = [];
+	const stats: number[] = [];
 	if (props.pokemon.stats) {
 		props.pokemon.stats.forEach((stat: any) => {
 			labels.push(stat.stat.name);
 			stats.push(stat.base_stat);
 		});
 	}
-	const chartData = {
+	const data: ChartData<"radar", number[], string> = {
 		labels: labels,
 		datasets: [
 			{
-				label: 'Stat',
+				// label: props.pokemon.name,
 				data: stats,
+				backgroundColor: 'rgba(99,120,255,0.2)',
+				borderColor: 'rgb(99,120,255)',
+				borderWidth: 1,
 			},
 		],
 	};
-	const options = {
-		legend: {
-			display: false,
-		},
-		scale: {
-			ticks: {
-				beginAtZero: true,
-			},
-		},
-		layout: {
-			padding: 20,
-		},
+	const options: ChartOptions<"radar"> = {
+		scales: {
+			r: {
+				suggestedMin: 0,
+			}
+		}
 	};
+
 
 	return (
 		<div className="component--pokemon-stats">
-			<Radar data={chartData} options={options} height={250}/>
+			<Radar data={data} options={options}/>
 		</div>
 	);
 

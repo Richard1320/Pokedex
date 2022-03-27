@@ -12,9 +12,7 @@ const PokemonSubnav: React.FC = () => {
     return (
         <div className="component--pokemon-subnav">
             <div className="component--pokemon-subnav__item">
-                <NavLink to={overviewURL}>
-                    Overview
-                </NavLink>
+                <NavLink to={overviewURL} end>Overview</NavLink>
             </div>
             {/*<div className="component--pokemon-subnav__item">*/}
             {/*    <NavLink to={imagesURL}>Images</NavLink>*/}

@@ -5,14 +5,14 @@ import Pokedex from './components/Pokedex';
 import Credit from './components/Credit';
 import './scss/app.scss';
 
-const App: React.FC = (props) => {
+const App: React.FC = () => {
     return (
-      <HashRouter>
-        <div className="component--app">
-            <Pokedex {...props} />
-          <Credit />
-        </div>
-      </HashRouter>
+        <HashRouter>
+            <div className="component--app">
+                <Pokedex/>
+                <Credit/>
+            </div>
+        </HashRouter>
     );
 };
 

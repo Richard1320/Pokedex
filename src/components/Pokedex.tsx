@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {withRouter, Route, NavLink, RouteComponentProps} from 'react-router-dom';
+import {useLocation, Routes, Route, NavLink} from 'react-router-dom';
 import PokedexInstructions from './PokedexInstructions';
 import PokedexSubnav from './PokedexSubnav';
 import PokemonList from './PokemonList';
@@ -11,67 +11,66 @@ import Item from './Item';
 import SearchInput from './SearchInput';
 import SearchResults from './SearchResults';
 
-interface IProps extends RouteComponentProps {
-}
+const Pokedex: React.FC = () => {
+    const location = useLocation();
+    const [search, setSearch] = useState("");
+    const wrapperClass = ['component--pokedex'];
+    const routeArray = location.pathname.split('/').map((element: any) => {
+        return isNaN(element) ? element : '';
+    });
+    wrapperClass.push('route-' + routeArray.join('-'));
+    if (search) wrapperClass.push('has-search-results');
 
-const Pokedex: React.FC<IProps> = (props) => {
-	const [search, setSearch] = useState("");
-	const wrapperClass = ['component--pokedex'];
-	const routeArray = props.location.pathname.split('/').map((element: any) => {
-		return isNaN(element) ? element : '';
-	});
-	wrapperClass.push('route-' + routeArray.join('-'));
-	if (search) wrapperClass.push('has-search-results');
-
-	return (
-		<div className={wrapperClass.join(' ')}>
-			<div className="component--pokedex__menu">
-				<NavLink to="/pokedex">
-					<span className="btn--red"/>
-					Pokedex
-				</NavLink>
-				<NavLink to="/item-category">
-					<span className="btn--blue"/>
-					Items
-				</NavLink>
-				<NavLink to="/search">
-					<span className="btn--green"/>
-					Search
-				</NavLink>
-			</div>
-			<div className="component--pokedex__panel-left">
-				<Route exact path="/" component={PokedexInstructions}/>
-				<Route path="/pokedex/:id?" component={PokedexSubnav}/>
-				<Route path="/pokemon/:id" component={PokemonSubnav}/>
-				<Route path="/item/:id?" component={ItemCategorySubnav}/>
-				<Route path="/item-category/:id?" component={ItemCategorySubnav}/>
-			</div>
-			<div className="component--pokedex__panel-right">
-				<Route path="/pokedex/:id" component={PokemonList}/>
-				<Route path="/pokemon/:id" component={Pokemon}/>
-				<Route path="/item-category/:id" component={ItemList}/>
-				<Route path="/item/:id" component={Item}/>
-				<Route
-					path="/search"
-					render={props => (
-						<SearchResults {...props} searchText={search}/>
-					)}
-				/>
-			</div>
-			<div className="component--pokedex__input">
-				<Route
-					path="/search"
-					render={props => (
-						<SearchInput
-							{...props}
-							searchText={search}
-							searchSubmit={setSearch}
-						/>
-					)}
-				/>
-			</div>
-		</div>
-	);
+    return (
+        <div className={wrapperClass.join(' ')}>
+            <div className="component--pokedex__menu">
+                <NavLink to="/pokedex">
+                    <span className="btn--red"/>
+                    Pokedex
+                </NavLink>
+                <NavLink to="/item-category">
+                    <span className="btn--blue"/>
+                    Items
+                </NavLink>
+                <NavLink to="/search">
+                    <span className="btn--green"/>
+                    Search
+                </NavLink>
+            </div>
+            <div className="component--pokedex__panel-left">
+                <Routes>
+                    <Route path="/" element={<PokedexInstructions/>}/>
+                    <Route path="/pokedex">
+                        <Route path="" element={<PokedexSubnav/>}/>
+                        <Route path=":id" element={<PokedexSubnav/>}/>
+                    </Route>
+                    <Route path="/pokemon/:id" element={<PokemonSubnav/>}/>
+                    <Route path="/item">
+                        <Route path="" element={<ItemCategorySubnav/>}/>
+                        <Route path=":id" element={<ItemCategorySubnav/>}/>
+                    </Route>
+                    <Route path="/item-category">
+                        <Route path="" element={<ItemCategorySubnav/>}/>
+                        <Route path=":id" element={<ItemCategorySubnav/>}/>
+                    </Route>
+                </Routes>
+            </div>
+            <div className="component--pokedex__panel-right">
+                <Routes>
+                    <Route path="/pokedex/:id" element={<PokemonList/>}/>
+                    <Route path="/pokemon/:id" element={<Pokemon/>}/>
+                    <Route path="/item-category/:id" element={<ItemList/>}/>
+                    <Route path="/item/:id" element={<Item/>}/>
+                    <Route path="/search" element={<SearchResults searchText={search}/>}/>
+                </Routes>
+            </div>
+            <div className="component--pokedex__input">
+                <Routes>
+                    <Route path="/search" element={<SearchInput searchText={search} searchSubmit={setSearch}/>}/>
+                </Routes>
+            </div>
+        </div>
+    );
 };
 
-export default withRouter(Pokedex);
+export default Pokedex;

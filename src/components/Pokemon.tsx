@@ -10,8 +10,8 @@ import PokemonEncounters from './PokemonEncounters';
 
 const Pokemon: React.FC = () => {
     const {pokemonId} = useParams();
-    const [pokemon, setPokemon] = useState<any>({});
-    const [pokemonSpecies, setPokemonSpecies] = useState<any>({});
+    const [pokemon, setPokemon] = useState<any>();
+    const [pokemonSpecies, setPokemonSpecies] = useState<any>();
 
     useEffect(() => {
         if (pokemonId) {
@@ -22,11 +22,16 @@ const Pokemon: React.FC = () => {
     async function fetchData(): Promise<void> {
         const pathPokemon = `/assets/data/api/v2/pokemon/${pokemonId}/index.json`;
         const responsePokemon = await axios.get(pathPokemon);
-        const pokemonSpeciesID = parseInt(responsePokemon.data.species.url.replace('/api/v2/pokemon-species/', ''));
-        let path = `/assets/data/api/v2/pokemon-species/${pokemonSpeciesID}/index.json`;
-        const responseSpecies = await axios.get(path);
         setPokemon(responsePokemon.data);
+
+        const pokemonSpeciesID = parseInt(responsePokemon.data.species.url.replace('/api/v2/pokemon-species/', ''));
+        const pathSpecies = `/assets/data/api/v2/pokemon-species/${pokemonSpeciesID}/index.json`;
+        const responseSpecies = await axios.get(pathSpecies);
         setPokemonSpecies(responseSpecies.data);
+    }
+
+    if (!pokemon || !pokemonSpecies) {
+        return null;
     }
 
     return (

@@ -1,16 +1,29 @@
-import React, {ReactNode} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
-
-import pokedexData from '../assets/data/api/v2/pokedex/index.json';
 import {normalizeName} from '../Helpers';
+import axios from "axios";
 
 const PokedexSubnav: React.FC = () => {
-	function renderRows(): ReactNode[] {
+	const [pokedexData, setPokedexData] = useState<any>();
+
+	useEffect(() => {
+		fetchData().then();
+	}, []);
+
+	async function fetchData(): Promise<void> {
+		const pathPokedex = "/assets/data/api/v2/pokedex/index.json";
+		const responsePokedex = await axios.get(pathPokedex);
+		setPokedexData(responsePokedex.data);
+	}
+
+	function renderRows(): JSX.Element[] {
+		if (!pokedexData) return [];
+
 		//making the rows to display
-		const rows: ReactNode[] = [];
+		const rows: JSX.Element[] = [];
 		const data = pokedexData.results;
 		if (data) {
-			data.forEach((element, index) => {
+			data.forEach((element: any, index: number) => {
 				let url = element.url;
 				url = url.replace('api/v2/', '');
 

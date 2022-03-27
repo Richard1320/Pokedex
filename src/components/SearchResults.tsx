@@ -1,15 +1,30 @@
-import React, {ReactNode} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
-
-import pokemonData from '../assets/data/api/v2/pokemon/index.json';
-import itemsData from '../assets/data/api/v2/item/index.json';
 import {normalizeName} from '../Helpers';
+import axios from "axios";
 
 interface IProps {
     searchText: string;
 }
 
 const SearchResults: React.FC<IProps> = (props) => {
+    const [pokemonData, setPokemonData] = useState<any>();
+    const [itemsData, setItemsData] = useState<any>();
+
+    useEffect(() => {
+        fetchData().then();
+    }, []);
+
+    async function fetchData(): Promise<void> {
+        const pathPokemon = "/assets/data/api/v2/pokemon/index.json";
+        const responsePokemon = await axios.get(pathPokemon);
+        setPokemonData(responsePokemon.data);
+
+        const pathItems = "/assets/data/api/v2/item/index.json";
+        const responseItems = await axios.get(pathItems);
+        setItemsData(responseItems.data);
+    }
+
     function filterSearch(element: any) {
         let search = props.searchText.toLowerCase();
         let name = normalizeName(element.name).toLowerCase();
@@ -17,8 +32,8 @@ const SearchResults: React.FC<IProps> = (props) => {
         return name.indexOf(search) !== -1;
     }
 
-    function renderRows() {
-        let rows: ReactNode[] = [];
+    function renderRows(): JSX.Element[] {
+        const rows: JSX.Element[] = [];
 
         if (props.searchText && pokemonData.results && itemsData.results) {
             pokemonData.results.forEach((item: any) => {

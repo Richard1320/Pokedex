@@ -1,35 +1,44 @@
-import React, {ReactNode} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
-
-import itemCategoryData from '../assets/data/api/v2/item-category/index.json';
 import {normalizeName} from '../Helpers';
+import axios from "axios";
 
 const ItemCategorySubnav: React.FC = () => {
-	function renderRows() {
-		//making the rows to display
-		let rows: ReactNode[] = [];
-		const data = itemCategoryData.results;
-		if (data) {
-			rows = data.map((element: any) => {
-				let url = element.url;
-				url = url.replace('api/v2/', '');
+    const [itemCategoryData, setItemCategoryData] = useState<any>();
 
-				return (
-					<div
-						key={element.name}
-						className="component--item-category-subnav__item"
-					>
-						<NavLink to={url}>{normalizeName(element.name)}</NavLink>
-					</div>
-				);
-			});
-		}
-		return rows;
-	}
+    useEffect(() => {
+        fetchData().then();
+    }, []);
 
-	return (
-		<div className="component--item-category-subnav">{renderRows()}</div>
-	);
+    async function fetchData(): Promise<void> {
+        const pathItemCategory = "/assets/data/api/v2/item-category/index.json";
+        const responseItemCategory = await axios.get(pathItemCategory);
+        setItemCategoryData(responseItemCategory.data);
+    }
+
+    function renderRows(): JSX.Element[] {
+        if (!itemCategoryData || !itemCategoryData.results) return [];
+
+        //making the rows to display
+        return itemCategoryData.results.map((element: any) => {
+            let url = element.url;
+            url = url.replace('api/v2/', '');
+
+            return (
+                <div
+                    key={element.name}
+                    className="component--item-category-subnav__item"
+                >
+                    <NavLink to={url}>{normalizeName(element.name)}</NavLink>
+                </div>
+            );
+        });
+
+    }
+
+    return (
+        <div className="component--item-category-subnav">{renderRows()}</div>
+    );
 };
 
 export default ItemCategorySubnav;

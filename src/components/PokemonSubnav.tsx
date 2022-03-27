@@ -1,14 +1,14 @@
 import React from 'react';
-import {NavLink, useMatch} from 'react-router-dom';
+import {NavLink, useParams} from 'react-router-dom';
 
 const PokemonSubnav: React.FC = () => {
-    const match = useMatch("pokedex/:id");
-    const overviewURL = (match) ? '/pokemon/' + match.params.id : "";
-    // const imagesURL = (match) ? '/pokemon/' + match.params.id + '/images' : ";
-    const statsURL = (match) ? '/pokemon/' + match.params.id + '/stats' : "";
-    const movesURL = (match) ? '/pokemon/' + match.params.id + '/moves' : "";
-    const evolutionURL = (match) ? '/pokemon/' + match.params.id + '/evolution' : "";
-    const encountersURL = (match) ? '/pokemon/' + match.params.id + '/encounters' : "";
+    const {pokemonId} = useParams();
+    const overviewURL = (pokemonId) ? `/pokemon/${pokemonId}` : "";
+    // const imagesURL = (pokemonId) ? `/pokemon/${pokemonId}/images` : ";
+    const statsURL = (pokemonId) ? `/pokemon/${pokemonId}/stats` : "";
+    const movesURL = (pokemonId) ? `/pokemon/${pokemonId}/moves` : "";
+    const evolutionURL = (pokemonId) ? `/pokemon/${pokemonId}/evolution` : "";
+    const encountersURL = (pokemonId) ? `/pokemon/${pokemonId}/encounters` : "";
     return (
         <div className="component--pokemon-subnav">
             <div className="component--pokemon-subnav__item">

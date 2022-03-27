@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-import withData from '../HOC/withData';
 import {normalizeName} from '../Helpers';
+import {useParams} from "react-router-dom";
+import axios from "axios";
 
 interface IProps {
     pokemon: any;
     pokemonSpecies: any;
-    data: any;
 }
 
 interface IEncounterDetail {
@@ -22,39 +22,55 @@ interface IEncounter {
     name: string;
 }
 
-const PokemonEncounters: React.FC<IProps> = (props) => {
-    const [chosen, setChosen] = useState("red");
-    const versions = [
-        // /api/v2/version/
-        'red',
-        'blue',
-        'yellow',
-        'gold',
-        'silver',
-        'crystal',
-        'ruby',
-        'sapphire',
-        'emerald',
-        'firered',
-        'leafgreen',
-        'diamond',
-        'pearl',
-        'platinum',
-        'heartgold',
-        'soulsilver',
-        'black',
-        'white',
-        'colosseum',
-        'xd',
-        'black-2',
-        'white-2',
-        'x',
-        'y',
-        'omega-ruby',
-        'alpha-sapphire',
-        'sun',
-        'moon',
-    ];
+const versions = [
+    // /api/v2/version/
+    'red',
+    'blue',
+    'yellow',
+    'gold',
+    'silver',
+    'crystal',
+    'ruby',
+    'sapphire',
+    'emerald',
+    'firered',
+    'leafgreen',
+    'diamond',
+    'pearl',
+    'platinum',
+    'heartgold',
+    'soulsilver',
+    'black',
+    'white',
+    'colosseum',
+    'xd',
+    'black-2',
+    'white-2',
+    'x',
+    'y',
+    'omega-ruby',
+    'alpha-sapphire',
+    'sun',
+    'moon',
+];
+
+
+const PokemonEncounters: React.FC<IProps> = (props: IProps) => {
+    const {pokemonId} = useParams();
+    const [data, setData] = useState<any>();
+    const [chosen, setChosen] = useState<string>("red");
+
+    useEffect(() => {
+        fetchData().then();
+    }, [pokemonId]);
+
+    async function fetchData(): Promise<void> {
+        if (pokemonId) {
+            const path = `/assets/data/api/v2/pokemon/${pokemonId}/encounters/index.json`;
+            const response = await axios.get(path);
+            setData(response.data);
+        }
+    }
 
     function getVersions() {
         let options = versions.map(version => {
@@ -81,30 +97,29 @@ const PokemonEncounters: React.FC<IProps> = (props) => {
         );
     }
 
-    function getEncounters(chosenVer: string) {
+    function getEncounters(chosenVer: string): IEncounter[] {
+        if (!data) return [];
         // Reorganize data as an array
         let encounters: IEncounter[] = [];
-        if (props.data) {
-            let dataKeys = Object.keys(props.data);
-            // Loop through all available moves
-            dataKeys.forEach(dataKey => {
-                let item = props.data[dataKey];
+        let dataKeys = Object.keys(data);
+        // Loop through all available moves
+        dataKeys.forEach(dataKey => {
+            let item = data[dataKey];
 
-                // Get game versions that this pokemon can be encountered in
-                let versions = item.version_details;
-                // Loop through game versions for move
-                for (let itemVersion of versions) {
-                    // Check if chosen version can encounter pokemon at this location
-                    if (itemVersion.version.name === chosenVer) {
-                        encounters.push({
-                            encounter_details: itemVersion.encounter_details,
-                            name: item.location_area.name,
-                        });
-                        break;
-                    }
+            // Get game versions that this pokemon can be encountered in
+            let versions = item.version_details;
+            // Loop through game versions for move
+            for (let itemVersion of versions) {
+                // Check if chosen version can encounter pokemon at this location
+                if (itemVersion.version.name === chosenVer) {
+                    encounters.push({
+                        encounter_details: itemVersion.encounter_details,
+                        name: item.location_area.name,
+                    });
+                    break;
                 }
-            });
-        }
+            }
+        });
         // Sort moves by level up or alphabetical
         // moves.sort(this.sortMoves);
 
@@ -210,7 +225,5 @@ const PokemonEncounters: React.FC<IProps> = (props) => {
     );
 
 };
-const path = '/assets/data/api/v2/pokemon/:id/encounters/index.json';
-let WrappedComponent = withData(PokemonEncounters, path);
 
-export default WrappedComponent;
+export default PokemonEncounters;

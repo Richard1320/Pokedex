@@ -5,7 +5,6 @@ import {normalizeName} from '../Helpers';
 interface IProps {
 	pokemon: any;
 	pokemonSpecies: any;
-	data?: any;
 }
 
 interface IMoveVersionGroupDetail {

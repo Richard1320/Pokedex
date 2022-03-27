@@ -4,7 +4,6 @@ import {Radar} from 'react-chartjs-2';
 interface IProps {
 	pokemon: any;
 	pokemonSpecies: any;
-	data?: any;
 }
 
 const PokemonStats: React.FC<IProps> = (props) => {

@@ -7,7 +7,6 @@ import {normalizeName} from '../Helpers';
 interface IProps {
   pokemon: any;
   pokemonSpecies: any;
-  data?: any;
 }
 
 const PokemonOverview: React.FC<IProps> = (props) => {

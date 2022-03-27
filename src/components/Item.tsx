@@ -1,32 +1,30 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
-
-import withData from '../HOC/withData';
+import React, {useEffect, useState} from 'react';
+import {NavLink, useParams} from 'react-router-dom';
 import {normalizeName} from '../Helpers';
+import axios from "axios";
 
-interface IProps {
-    data: any;
-}
+const Item: React.FC = () => {
+    const {itemId} = useParams();
+    const [data, setData] = useState<any>();
 
-const Item: React.FC<IProps> = (props) => {
-    // renderAttributes() {
-    //   let render = props.data.attributes.map(attribute => {
-    //     return (
-    //       <div key={attribute.name} className="component--item__attributes__item">
-    //         {normalizeName(attribute.name)}
-    //       </div>
-    //     );
-    //   });
-    //   return render;
-    // }
-    if (!props.data.name) return null;
-    let name = props.data.name;
-    let image = '/assets/images/sprites/items/' + name + '.png';
-    let category = props.data.category;
-    let categoryID = parseInt(
-        category.url.replace('/api/v2/item-category/', '')
-    );
-    let categoryURL = '/item-category/' + categoryID;
+    useEffect(() => {
+        fetchData().then();
+    }, [itemId]);
+
+    async function fetchData(): Promise<void> {
+        if (itemId) {
+            const path = `/assets/data/api/v2/item/${itemId}/index.json`;
+            const response = await axios.get(path);
+            setData(response.data);
+        }
+    }
+
+    if (!data || !data.name) return null;
+    const name = data.name;
+    const image = '/assets/images/sprites/items/' + name + '.png';
+    const category = data.category;
+    const categoryID = parseInt(category.url.replace('/api/v2/item-category/', ''));
+    const categoryURL = '/item-category/' + categoryID;
 
     return (
         <div className="component--item">
@@ -38,17 +36,11 @@ const Item: React.FC<IProps> = (props) => {
                 <img src={image} alt={name} title={name}/>
             </div>
             <div className="component--item__effect">
-                {props.data.effect_entries[0].effect}
+                {data.effect_entries[0].effect}
             </div>
-            {/* <div className="component--item__attributes">
-          {this.renderAttributes()}
-        </div> */}
         </div>
     );
 
 };
 
-const path = '/assets/data/api/v2/item/:id/index.json';
-const WrappedComponent = withData(Item, path);
-
-export default WrappedComponent;
+export default Item;

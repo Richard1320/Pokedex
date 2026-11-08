@@ -1,4 +1,4 @@
-FROM node:16.14.2-alpine as builder
+FROM node:22.14.0-alpine as builder
 
 # Create "global" directory for node modules
 RUN mkdir -p /usr/src/node_modules

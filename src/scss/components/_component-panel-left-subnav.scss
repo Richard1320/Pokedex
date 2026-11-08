@@ -1,3 +1,5 @@
+@use "../helpers/variables";
+
 .component--item-category-subnav,
 .component--pokedex-subnav,
 .component--pokemon-subnav {
@@ -10,7 +12,7 @@
       &:hover,
       &.active {
         color: #fff;
-        background-color: $colorDodgerBlue;
+        background-color: variables.$colorDodgerBlue;
       }
     }
   }

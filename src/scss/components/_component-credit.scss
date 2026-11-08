@@ -1,17 +1,20 @@
+@use "../helpers/mixins";
+@use "../helpers/variables";
+
 .component--credit {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $colorRedRibbon;
+  background-color: variables.$colorRedRibbon;
   padding: 1rem;
-  color: $colorWhite;
+  color: variables.$colorWhite;
   font-size: 1.2rem;
   text-align: center;
   z-index: 5;
-  border-top: 1px solid $colorWhite;
+  border-top: 1px solid variables.$colorWhite;
 
-  @include MQ(M) {
+  @include mixins.MQ(M) {
     position: relative;
     left: auto;
     right: auto;

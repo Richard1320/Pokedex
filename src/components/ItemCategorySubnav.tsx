@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {normalizeName} from '../Helpers';
-import axios from "axios";
+import {fetchJSON} from '../fetchJSON';
 
 const ItemCategorySubnav: React.FC = () => {
     const [itemCategoryData, setItemCategoryData] = useState<any>();
@@ -12,11 +12,11 @@ const ItemCategorySubnav: React.FC = () => {
 
     async function fetchData(): Promise<void> {
         const pathItemCategory = "/assets/data/api/v2/item-category/index.json";
-        const responseItemCategory = await axios.get(pathItemCategory);
-        setItemCategoryData(responseItemCategory.data);
+        const responseItemCategory = await fetchJSON(pathItemCategory);
+        setItemCategoryData(responseItemCategory);
     }
 
-    function renderRows(): JSX.Element[] {
+    function renderRows(): React.JSX.Element[] {
         if (!itemCategoryData || !itemCategoryData.results) return [];
 
         //making the rows to display

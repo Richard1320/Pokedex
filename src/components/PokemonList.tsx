@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {NavLink, useParams} from 'react-router-dom';
 import Pagination from './Pagination';
 import {normalizeName} from '../Helpers';
-import axios from "axios";
+import {fetchJSON} from '../fetchJSON';
 
 const PokemonList: React.FC = () => {
     const {pokedexId} = useParams();
@@ -18,12 +18,12 @@ const PokemonList: React.FC = () => {
     async function fetchData(): Promise<void> {
         if (pokedexId) {
             const path = `/assets/data/api/v2/pokedex/${pokedexId}/index.json`;
-            const response = await axios.get(path);
-            setData(response.data);
+            const response = await fetchJSON(path);
+            setData(response);
         }
     }
 
-    function renderRows(): JSX.Element[] {
+    function renderRows(): React.JSX.Element[] {
         if (!data || !data.pokemon_entries) return [];
 
         //making the rows to display

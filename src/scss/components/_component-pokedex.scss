@@ -1,19 +1,24 @@
+@use "sass:math";
+
+@use "../helpers/mixins";
+@use "../helpers/variables";
+
 .component--pokedex {
-  background-image: url("/assets/svgs/pokedex-landscape.svg");
+  background-image: url("../../assets/svgs/pokedex-landscape.svg");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   position: relative;
-  max-width: 220/150*95vh;
+  max-width: math.div(220, 150)*95vh;
   height: 95vh;
-  max-height: 150/221*100vw;
+  max-height: math.div(150, 221)*100vw;
   margin: 0 auto;
 
-  @include MQ(M) {
-    background-image: url("/assets/svgs/pokedex-portrait.svg");
+  @include mixins.MQ(M) {
+    background-image: url("../../assets/svgs/pokedex-portrait.svg");
     max-width: none;
     max-height: none;
-    height: 980 / 400 * 100vw;
+    height: math.div(980, 400) * 100vw;
   }
 
   &__menu {
@@ -26,7 +31,7 @@
     display: flex;
     justify-content: space-between;
 
-    @include MQ(M) {
+    @include mixins.MQ(M) {
       left: 5%;
       width: 90%;
       top: 35%;
@@ -41,7 +46,7 @@
         display: block;
         margin: 0 auto 2rem;
 
-        @include MQ(M) {
+        @include mixins.MQ(M) {
           margin-bottom: 1rem;
         }
       }
@@ -56,10 +61,10 @@
     height: 33.3%;
     overflow: auto;
     border-radius: 1.5rem;
-    border: 2px solid $colorBlack;
-    background-color: $colorWhite;
+    border: 2px solid variables.$colorBlack;
+    background-color: variables.$colorWhite;
 
-    @include MQ(M) {
+    @include mixins.MQ(M) {
       top: 12%;
       left: 5%;
       width: 90%;
@@ -67,7 +72,7 @@
     }
 
     .route--search & {
-      background-color: $colorGrey;
+      background-color: variables.$colorGrey;
     }
   }
 
@@ -79,10 +84,10 @@
     height: 69.5%;
     overflow: auto;
     border-radius: 1.5rem;
-    border: 2px solid $colorBlack;
-    background-color: $colorWhite;
+    border: 2px solid variables.$colorBlack;
+    background-color: variables.$colorWhite;
 
-    @include MQ(M) {
+    @include mixins.MQ(M) {
       top: 55%;
       left: 5%;
       width: 90%;
@@ -93,7 +98,7 @@
     .route--pokedex &,
     .route--item-category &,
     .route--search:not(.has-search-results) & {
-      background-color: $colorGrey;
+      background-color: variables.$colorGrey;
     }
   }
 
@@ -105,10 +110,10 @@
     height: 8%;
     overflow: auto;
     border-radius: 1.5rem;
-    border: 2px solid $colorBlack;
-    background-color: $colorGrey;
+    border: 2px solid variables.$colorBlack;
+    background-color: variables.$colorGrey;
 
-    @include MQ(M) {
+    @include mixins.MQ(M) {
       top: 44%;
       left: 5%;
       width: 90%;
@@ -116,7 +121,7 @@
     }
 
     .route--search & {
-      background-color: $colorWhite;
+      background-color: variables.$colorWhite;
     }
   }
 }

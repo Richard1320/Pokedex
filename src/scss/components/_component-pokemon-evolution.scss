@@ -1,8 +1,10 @@
+@use "../helpers/mixins";
+
 .component--pokemon-evolution {
   padding: 2rem;
 
   &__item {
-    @include clearfix();
+    @include mixins.clearfix();
 
     margin-bottom: 2rem;
 

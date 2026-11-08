@@ -1,3 +1,6 @@
+@use "../helpers/mixins";
+@use "../helpers/variables";
+
 * {
   box-sizing: border-box;
   transition: background-color 0.3s, color 0.3s;
@@ -9,8 +12,8 @@ html {
 
 body {
   font-size: 1.8rem;
-  font-family: $pokeFont;
-  color: $colorBlack;
+  font-family: variables.$pokeFont;
+  color: variables.$colorBlack;
   line-height: 1.25;
 }
 
@@ -57,7 +60,7 @@ p {
 
 a {
   text-decoration: none;
-  color: $colorDodgerBlue;
+  color: variables.$colorDodgerBlue;
 }
 
 img {
@@ -73,36 +76,36 @@ textarea {
 }
 
 .btn--blue {
-  @include round-button($colorDodgerBlue);
+  @include mixins.round-button(variables.$colorDodgerBlue);
 }
 
 .btn--red {
-  @include round-button($colorRedRibbon);
+  @include mixins.round-button(variables.$colorRedRibbon);
 }
 
 .btn--yellow {
-  @include round-button($colorCandlelight);
+  @include mixins.round-button(variables.$colorCandlelight);
 }
 
 .btn--green {
-  @include round-button($colorHarlequin);
+  @include mixins.round-button(variables.$colorHarlequin);
 }
 
 .clear,
 .clearfix {
-  @include clearfix();
+  @include mixins.clearfix();
 }
 
 .select-wrapper {
   background-color: #fff;
-  border: 1px solid $colorDodgerBlue;
+  border: 1px solid variables.$colorDodgerBlue;
   overflow: hidden;
   margin-bottom: 2rem;
   position: relative;
 
   &:after {
     content: "\f107";
-    font-family: $iconFont;
+    font-family: variables.$iconFont;
     display: block;
     position: absolute;
     right: 0;
@@ -111,7 +114,7 @@ textarea {
     background-color: #fff;
     width: 3rem;
     text-align: center;
-    border-left: 1px solid $colorDodgerBlue;
+    border-left: 1px solid variables.$colorDodgerBlue;
     z-index: 5;
   }
 

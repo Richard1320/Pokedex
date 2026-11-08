@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {normalizeName} from '../Helpers';
 import {useParams} from "react-router-dom";
-import axios from "axios";
+import {fetchJSON} from '../fetchJSON';
 
 interface IProps {
     pokemon: any;
@@ -67,8 +67,8 @@ const PokemonEncounters: React.FC<IProps> = (props: IProps) => {
     async function fetchData(): Promise<void> {
         if (pokemonId) {
             const path = `/assets/data/api/v2/pokemon/${pokemonId}/encounters/index.json`;
-            const response = await axios.get(path);
-            setData(response.data);
+            const response = await fetchJSON(path);
+            setData(response);
         }
     }
 

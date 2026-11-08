@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Routes, Route, useParams} from 'react-router-dom';
-import axios from 'axios';
+import {fetchJSON} from '../fetchJSON';
 
 import PokemonOverview from './PokemonOverview';
 import PokemonStats from './PokemonStats';
@@ -21,13 +21,13 @@ const Pokemon: React.FC = () => {
 
     async function fetchData(): Promise<void> {
         const pathPokemon = `/assets/data/api/v2/pokemon/${pokemonId}/index.json`;
-        const responsePokemon = await axios.get(pathPokemon);
-        setPokemon(responsePokemon.data);
+        const responsePokemon = await fetchJSON(pathPokemon);
+        setPokemon(responsePokemon);
 
-        const pokemonSpeciesID = parseInt(responsePokemon.data.species.url.replace('/api/v2/pokemon-species/', ''));
+        const pokemonSpeciesID = parseInt(responsePokemon.species.url.replace('/api/v2/pokemon-species/', ''));
         const pathSpecies = `/assets/data/api/v2/pokemon-species/${pokemonSpeciesID}/index.json`;
-        const responseSpecies = await axios.get(pathSpecies);
-        setPokemonSpecies(responseSpecies.data);
+        const responseSpecies = await fetchJSON(pathSpecies);
+        setPokemonSpecies(responseSpecies);
     }
 
     if (!pokemon || !pokemonSpecies) {

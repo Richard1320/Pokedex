@@ -1,3 +1,5 @@
+@use "../helpers/mixins";
+
 .component--pokemon-encounters {
   padding: 2rem;
 
@@ -12,7 +14,7 @@
 
       &__details {
         &__item {
-          @include bulletList();
+          @include mixins.bulletList();
         }
       }
     }

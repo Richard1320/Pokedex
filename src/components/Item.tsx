@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink, useParams} from 'react-router-dom';
 import {normalizeName} from '../Helpers';
-import axios from "axios";
+import {fetchJSON} from '../fetchJSON';
 
 const Item: React.FC = () => {
     const {itemId} = useParams();
@@ -14,8 +14,8 @@ const Item: React.FC = () => {
     async function fetchData(): Promise<void> {
         if (itemId) {
             const path = `/assets/data/api/v2/item/${itemId}/index.json`;
-            const response = await axios.get(path);
-            setData(response.data);
+            const response = await fetchJSON(path);
+            setData(response);
         }
     }
 

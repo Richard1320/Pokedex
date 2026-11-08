@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
-import axios, {AxiosResponse} from 'axios';
+import {fetchJSON} from '../fetchJSON';
 
 import {normalizeName} from '../Helpers';
 
@@ -16,9 +16,7 @@ const PokemonEvolution: React.FC<IProps> = (props) => {
 		try {
 			const evolutionURL = props.pokemonSpecies.evolution_chain.url;
 			const path = '/assets/data' + evolutionURL + 'index.json';
-			axios.get(path).then((response: AxiosResponse) => {
-				setData(response.data);
-			});
+			fetchJSON(path).then(setData);
 		} catch {
 		}
 	}, [props.pokemonSpecies.evolution_chain]);

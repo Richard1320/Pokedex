@@ -1,3 +1,5 @@
+@use "../helpers/mixins";
+
 .component--item {
   padding: 2rem;
 
@@ -15,7 +17,7 @@
 
   &__attributes {
     &__item {
-      @include bulletList();
+      @include mixins.bulletList();
     }
   }
 }

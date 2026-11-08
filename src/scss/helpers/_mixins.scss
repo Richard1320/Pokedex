@@ -1,8 +1,11 @@
-@mixin round-button($baseColor:$colorDodgerBlue, $hoverBaseColor:#333, $diameter:6rem) {
+@use "sass:color";
+@use "variables";
+
+@mixin round-button($baseColor:variables.$colorDodgerBlue, $hoverBaseColor:#333, $diameter:6rem) {
   background: $baseColor;
   border: 3px solid #fff;
   border-radius: 100%;
-  box-shadow: 0 -2px 0 3px darken($baseColor, 10%) inset, 0 5px 5px rgba(darken($baseColor, 40%), 0.17), 0 15px rgba(#fff, 0.25) inset;
+  box-shadow: 0 -2px 0 3px color.adjust($baseColor, $lightness: -10%) inset, 0 5px 5px rgba(color.adjust($baseColor, $lightness: -40%), 0.17), 0 15px rgba(#fff, 0.25) inset;
   cursor: pointer;
   display: inline-block;
   height: $diameter;
@@ -16,7 +19,7 @@
   a:hover &,
   &:hover {
     background: $hoverBaseColor;
-    box-shadow: 0 -2px 0 3px darken($hoverBaseColor, 10%) inset, 0 5px 5px rgba(darken($hoverBaseColor, 40%), 0.17), 0 15px rgba(#fff, 0.32) inset;
+    box-shadow: 0 -2px 0 3px color.adjust($hoverBaseColor, $lightness: -10%) inset, 0 5px 5px rgba(color.adjust($hoverBaseColor, $lightness: -40%), 0.17), 0 15px rgba(#fff, 0.32) inset;
   }
 }
 
@@ -28,7 +31,7 @@
   }
 }
 
-@mixin bulletList($baseColor:$colorRedRibbon) {
+@mixin bulletList($baseColor:variables.$colorRedRibbon) {
   position: relative;
   padding-left: 2rem;
   margin-bottom: 1rem;
@@ -48,19 +51,19 @@
 
 @mixin MQ($canvas) {
   @if $canvas==S {
-    @media only screen and (max-width: $S) {
+    @media only screen and (max-width: variables.$S) {
       @content;
     }
   }
 
   @else if $canvas==M {
-    @media only screen and (max-width: $M) {
+    @media only screen and (max-width: variables.$M) {
       @content;
     }
   }
 
   @else if $canvas==L {
-    @media only screen and (max-width: $L) {
+    @media only screen and (max-width: variables.$L) {
       @content;
     }
   }

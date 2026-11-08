@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink, useParams} from 'react-router-dom';
 import {normalizeName} from '../Helpers';
-import axios from "axios";
+import {fetchJSON} from '../fetchJSON';
 
 const ItemList: React.FC = () => {
     const {itemCategoryId} = useParams();
@@ -14,12 +14,12 @@ const ItemList: React.FC = () => {
     async function fetchData(): Promise<void> {
         if (itemCategoryId) {
             const path = `/assets/data/api/v2/item-category/${itemCategoryId}/index.json`;
-            const response = await axios.get(path);
-            setData(response.data);
+            const response = await fetchJSON(path);
+            setData(response);
         }
     }
 
-    function renderRows(): JSX.Element[] {
+    function renderRows(): React.JSX.Element[] {
         if (!data || !data.items) return [];
 
         //making the rows to display

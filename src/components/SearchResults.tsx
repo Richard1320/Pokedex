@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {normalizeName} from '../Helpers';
-import axios from "axios";
+import {fetchJSON} from '../fetchJSON';
 
 interface IProps {
     searchText: string;
@@ -17,12 +17,12 @@ const SearchResults: React.FC<IProps> = (props) => {
 
     async function fetchData(): Promise<void> {
         const pathPokemon = "/assets/data/api/v2/pokemon/index.json";
-        const responsePokemon = await axios.get(pathPokemon);
-        setPokemonData(responsePokemon.data);
+        const responsePokemon = await fetchJSON(pathPokemon);
+        setPokemonData(responsePokemon);
 
         const pathItems = "/assets/data/api/v2/item/index.json";
-        const responseItems = await axios.get(pathItems);
-        setItemsData(responseItems.data);
+        const responseItems = await fetchJSON(pathItems);
+        setItemsData(responseItems);
     }
 
     function filterSearch(element: any) {
@@ -32,8 +32,8 @@ const SearchResults: React.FC<IProps> = (props) => {
         return name.indexOf(search) !== -1;
     }
 
-    function renderRows(): JSX.Element[] {
-        const rows: JSX.Element[] = [];
+    function renderRows(): React.JSX.Element[] {
+        const rows: React.JSX.Element[] = [];
 
         if (props.searchText && pokemonData.results && itemsData.results) {
             pokemonData.results.forEach((item: any) => {

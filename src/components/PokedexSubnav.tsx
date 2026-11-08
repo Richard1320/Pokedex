@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {normalizeName} from '../Helpers';
-import axios from "axios";
+import {fetchJSON} from '../fetchJSON';
 
 const PokedexSubnav: React.FC = () => {
 	const [pokedexData, setPokedexData] = useState<any>();
@@ -12,15 +12,15 @@ const PokedexSubnav: React.FC = () => {
 
 	async function fetchData(): Promise<void> {
 		const pathPokedex = "/assets/data/api/v2/pokedex/index.json";
-		const responsePokedex = await axios.get(pathPokedex);
-		setPokedexData(responsePokedex.data);
+		const responsePokedex = await fetchJSON(pathPokedex);
+		setPokedexData(responsePokedex);
 	}
 
-	function renderRows(): JSX.Element[] {
+	function renderRows(): React.JSX.Element[] {
 		if (!pokedexData) return [];
 
 		//making the rows to display
-		const rows: JSX.Element[] = [];
+		const rows: React.JSX.Element[] = [];
 		const data = pokedexData.results;
 		if (data) {
 			data.forEach((element: any, index: number) => {

@@ -1,3 +1,5 @@
+@use "../helpers/variables";
+
 .component--pagination {
   display: flex;
   justify-content: center;
@@ -25,7 +27,7 @@
       font-size: inherit;
       font-family: inherit;
       border: 0;
-      background-color: $colorDodgerBlue;
+      background-color: variables.$colorDodgerBlue;
       color: #fff;
       line-height: inherit;
       padding: 0.5rem 1rem;

@@ -4,7 +4,6 @@ import {NavLink, useParams} from 'react-router-dom';
 const PokemonSubnav: React.FC = () => {
     const {pokemonId} = useParams();
     const overviewURL = (pokemonId) ? `/pokemon/${pokemonId}` : "";
-    // const imagesURL = (pokemonId) ? `/pokemon/${pokemonId}/images` : ";
     const statsURL = (pokemonId) ? `/pokemon/${pokemonId}/stats` : "";
     const movesURL = (pokemonId) ? `/pokemon/${pokemonId}/moves` : "";
     const evolutionURL = (pokemonId) ? `/pokemon/${pokemonId}/evolution` : "";
@@ -14,9 +13,6 @@ const PokemonSubnav: React.FC = () => {
             <div className="component--pokemon-subnav__item">
                 <NavLink to={overviewURL} end>Overview</NavLink>
             </div>
-            {/*<div className="component--pokemon-subnav__item">*/}
-            {/*    <NavLink to={imagesURL}>Images</NavLink>*/}
-            {/*</div> */}
             <div className="component--pokemon-subnav__item">
                 <NavLink to={statsURL}>Stats</NavLink>
             </div>

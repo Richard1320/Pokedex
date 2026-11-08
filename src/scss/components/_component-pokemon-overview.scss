@@ -1,3 +1,5 @@
+@use "../helpers/mixins";
+
 .component--pokemon-overview {
   padding: 2rem;
 
@@ -10,7 +12,7 @@
   }
 
   &__sprites {
-    @include clearfix();
+    @include mixins.clearfix();
 
     &__item {
       float: left;
@@ -35,7 +37,7 @@
 
   &__variations {
     &__item {
-      @include bulletList();
+      @include mixins.bulletList();
     }
   }
 }

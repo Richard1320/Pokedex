@@ -17,9 +17,5 @@ services:
     networks:
       - internal
       - web
-    volumes:
-      # Host directory containing data/ and images/ (PokeAPI data + sprites).
-      # Relative paths resolve from this file, so this matches the Vite dev default.
-      - ${POKEDEX_ASSETS_DIR:-../pokedex-assets}:/srv/assets:ro
     build: .
     image: pokedex/website

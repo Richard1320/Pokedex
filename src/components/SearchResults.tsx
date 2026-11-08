@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {normalizeName} from '../Helpers';
 import {fetchJSON} from '../fetchJSON';
+import {DATA_URL, SPRITES_URL} from '../cdn';
 
 interface IProps {
     searchText: string;
@@ -16,11 +17,11 @@ const SearchResults: React.FC<IProps> = (props) => {
     }, []);
 
     async function fetchData(): Promise<void> {
-        const pathPokemon = "/assets/data/api/v2/pokemon/index.json";
+        const pathPokemon = `${DATA_URL}/api/v2/pokemon/index.json`;
         const responsePokemon = await fetchJSON(pathPokemon);
         setPokemonData(responsePokemon);
 
-        const pathItems = "/assets/data/api/v2/item/index.json";
+        const pathItems = `${DATA_URL}/api/v2/item/index.json`;
         const responseItems = await fetchJSON(pathItems);
         setItemsData(responseItems);
     }
@@ -39,7 +40,7 @@ const SearchResults: React.FC<IProps> = (props) => {
             pokemonData.results.forEach((item: any) => {
                 if (filterSearch(item)) {
                     let itemID = parseInt(item.url.replace('/api/v2/pokemon/', ''));
-                    let image = '/assets/images/sprites/pokemon/' + itemID + '.png';
+                    let image = SPRITES_URL + '/pokemon/' + itemID + '.png';
                     let url = '/pokemon/' + itemID;
                     let name = normalizeName(item.name);
                     rows.push(
@@ -63,7 +64,7 @@ const SearchResults: React.FC<IProps> = (props) => {
             itemsData.results.forEach((item: any) => {
                 if (filterSearch(item)) {
                     let itemID = parseInt(item.url.replace('/api/v2/item/', ''));
-                    let image = '/assets/images/sprites/items/' + item.name + '.png';
+                    let image = SPRITES_URL + '/items/' + item.name + '.png';
                     let url = '/item/' + itemID;
                     let name = normalizeName(item.name);
                     rows.push(

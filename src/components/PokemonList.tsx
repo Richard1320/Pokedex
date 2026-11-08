@@ -3,6 +3,7 @@ import {NavLink, useParams} from 'react-router-dom';
 import Pagination from './Pagination';
 import {normalizeName} from '../Helpers';
 import {fetchJSON} from '../fetchJSON';
+import {DATA_URL, SPRITES_URL} from '../cdn';
 
 const PokemonList: React.FC = () => {
     const {pokedexId} = useParams();
@@ -17,7 +18,7 @@ const PokemonList: React.FC = () => {
 
     async function fetchData(): Promise<void> {
         if (pokedexId) {
-            const path = `/assets/data/api/v2/pokedex/${pokedexId}/index.json`;
+            const path = `${DATA_URL}/api/v2/pokedex/${pokedexId}/index.json`;
             const response = await fetchJSON(path);
             setData(response);
         }
@@ -39,7 +40,7 @@ const PokemonList: React.FC = () => {
             let itemID = parseInt(
                 item.pokemon_species.url.replace('/api/v2/pokemon-species/', '')
             );
-            let image = '/assets/images/sprites/pokemon/' + itemID + '.png';
+            let image = SPRITES_URL + '/pokemon/' + itemID + '.png';
             let url = '/pokemon/' + itemID;
             let name = normalizeName(item.pokemon_species.name);
             return (

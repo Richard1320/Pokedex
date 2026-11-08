@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {NavLink, useParams} from 'react-router-dom';
 import {normalizeName} from '../Helpers';
 import {fetchJSON} from '../fetchJSON';
+import {DATA_URL, SPRITES_URL} from '../cdn';
 
 const ItemList: React.FC = () => {
     const {itemCategoryId} = useParams();
@@ -13,7 +14,7 @@ const ItemList: React.FC = () => {
 
     async function fetchData(): Promise<void> {
         if (itemCategoryId) {
-            const path = `/assets/data/api/v2/item-category/${itemCategoryId}/index.json`;
+            const path = `${DATA_URL}/api/v2/item-category/${itemCategoryId}/index.json`;
             const response = await fetchJSON(path);
             setData(response);
         }
@@ -24,7 +25,7 @@ const ItemList: React.FC = () => {
 
         //making the rows to display
         return data.items.map((item: any) => {
-            let image = '/assets/images/sprites/items/' + item.name + '.png';
+            let image = SPRITES_URL + '/items/' + item.name + '.png';
             let itemID = parseInt(item.url.replace('/api/v2/item/', ''));
             let url = '/item/' + itemID;
             let name = normalizeName(item.name);

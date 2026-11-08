@@ -1,20 +1,14 @@
-## Setup
+## Assets
 
-Large static assets are kept **outside** the project so they are never copied into
-the build or the Docker image. By default the app expects them in `../pokedex-assets`
-(override with the `ASSETS_DIR` env var):
+PokeAPI data and sprites are loaded from a CDN, not bundled or hosted with the app.
+By default they come from jsDelivr's mirror of the upstream PokeAPI repos
+([api-data](https://github.com/PokeAPI/api-data), [sprites](https://github.com/PokeAPI/sprites)).
+To use your own CDN (e.g. DigitalOcean Spaces), set these at build time (no trailing slash):
 
 ```
-pokedex-assets/
-├── data/              # PokeAPI/api-data/data/   → served at /assets/data/
-└── images/
-    └── sprites/       # PokeAPI/sprites/sprites/ → served at /assets/images/sprites/
+VITE_DATA_URL=https://cdn.jsdelivr.net/gh/PokeAPI/api-data@master/data
+VITE_SPRITES_URL=https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites
 ```
-
-1. Download https://github.com/PokeAPI/api-data. Copy `PokeAPI/api-data/data/`
-   to `pokedex-assets/data/`.
-2. Download https://github.com/PokeAPI/sprites. Copy `PokeAPI/sprites/sprites/`
-   to `pokedex-assets/images/sprites/`.
 
 ## Development
 
@@ -22,22 +16,6 @@ pokedex-assets/
 - `npm run build` — production build to `build/`
 - `npm run preview` — serve the production build locally
 
-Both `dev` and `preview` serve `/assets/data` and `/assets/images` from `ASSETS_DIR`.
-
 ## Digital Ocean Traefik
-
-nginx serves the assets from a read-only volume mount. By default that is
-`../pokedex-assets`, a sibling of the project directory (the same place `npm run dev`
-reads from), resolved relative to `docker-compose.yml`. Set `POKEDEX_ASSETS_DIR` to
-use a different path.
-
-On the droplet, sync the assets next to the checked-out project. They only need
-syncing when they change, not on every deploy:
-
-```
-rsync -a --delete ../pokedex-assets/ user@droplet:/path/to/pokedex-assets/
-```
-
-Then build and start:
 
 `docker compose -f ./docker-compose.yml up -d --build`

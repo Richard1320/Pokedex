@@ -2,6 +2,7 @@ import React, {ReactNode} from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {normalizeName} from '../Helpers';
+import {cdnSprite} from '../cdn';
 
 
 interface IProps {
@@ -82,10 +83,7 @@ const PokemonOverview: React.FC<IProps> = (props) => {
             let title = normalizeName(
                 props.pokemon.name + ' ' + spriteKey
             );
-            image = image.replace(
-                'https://raw.githubusercontent.com/PokeAPI/sprites/master/',
-                '/assets/images/'
-            );
+            image = cdnSprite(image);
 
             sprites.push(
                 <div

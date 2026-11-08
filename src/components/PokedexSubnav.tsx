@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {normalizeName} from '../Helpers';
 import {fetchJSON} from '../fetchJSON';
+import {DATA_URL} from '../cdn';
 
 const PokedexSubnav: React.FC = () => {
 	const [pokedexData, setPokedexData] = useState<any>();
@@ -11,7 +12,7 @@ const PokedexSubnav: React.FC = () => {
 	}, []);
 
 	async function fetchData(): Promise<void> {
-		const pathPokedex = "/assets/data/api/v2/pokedex/index.json";
+		const pathPokedex = `${DATA_URL}/api/v2/pokedex/index.json`;
 		const responsePokedex = await fetchJSON(pathPokedex);
 		setPokedexData(responsePokedex);
 	}

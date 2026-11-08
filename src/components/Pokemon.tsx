@@ -7,6 +7,7 @@ import PokemonStats from './PokemonStats';
 import PokemonMoves from './PokemonMoves';
 import PokemonEvolution from './PokemonEvolution';
 import PokemonEncounters from './PokemonEncounters';
+import {DATA_URL} from '../cdn';
 
 const Pokemon: React.FC = () => {
     const {pokemonId} = useParams();
@@ -20,12 +21,12 @@ const Pokemon: React.FC = () => {
     }, [pokemonId]);
 
     async function fetchData(): Promise<void> {
-        const pathPokemon = `/assets/data/api/v2/pokemon/${pokemonId}/index.json`;
+        const pathPokemon = `${DATA_URL}/api/v2/pokemon/${pokemonId}/index.json`;
         const responsePokemon = await fetchJSON(pathPokemon);
         setPokemon(responsePokemon);
 
         const pokemonSpeciesID = parseInt(responsePokemon.species.url.replace('/api/v2/pokemon-species/', ''));
-        const pathSpecies = `/assets/data/api/v2/pokemon-species/${pokemonSpeciesID}/index.json`;
+        const pathSpecies = `${DATA_URL}/api/v2/pokemon-species/${pokemonSpeciesID}/index.json`;
         const responseSpecies = await fetchJSON(pathSpecies);
         setPokemonSpecies(responseSpecies);
     }

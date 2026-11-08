@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom';
 import {fetchJSON} from '../fetchJSON';
 
 import {normalizeName} from '../Helpers';
+import {DATA_URL, SPRITES_URL} from '../cdn';
 
 interface IProps {
 	pokemon: any;
@@ -15,7 +16,7 @@ const PokemonEvolution: React.FC<IProps> = (props) => {
 	useEffect(() => {
 		try {
 			const evolutionURL = props.pokemonSpecies.evolution_chain.url;
-			const path = '/assets/data' + evolutionURL + 'index.json';
+			const path = DATA_URL + evolutionURL + 'index.json';
 			fetchJSON(path).then(setData);
 		} catch {
 		}
@@ -29,7 +30,7 @@ const PokemonEvolution: React.FC<IProps> = (props) => {
 			chain.species.url.replace('/api/v2/pokemon-species/', '')
 		);
 		let url = '/pokemon/' + evolutionID;
-		let image = '/assets/images/sprites/pokemon/' + evolutionID + '.png';
+		let image = SPRITES_URL + '/pokemon/' + evolutionID + '.png';
 
 		if (chain.evolution_details[0]) {
 			let method = chain.evolution_details[0].trigger.name;
